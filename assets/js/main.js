@@ -93,12 +93,10 @@ class HeaderEffects {
     updateHeader() {
         const currentScrollY = window.scrollY;
 
-        // Add background blur and shadow on scroll
+        // Add enhanced shadow on scroll for better separation
         if (currentScrollY > 50) {
-            this.header.style.backgroundColor = 'rgba(0, 0, 0, 0.98)';
-            this.header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+            this.header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.4)';
         } else {
-            this.header.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
             this.header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
         }
 
