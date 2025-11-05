@@ -18,13 +18,13 @@ navLinks.forEach(link => {
     });
 });
 
-// Header scroll effect
+// Header scroll effect and responsive minimization
 const header = document.querySelector('.header');
 let lastScrollY = window.scrollY;
+let isMinimized = false;
 
-window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-
+function updateHeader(currentScrollY) {
+    // Header background and shadow effects
     if (currentScrollY > 100) {
         header.style.backgroundColor = 'rgba(0, 0, 0, 0.98)';
         header.style.boxShadow = '0 2px 20px rgba(255, 255, 255, 0.1)';
@@ -33,7 +33,44 @@ window.addEventListener('scroll', () => {
         header.style.boxShadow = 'none';
     }
 
+    // Responsive header minimization for mobile
+    if (window.innerWidth <= 768) {
+        if (currentScrollY > 200 && !isMinimized) {
+            header.classList.add('minimized');
+            isMinimized = true;
+        } else if (currentScrollY <= 50 && isMinimized) {
+            header.classList.remove('minimized');
+            isMinimized = false;
+        }
+    } else {
+        // Ensure header is visible on larger screens
+        if (isMinimized) {
+            header.classList.remove('minimized');
+            isMinimized = false;
+        }
+    }
+}
+
+// Header click to expand (when minimized)
+header.addEventListener('click', () => {
+    if (window.innerWidth <= 768 && isMinimized) {
+        header.classList.remove('minimized');
+        isMinimized = false;
+    }
+});
+
+window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    updateHeader(currentScrollY);
     lastScrollY = currentScrollY;
+});
+
+// Initial check on page load
+updateHeader(window.scrollY);
+
+// Update header state on window resize
+window.addEventListener('resize', () => {
+    updateHeader(window.scrollY);
 });
 
 // Smooth scroll for anchor links

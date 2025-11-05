@@ -60,6 +60,14 @@ p {
     transition: all 0.3s ease;
 }
 
+.header.minimized {
+    transform: translateY(-100%);
+}
+
+.header.minimized .nav {
+    padding: 0.25rem 0;
+}
+
 .nav {
     padding: 0.75rem 0;
 }
