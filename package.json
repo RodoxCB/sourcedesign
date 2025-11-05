@@ -4,13 +4,14 @@
   "description": "Site institucional moderno para Source Design - Comunicação e Design Gráfico",
   "main": "index.html",
   "scripts": {
-    "dev": "node dev-server.js",
+    "dev": "vite",
     "vite": "vite",
     "vite:dev": "vite",
     "vite:build": "vite build",
     "vite:preview": "vite preview",
     "server": "node server.js",
-    "start": "node dev-server.js"
+    "start": "vite",
+    "offline": "node dev-server.js"
   },
   "keywords": [
     "design",

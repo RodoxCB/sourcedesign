@@ -113,6 +113,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize header effects
     new HeaderEffects();
+
+    // Add loading class to body
+    document.body.classList.add('loaded');
+
+    // Remove loading class after animations complete
+    setTimeout(() => {
+        document.body.classList.remove('loaded');
+    }, 1000);
 });
 
 // Smooth scroll for anchor links
@@ -272,19 +280,6 @@ if (telefoneInput) {
         e.target.value = value;
     });
 }
-
-// Loading animation for page transitions
-document.addEventListener('DOMContentLoaded', function() {
-    // Add loading class to body
-    document.body.classList.add('loaded');
-
-    // Remove loading class after animations complete
-    setTimeout(() => {
-        document.body.classList.remove('loaded');
-    }, 1000);
-
-    // Header initialization is now handled above in the DOMContentLoaded listener
-});
 
 // Parallax effect for hero section (optional)
 const heroSection = document.querySelector('.hero');
