@@ -68,14 +68,32 @@ p {
 @media (max-width: 768px) {
     .header {
         transform: translateY(-100%);
+        pointer-events: none;
     }
 
     .header.open {
         transform: translateY(0);
+        pointer-events: auto;
     }
 
     .header.open .nav {
         padding: 0.5rem 0;
+    }
+
+    /* Overlay invisível na parte superior para detectar cliques */
+    .header-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 20px;
+        z-index: 999;
+        background: transparent;
+        display: none;
+    }
+
+    .header-overlay.active {
+        display: block;
     }
 }
 

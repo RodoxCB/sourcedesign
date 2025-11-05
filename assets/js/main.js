@@ -23,6 +23,19 @@ const header = document.querySelector('.header');
 let lastScrollY = window.scrollY;
 let isOpen = false;
 
+// Create overlay for click detection when header is closed
+let headerOverlay;
+if (window.innerWidth <= 768) {
+    headerOverlay = document.createElement('div');
+    headerOverlay.className = 'header-overlay';
+    headerOverlay.addEventListener('click', () => {
+        if (!isOpen) {
+            openHeader();
+        }
+    });
+    document.body.appendChild(headerOverlay);
+}
+
 function updateHeader(currentScrollY) {
     // Header background and shadow effects
     if (currentScrollY > 100) {
@@ -33,25 +46,36 @@ function updateHeader(currentScrollY) {
         header.style.boxShadow = 'none';
     }
 
-    // Responsive header behavior for mobile - only show at top
+    // Responsive header behavior for mobile - only show at top or on click
     if (window.innerWidth <= 768) {
         if (currentScrollY <= 10 && !isOpen) {
-            header.classList.add('open');
-            isOpen = true;
+            openHeader();
         } else if (currentScrollY > 10 && isOpen) {
-            header.classList.remove('open');
-            isOpen = false;
+            closeHeader();
         }
     } else {
         // Ensure header is visible on larger screens
         if (!isOpen) {
-            header.classList.add('open');
-            isOpen = true;
+            openHeader();
         }
     }
 }
 
-// Header click is not needed anymore since it only shows at top
+function openHeader() {
+    header.classList.add('open');
+    isOpen = true;
+    if (headerOverlay) {
+        headerOverlay.classList.remove('active');
+    }
+}
+
+function closeHeader() {
+    header.classList.remove('open');
+    isOpen = false;
+    if (headerOverlay) {
+        headerOverlay.classList.add('active');
+    }
+}
 
 window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
@@ -59,11 +83,33 @@ window.addEventListener('scroll', () => {
     lastScrollY = currentScrollY;
 });
 
-// Initial check on page load
-updateHeader(window.scrollY);
+// Initial check on page load - start with header closed on mobile
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.innerWidth <= 768) {
+        closeHeader(); // Start closed on mobile
+    } else {
+        openHeader(); // Always open on desktop
+    }
+    updateHeader(window.scrollY);
+});
 
 // Update header state on window resize
 window.addEventListener('resize', () => {
+    // Recreate overlay if needed when resizing
+    if (window.innerWidth <= 768 && !headerOverlay) {
+        headerOverlay = document.createElement('div');
+        headerOverlay.className = 'header-overlay';
+        headerOverlay.addEventListener('click', () => {
+            if (!isOpen) {
+                openHeader();
+            }
+        });
+        document.body.appendChild(headerOverlay);
+    } else if (window.innerWidth > 768 && headerOverlay) {
+        headerOverlay.remove();
+        headerOverlay = null;
+    }
+
     updateHeader(window.scrollY);
 });
 
@@ -234,6 +280,8 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         document.body.classList.remove('loaded');
     }, 1000);
+
+    // Header initialization is now handled above in the DOMContentLoaded listener
 });
 
 // Parallax effect for hero section (optional)
