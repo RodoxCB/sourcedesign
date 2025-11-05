@@ -18,10 +18,10 @@ navLinks.forEach(link => {
     });
 });
 
-// Header scroll effect and responsive minimization
+// Header scroll effect and responsive behavior
 const header = document.querySelector('.header');
 let lastScrollY = window.scrollY;
-let isMinimized = false;
+let isOpen = false;
 
 function updateHeader(currentScrollY) {
     // Header background and shadow effects
@@ -33,31 +33,25 @@ function updateHeader(currentScrollY) {
         header.style.boxShadow = 'none';
     }
 
-    // Responsive header minimization for mobile
+    // Responsive header behavior for mobile - only show at top
     if (window.innerWidth <= 768) {
-        if (currentScrollY > 200 && !isMinimized) {
-            header.classList.add('minimized');
-            isMinimized = true;
-        } else if (currentScrollY <= 50 && isMinimized) {
-            header.classList.remove('minimized');
-            isMinimized = false;
+        if (currentScrollY <= 10 && !isOpen) {
+            header.classList.add('open');
+            isOpen = true;
+        } else if (currentScrollY > 10 && isOpen) {
+            header.classList.remove('open');
+            isOpen = false;
         }
     } else {
         // Ensure header is visible on larger screens
-        if (isMinimized) {
-            header.classList.remove('minimized');
-            isMinimized = false;
+        if (!isOpen) {
+            header.classList.add('open');
+            isOpen = true;
         }
     }
 }
 
-// Header click to expand (when minimized)
-header.addEventListener('click', () => {
-    if (window.innerWidth <= 768 && isMinimized) {
-        header.classList.remove('minimized');
-        isMinimized = false;
-    }
-});
+// Header click is not needed anymore since it only shows at top
 
 window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;

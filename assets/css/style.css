@@ -60,16 +60,23 @@ p {
     transition: all 0.3s ease;
 }
 
-.header.minimized {
-    transform: translateY(-100%);
-}
-
-.header.minimized .nav {
-    padding: 0.25rem 0;
-}
 
 .nav {
     padding: 0.75rem 0;
+}
+
+@media (max-width: 768px) {
+    .header {
+        transform: translateY(-100%);
+    }
+
+    .header.open {
+        transform: translateY(0);
+    }
+
+    .header.open .nav {
+        padding: 0.5rem 0;
+    }
 }
 
 .nav-container {
