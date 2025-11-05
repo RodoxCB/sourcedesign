@@ -128,7 +128,7 @@
                     </div>
                 </div>
 
-                <div class="contact-form-container">
+                <div class="contact-form-container" id="formulario">
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
                             <label for="nome">Nome *</label>
@@ -249,5 +249,31 @@
     </footer>
 
     <script src="../assets/js/main.js"></script>
+    <script>
+        // Auto-focus no campo nome quando vier da página inicial
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.location.hash === '#formulario') {
+                const nomeField = document.getElementById('nome');
+                if (nomeField) {
+                    // Pequeno delay para garantir que a página carregou completamente
+                    setTimeout(function() {
+                        nomeField.focus();
+                        // Scroll suave para o formulário (com offset para compensar header fixo)
+                        const formulario = document.getElementById('formulario');
+                        if (formulario) {
+                            const headerOffset = 100; // Offset para o header fixo
+                            const elementPosition = formulario.offsetTop;
+                            const offsetPosition = elementPosition - headerOffset;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 500);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
