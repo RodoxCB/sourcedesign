@@ -1,98 +1,116 @@
-// Menu mobile functionality removed for minimal header design
+// Mobile Menu Functionality
+class MobileMenu {
+    constructor() {
+        this.mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        this.mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        this.mobileMenuClose = document.querySelector('.mobile-menu-close');
+        this.mobileNavLinks = document.querySelectorAll('.mobile-nav-menu a');
+        this.isOpen = false;
+        this.body = document.body;
 
-// Header scroll effect and responsive behavior
-const header = document.querySelector('.header');
-let lastScrollY = window.scrollY;
-let isOpen = false;
+        this.init();
+    }
 
-// Create overlay for click detection when header is closed
-let headerOverlay;
-if (window.innerWidth <= 768) {
-    headerOverlay = document.createElement('div');
-    headerOverlay.className = 'header-overlay';
-    headerOverlay.addEventListener('click', () => {
-        if (!isOpen) {
-            openHeader();
+    init() {
+        if (this.mobileMenuBtn) {
+            this.mobileMenuBtn.addEventListener('click', () => this.toggleMenu());
         }
-    });
-    document.body.appendChild(headerOverlay);
-}
 
-function updateHeader(currentScrollY) {
-    // Header background and shadow effects
-    if (currentScrollY > 100) {
-        header.style.backgroundColor = 'rgba(0, 0, 0, 0.98)';
-        header.style.boxShadow = '0 2px 20px rgba(255, 255, 255, 0.1)';
-    } else {
-        header.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
-        header.style.boxShadow = 'none';
-    }
-
-    // Responsive header behavior for mobile - only show at top or on click
-    if (window.innerWidth <= 768) {
-        if (currentScrollY <= 10 && !isOpen) {
-            openHeader();
-        } else if (currentScrollY > 10 && isOpen) {
-            closeHeader();
+        if (this.mobileMenuClose) {
+            this.mobileMenuClose.addEventListener('click', () => this.closeMenu());
         }
-    } else {
-        // Ensure header is visible on larger screens
-        if (!isOpen) {
-            openHeader();
+
+        if (this.mobileMenuOverlay) {
+            // Close menu when clicking overlay
+            this.mobileMenuOverlay.addEventListener('click', (e) => {
+                if (e.target === this.mobileMenuOverlay) {
+                    this.closeMenu();
+                }
+            });
         }
-    }
-}
 
-function openHeader() {
-    header.classList.add('open');
-    isOpen = true;
-    if (headerOverlay) {
-        headerOverlay.classList.remove('active');
-    }
-}
+        // Close menu when clicking on nav links
+        this.mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => this.closeMenu());
+        });
 
-function closeHeader() {
-    header.classList.remove('open');
-    isOpen = false;
-    if (headerOverlay) {
-        headerOverlay.classList.add('active');
-    }
-}
-
-window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    updateHeader(currentScrollY);
-    lastScrollY = currentScrollY;
-});
-
-// Initial check on page load - start with header closed on mobile
-document.addEventListener('DOMContentLoaded', function() {
-    if (window.innerWidth <= 768) {
-        closeHeader(); // Start closed on mobile
-    } else {
-        openHeader(); // Always open on desktop
-    }
-    updateHeader(window.scrollY);
-});
-
-// Update header state on window resize
-window.addEventListener('resize', () => {
-    // Recreate overlay if needed when resizing
-    if (window.innerWidth <= 768 && !headerOverlay) {
-        headerOverlay = document.createElement('div');
-        headerOverlay.className = 'header-overlay';
-        headerOverlay.addEventListener('click', () => {
-            if (!isOpen) {
-                openHeader();
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen) {
+                this.closeMenu();
             }
         });
-        document.body.appendChild(headerOverlay);
-    } else if (window.innerWidth > 768 && headerOverlay) {
-        headerOverlay.remove();
-        headerOverlay = null;
     }
 
-    updateHeader(window.scrollY);
+    toggleMenu() {
+        if (this.isOpen) {
+            this.closeMenu();
+        } else {
+            this.openMenu();
+        }
+    }
+
+    openMenu() {
+        this.isOpen = true;
+        this.mobileMenuOverlay.classList.add('active');
+        this.mobileMenuBtn.classList.add('active');
+        this.mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        this.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+
+        // Focus management
+        setTimeout(() => {
+            this.mobileMenuClose.focus();
+        }, 100);
+    }
+
+    closeMenu() {
+        this.isOpen = false;
+        this.mobileMenuOverlay.classList.remove('active');
+        this.mobileMenuBtn.classList.remove('active');
+        this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        this.body.style.overflow = ''; // Restore scrolling
+
+        // Focus management
+        this.mobileMenuBtn.focus();
+    }
+}
+
+// Header scroll effects
+class HeaderEffects {
+    constructor() {
+        this.header = document.querySelector('.header');
+        this.lastScrollY = window.scrollY;
+        this.init();
+    }
+
+    init() {
+        window.addEventListener('scroll', () => this.updateHeader());
+        this.updateHeader(); // Initial check
+    }
+
+    updateHeader() {
+        const currentScrollY = window.scrollY;
+
+        // Add background blur and shadow on scroll
+        if (currentScrollY > 50) {
+            this.header.style.backgroundColor = 'rgba(0, 0, 0, 0.98)';
+            this.header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+        } else {
+            this.header.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+            this.header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+        }
+
+        this.lastScrollY = currentScrollY;
+    }
+}
+
+// Initialize on DOM load
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize mobile menu
+    new MobileMenu();
+
+    // Initialize header effects
+    new HeaderEffects();
 });
 
 // Smooth scroll for anchor links

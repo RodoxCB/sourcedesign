@@ -35,21 +35,40 @@
         <nav class="nav">
             <div class="nav-container">
                 <div class="logo">
-                    <a href="index.html">Source<span>Design</span></a>
+                    <a href="index.html" aria-label="Source Design - Página Inicial">Source<span>Design</span></a>
                 </div>
-                <div class="menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <ul class="nav-menu">
+
+                <!-- Desktop Navigation -->
+                <ul class="nav-menu desktop-menu">
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="pages/servicos.html">Serviços</a></li>
                     <li><a href="pages/sobre.html">Sobre</a></li>
                     <li><a href="pages/contato.html">Contato</a></li>
                 </ul>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" aria-label="Abrir menu de navegação" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
             </div>
         </nav>
+
+        <!-- Mobile Navigation Overlay -->
+        <div class="mobile-menu-overlay">
+            <div class="mobile-menu-content">
+                <button class="mobile-menu-close" aria-label="Fechar menu">
+                    <i class="fas fa-times"></i>
+                </button>
+                <ul class="mobile-nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pages/servicos.html">Serviços</a></li>
+                    <li><a href="pages/sobre.html">Sobre</a></li>
+                    <li><a href="pages/contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </div>
     </header>
 
     <!-- Hero Section -->
