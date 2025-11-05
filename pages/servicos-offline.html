@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços - Design Visual</title>
+    <meta name="description" content="Conheça todos os nossos serviços de design gráfico e comunicação visual. Preços acessíveis para pequenos e médios negócios.">
+    
+    
+    
+    <!-- Font Awesome would load here in online version -->
+    <style>/* Reset e Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #FFFFFF;
+    background-color: #000000;
+    overflow-x: hidden;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+p {
+    font-size: 1rem;
+    color: #CCCCCC;
+    line-height: 1.7;
+}
+
+/* Header & Navigation */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav {
+    padding: 1rem 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.logo span {
+    color: #CCCCCC;
+}
+
+/* Menu Toggle (Mobile) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: #FFFFFF;
+    transition: all 0.3s ease;
+}
+
+/* Navigation Menu */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #CCCCCC;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: #FFFFFF;
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #FFFFFF;
+    transition: width 0.3s ease;
+}
+
+.nav-menu a:hover::after,
+.nav-menu a.active::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 0 80px;
+    background: linear-gradient(135deg, #000000 0%, #0A0A0A 100%);
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.hero-content {
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-title {
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #FFFFFF 0%, #CCCCCC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #CCCCCC;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 2px solid #FFFFFF;
+}
+
+.cta-button:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+}
+
+.hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.hero-shape {
+    width: 300px;
+    height: 300px;
+    background-color: #1A1A1A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-shape::before {
+    content: '';
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border: 2px solid #1A1A1A;
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+}
+
+.hero-shape i {
+    font-size: 4rem;
+    color: #CCCCCC;
+}
+
+/* Services Section */
+.services {
+    padding: 80px 0;
+    background-color: #000000;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+    color: #FFFFFF;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background-color: #1A1A1A;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #1A1A1A;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #000000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    border: 2px solid #FFFFFF;
+}
+
+.service-icon i {
+    font-size: 2rem;
+    color: #FFFFFF;
+}
+
+.service-card h3 {
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+}
+
+/* Benefits Section */
+.benefits {
+    padding: 80px 0;
+    background-color: #0A0A0A;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.benefit-item {
+    text-align: center;
+    padding: 2rem;
+}
+
+.benefit-icon {
+    width: 100px;
+    height: 100px;
+    background-color: #1A1A1A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    border: 2px solid #FFFFFF;
+}
+
+.benefit-icon i {
+    font-size: 2rem;
+    color: #FFFFFF;
+}
+
+.benefit-item h3 {
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: 80px 0;
+    background-color: #000000;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.testimonial-card {
+    background-color: #1A1A1A;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #1A1A1A;
+}
+
+.testimonial-content {
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-content p {
+    font-style: italic;
+    color: #CCCCCC;
+    font-size: 1.1rem;
+}
+
+.testimonial-author {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.author-info h4 {
+    color: #FFFFFF;
+    margin-bottom: 0.25rem;
+}
+
+.author-info span {
+    color: #CCCCCC;
+    font-size: 0.9rem;
+}
+
+.rating {
+    color: #FFD700;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #1A1A1A 0%, #0A0A0A 100%);
+}
+
+.cta-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+}
+
+.cta-content p {
+    margin-bottom: 2rem;
+    color: #CCCCCC;
+}
+
+/* Page Header */
+.page-header {
+    padding: 120px 0 80px;
+    background-color: #000000;
+    text-align: center;
+}
+
+.page-title {
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+}
+
+.page-subtitle {
+    font-size: 1.2rem;
+    color: #CCCCCC;
+}
+
+/* Services Detailed Page */
+.services-detailed {
+    padding: 80px 0;
+    background-color: #000000;
+}
+
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.service-item-detailed {
+    background-color: #1A1A1A;
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid #1A1A1A;
+    transition: transform 0.3s ease;
+}
+
+.service-item-detailed:hover {
+    transform: translateY(-5px);
+}
+
+.service-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.service-icon-large {
+    width: 100px;
+    height: 100px;
+    background-color: #000000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #FFFFFF;
+    flex-shrink: 0;
+}
+
+.service-icon-large i {
+    font-size: 2.5rem;
+    color: #FFFFFF;
+}
+
+.service-info h3 {
+    color: #FFFFFF;
+    margin-bottom: 0.5rem;
+}
+
+.service-price {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.price-note {
+    font-size: 0.9rem;
+    color: #CCCCCC;
+    font-weight: 400;
+}
+
+.service-description {
+    margin-bottom: 2rem;
+    color: #CCCCCC;
+}
+
+.service-features {
+    list-style: none;
+    padding: 0;
+}
+
+.service-features li {
+    color: #CCCCCC;
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.service-features li::before {
+    content: '✓';
+    color: #FFFFFF;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* About Section */
+.about-section {
+    padding: 80px 0;
+    background-color: #000000;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-text h2 {
+    color: #FFFFFF;
+    margin-bottom: 2rem;
+}
+
+.about-text p {
+    margin-bottom: 1.5rem;
+}
+
+.about-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-shape {
+    width: 300px;
+    height: 300px;
+    background-color: #1A1A1A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.about-shape::before {
+    content: '';
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border: 2px solid #1A1A1A;
+    border-radius: 50%;
+    animation: rotate 25s linear infinite reverse;
+}
+
+.about-shape i {
+    font-size: 4rem;
+    color: #CCCCCC;
+}
+
+/* Diferenciais Section */
+.diferenciais {
+    padding: 80px 0;
+    background-color: #0A0A0A;
+}
+
+.diferenciais-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.diferencial-item {
+    background-color: #1A1A1A;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #1A1A1A;
+    transition: transform 0.3s ease;
+}
+
+.diferencial-item:hover {
+    transform: translateY(-5px);
+}
+
+.diferencial-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #000000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    border: 2px solid #FFFFFF;
+}
+
+.diferencial-icon i {
+    font-size: 2rem;
+    color: #FFFFFF;
+}
+
+.diferencial-item h3 {
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+}
+
+.diferencial-item p {
+    color: #CCCCCC;
+}
+
+/* Stats Section */
+.stats-section {
+    padding: 80px 0;
+    background-color: #000000;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    text-align: center;
+}
+
+.stat-item {
+    padding: 2rem;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #CCCCCC;
+    font-size: 1.1rem;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 80px 0;
+    background-color: #000000;
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.contact-info h2 {
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+}
+
+.contact-info > p {
+    margin-bottom: 3rem;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.method-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #1A1A1A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #FFFFFF;
+    flex-shrink: 0;
+}
+
+.method-icon i {
+    font-size: 1.5rem;
+    color: #FFFFFF;
+}
+
+.method-content h3 {
+    color: #FFFFFF;
+    margin-bottom: 0.25rem;
+}
+
+.method-content p {
+    color: #CCCCCC;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.method-link {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.method-link:hover {
+    color: #CCCCCC;
+}
+
+.contact-stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    display: block;
+}
+
+.stat .stat-label {
+    color: #CCCCCC;
+    font-size: 0.9rem;
+}
+
+/* Contact Form */
+.contact-form-container {
+    background-color: #1A1A1A;
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid #1A1A1A;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    background-color: #0A0A0A;
+    border: 2px solid #1A1A1A;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #FFFFFF;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 2px solid #FFFFFF;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.submit-button:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.form-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    display: none;
+}
+
+.form-message.success {
+    background-color: rgba(0, 255, 0, 0.1);
+    color: #00FF00;
+    border: 1px solid #00FF00;
+}
+
+.form-message.error {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #FF0000;
+    border: 1px solid #FF0000;
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 80px 0;
+    background-color: #0A0A0A;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+.faq-item {
+    background-color: #1A1A1A;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #1A1A1A;
+}
+
+.faq-item h3 {
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+}
+
+.faq-item p {
+    color: #CCCCCC;
+}
+
+/* Footer */
+.footer {
+    background-color: #0A0A0A;
+    padding: 80px 0 40px;
+    border-top: 1px solid #1A1A1A;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.footer-logo a {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.footer-logo span {
+    color: #CCCCCC;
+}
+
+.footer-section h3 {
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    color: #CCCCCC;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #FFFFFF;
+}
+
+.contact-info li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #CCCCCC;
+}
+
+.contact-info li i {
+    color: #FFFFFF;
+    width: 20px;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    width: 40px;
+    height: 40px;
+    background-color: #1A1A1A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid #1A1A1A;
+}
+
+.social-links a:hover {
+    background-color: #FFFFFF;
+    color: #000000;
+    transform: translateY(-2px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #1A1A1A;
+    color: #CCCCCC;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0 15px;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 0;
+        background-color: #000000;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem 0;
+        overflow: hidden;
+        transition: height 0.3s ease;
+    }
+
+    .nav-menu.active {
+        height: 300px;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+        padding: 0 15px;
+    }
+
+    .hero-shape {
+        width: 250px;
+        height: 250px;
+    }
+
+    .hero-shape::before {
+        width: 270px;
+        height: 270px;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .about-shape {
+        width: 250px;
+        height: 250px;
+    }
+
+    .about-shape::before {
+        width: 270px;
+        height: 270px;
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .service-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .contact-methods {
+        gap: 1.5rem;
+    }
+
+    .contact-method {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .method-link {
+        justify-content: center;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .hero {
+        padding: 100px 0 60px;
+    }
+
+    .section-title {
+        margin-bottom: 2rem;
+    }
+
+    .services-grid,
+    .benefits-grid,
+    .testimonials-grid,
+    .diferenciais-grid,
+    .stats-grid,
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form-container {
+        padding: 2rem;
+    }
+
+    .service-item-detailed {
+        padding: 2rem;
+    }
+
+    .service-header {
+        gap: 1rem;
+    }
+
+    .service-icon-large {
+        width: 80px;
+        height: 80px;
+    }
+
+    .service-icon-large i {
+        font-size: 2rem;
+    }
+}
+
+/* Menu Toggle Animation */
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Scroll Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+</style>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="../index.html">Design<span>Visual</span></a>
+                </div>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="servicos.html" class="active">Serviços</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Nossos Serviços</h1>
+            <p class="page-subtitle">Soluções completas em design gráfico e comunicação visual para seu negócio</p>
+        </div>
+    </section>
+
+    <!-- Serviços Detalhados -->
+    <section class="services-detailed">
+        <div class="container">
+            <div class="services-list">
+                <div class="service-item-detailed">
+                    <div class="service-header">
+                        <div class="service-icon-large">
+                            <i class="fas fa-signature"></i>
+                        </div>
+                        <div class="service-info">
+                            <h3>Logotipo e Identidade Visual</h3>
+                            <div class="service-price">
+                                <span class="price">R$ 350,00</span>
+                                <span class="price-note">a partir de</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Criação completa de logotipo profissional com manual de identidade visual,
+                        incluindo paleta de cores, tipografia e aplicações.
+                    </p>
+                    <ul class="service-features">
+                        <li>3 conceitos iniciais</li>
+                        <li>Revisões ilimitadas</li>
+                        <li>Arquivos em todos os formatos</li>
+                        <li>Manual de identidade visual</li>
+                    </ul>
+                </div>
+
+                <div class="service-item-detailed">
+                    <div class="service-header">
+                        <div class="service-icon-large">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <div class="service-info">
+                            <h3>Cartão de Visita</h3>
+                            <div class="service-price">
+                                <span class="price">R$ 80,00</span>
+                                <span class="price-note">por unidade</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Design profissional para cartão de visita com impressão de alta qualidade.
+                        Formatos padrão e personalizados disponíveis.
+                    </p>
+                    <ul class="service-features">
+                        <li>2 lados personalizados</li>
+                        <li>Impressão offset</li>
+                        <li>Papel premium</li>
+                        <li>Acabamento profissional</li>
+                    </ul>
+                </div>
+
+                <div class="service-item-detailed">
+                    <div class="service-header">
+                        <div class="service-icon-large">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="service-info">
+                            <h3>Cardápio</h3>
+                            <div class="service-price">
+                                <span class="price">R$ 150,00</span>
+                                <span class="price-note">a partir de</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Layout atrativo e funcional para cardápios de restaurantes,
+                        cafés e estabelecimentos alimentícios.
+                    </p>
+                    <ul class="service-features">
+                        <li>Design responsivo</li>
+                        <li>Otimização para impressão</li>
+                        <li>Versão digital inclusa</li>
+                        <li>Atualizações futuras</li>
+                    </ul>
+                </div>
+
+                <div class="service-item-detailed">
+                    <div class="service-header">
+                        <div class="service-icon-large">
+                            <i class="fas fa-sticky-note"></i>
+                        </div>
+                        <div class="service-info">
+                            <h3>Adesivo e Plotagem</h3>
+                            <div class="service-price">
+                                <span class="price">R$ 100,00</span>
+                                <span class="price-note">a partir de</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Design e produção de adesivos personalizados para decoração,
+                        identificação e marketing promocional.
+                    </p>
+                    <ul class="service-features">
+                        <li>Corte eletrônico</li>
+                        <li>Vinil adesivo</li>
+                        <li>Acabamentos especiais</li>
+                        <li>Entrega rápida</li>
+                    </ul>
+                </div>
+
+                <div class="service-item-detailed">
+                    <div class="service-header">
+                        <div class="service-icon-large">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="service-info">
+                            <h3>Panfleto e Folheto</h3>
+                            <div class="service-price">
+                                <span class="price">R$ 120,00</span>
+                                <span class="price-note">a partir de</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Peças promocionais impressas para campanhas de marketing,
+                        eventos e comunicação institucional.
+                    </p>
+                    <ul class="service-features">
+                        <li>Design criativo</li>
+                        <li>Impressão offset</li>
+                        <li>Papéis especiais</li>
+                        <li>Formato personalizado</li>
+                    </ul>
+                </div>
+
+                <div class="service-item-detailed">
+                    <div class="service-header">
+                        <div class="service-icon-large">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <div class="service-info">
+                            <h3>Posts para Redes Sociais</h3>
+                            <div class="service-price">
+                                <span class="price">R$ 25,00</span>
+                                <span class="price-note">cada</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Conteúdo visual estratégico para Instagram, Facebook, LinkedIn
+                        e outras plataformas digitais.
+                    </p>
+                    <ul class="service-features">
+                        <li>Design responsivo</li>
+                        <li>Todas as plataformas</li>
+                        <li>Stories e posts</li>
+                        <li>Calendário editorial</li>
+                    </ul>
+                </div>
+
+                <div class="service-item-detailed">
+                    <div class="service-header">
+                        <div class="service-icon-large">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="service-info">
+                            <h3>Artes Comemorativas</h3>
+                            <div class="service-price">
+                                <span class="price">R$ 30,00</span>
+                                <span class="price-note">cada</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Design especial para datas comemorativas, aniversários corporativos
+                        e eventos especiais da empresa.
+                    </p>
+                    <ul class="service-features">
+                        <li>Temas personalizados</li>
+                        <li>Versões digitais</li>
+                        <li>Impressão opcional</li>
+                        <li>Entrega rápida</li>
+                    </ul>
+                </div>
+
+                <div class="service-item-detailed">
+                    <div class="service-header">
+                        <div class="service-icon-large">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="service-info">
+                            <h3>Trabalhos Sob Demanda</h3>
+                            <div class="service-price">
+                                <span class="price">Sob consulta</span>
+                                <span class="price-note">orçamento personalizado</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Projetos especiais e personalizados conforme a necessidade específica
+                        do seu negócio. Entre em contato para orçamento detalhado.
+                    </p>
+                    <ul class="service-features">
+                        <li>Atendimento personalizado</li>
+                        <li>Proposta detalhada</li>
+                        <li>Prazos flexíveis</li>
+                        <li>Suporte completo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Pronto para começar seu projeto?</h2>
+                <p>Entre em contato e vamos discutir suas necessidades específicas.</p>
+                <a href="contato.html" class="cta-button">Entrar em contato</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <a href="../index.html">Design<span>Visual</span></a>
+                    </div>
+                    <p>Design gráfico e comunicação visual profissional para pequenos e médios negócios.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="servicos.html">Serviços</a></li>
+                        <li><a href="sobre.html">Sobre</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-envelope"></i> contato@designvisual.com.br</li>
+                        <li><i class="fab fa-whatsapp"></i> (11) 99999-9999</li>
+                        <li><i class="fas fa-map-marker-alt"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Redes Sociais</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Behance"><i class="fab fa-behance"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Design Visual. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>// Menu Mobile Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navMenu = document.querySelector('.nav-menu');
+
+if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+    });
+}
+
+// Close mobile menu when clicking on a link
+const navLinks = document.querySelectorAll('.nav-menu a');
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        menuToggle.classList.remove('active');
+    });
+});
+
+// Header scroll effect
+const header = document.querySelector('.header');
+let lastScrollY = window.scrollY;
+
+window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > 100) {
+        header.style.backgroundColor = 'rgba(0, 0, 0, 0.98)';
+        header.style.boxShadow = '0 2px 20px rgba(255, 255, 255, 0.1)';
+    } else {
+        header.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+        header.style.boxShadow = 'none';
+    }
+
+    lastScrollY = currentScrollY;
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.offsetTop;
+            const offsetPosition = elementPosition - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Intersection Observer for fade-in animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+// Add fade-in class to elements that should animate on scroll
+const animateElements = document.querySelectorAll('.service-card, .benefit-item, .testimonial-card, .diferencial-item, .service-item-detailed, .faq-item');
+animateElements.forEach(element => {
+    element.classList.add('fade-in');
+    observer.observe(element);
+});
+
+// Contact Form Validation and Submission
+const contactForm = document.getElementById('contactForm');
+const formMessage = document.getElementById('formMessage');
+
+if (contactForm && formMessage) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Get form values
+        const nome = document.getElementById('nome').value.trim();
+        const empresa = document.getElementById('empresa').value.trim();
+        const telefone = document.getElementById('telefone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const mensagem = document.getElementById('mensagem').value.trim();
+
+        // Validation
+        let isValid = true;
+        let errors = [];
+
+        // Name validation
+        if (nome.length < 2) {
+            isValid = false;
+            errors.push('Nome deve ter pelo menos 2 caracteres');
+        }
+
+        // Phone validation (Brazilian format)
+        const phoneRegex = /^\(?(\d{2})\)?\s?9?\d{4}-?\d{4}$/;
+        if (!phoneRegex.test(telefone.replace(/\D/g, ''))) {
+            isValid = false;
+            errors.push('Telefone inválido. Use o formato (11) 99999-9999');
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            isValid = false;
+            errors.push('E-mail inválido');
+        }
+
+        // Message validation
+        if (mensagem.length < 10) {
+            isValid = false;
+            errors.push('Mensagem deve ter pelo menos 10 caracteres');
+        }
+
+        // Show validation results
+        if (!isValid) {
+            showFormMessage('error', errors.join('<br>'));
+            return;
+        }
+
+        // Simulate form submission (replace with actual submission logic)
+        showFormMessage('success', 'Mensagem enviada com sucesso! Entraremos em contato em breve.');
+
+        // Reset form
+        contactForm.reset();
+
+        // Here you would typically send the data to your backend
+        console.log('Form data:', {
+            nome,
+            empresa,
+            telefone,
+            email,
+            mensagem
+        });
+    });
+}
+
+function showFormMessage(type, message) {
+    formMessage.className = `form-message ${type}`;
+    formMessage.innerHTML = message;
+    formMessage.style.display = 'block';
+
+    // Hide message after 5 seconds
+    setTimeout(() => {
+        formMessage.style.display = 'none';
+    }, 5000);
+}
+
+// Phone number formatting
+const telefoneInput = document.getElementById('telefone');
+if (telefoneInput) {
+    telefoneInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+
+        if (value.length <= 11) {
+            if (value.length <= 2) {
+                value = value;
+            } else if (value.length <= 6) {
+                value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+            } else if (value.length <= 10) {
+                value = `(${value.slice(0, 2)}) ${value.slice(2, 6)}-${value.slice(6)}`;
+            } else {
+                value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+            }
+        }
+
+        e.target.value = value;
+    });
+}
+
+// Loading animation for page transitions
+document.addEventListener('DOMContentLoaded', function() {
+    // Add loading class to body
+    document.body.classList.add('loaded');
+
+    // Remove loading class after animations complete
+    setTimeout(() => {
+        document.body.classList.remove('loaded');
+    }, 1000);
+});
+
+// Parallax effect for hero section (optional)
+const heroSection = document.querySelector('.hero');
+if (heroSection) {
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+
+        if (heroSection.querySelector('.hero-visual')) {
+            heroSection.querySelector('.hero-visual').style.transform = `translateY(${rate * 0.1}px)`;
+        }
+    });
+}
+
+// Service cards hover effect enhancement
+const serviceCards = document.querySelectorAll('.service-card');
+serviceCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px) scale(1.02)';
+    });
+
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+});
+
+// Testimonial carousel (if needed for more testimonials)
+class TestimonialCarousel {
+    constructor() {
+        this.testimonials = document.querySelectorAll('.testimonial-card');
+        this.currentIndex = 0;
+        this.autoPlayInterval = null;
+
+        if (this.testimonials.length > 3) {
+            this.init();
+        }
+    }
+
+    init() {
+        this.showTestimonial(this.currentIndex);
+        this.startAutoPlay();
+    }
+
+    showTestimonial(index) {
+        this.testimonials.forEach((testimonial, i) => {
+            testimonial.style.display = i === index ? 'block' : 'none';
+        });
+    }
+
+    next() {
+        this.currentIndex = (this.currentIndex + 1) % this.testimonials.length;
+        this.showTestimonial(this.currentIndex);
+    }
+
+    startAutoPlay() {
+        this.autoPlayInterval = setInterval(() => {
+            this.next();
+        }, 5000);
+    }
+
+    stopAutoPlay() {
+        clearInterval(this.autoPlayInterval);
+    }
+}
+
+// Initialize testimonial carousel if needed
+if (document.querySelectorAll('.testimonial-card').length > 3) {
+    const carousel = new TestimonialCarousel();
+}
+
+// Performance optimization: Lazy load images (if any)
+const images = document.querySelectorAll('img[data-src]');
+const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            imageObserver.unobserve(img);
+        }
+    });
+});
+
+images.forEach(img => imageObserver.observe(img));
+
+// Accessibility improvements
+document.addEventListener('keydown', function(e) {
+    // Close mobile menu with Escape key
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+        menuToggle.classList.remove('active');
+    }
+});
+
+// Add focus styles for keyboard navigation
+const focusableElements = document.querySelectorAll('a, button, input, textarea, select');
+focusableElements.forEach(element => {
+    element.addEventListener('focus', function() {
+        this.style.outline = '2px solid #FFFFFF';
+    });
+
+    element.addEventListener('blur', function() {
+        this.style.outline = 'none';
+    });
+});
+
+// Prevent form submission on Enter for certain inputs
+const inputs = document.querySelectorAll('input:not([type="submit"]):not([type="button"])');
+inputs.forEach(input => {
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            // Move to next input or submit if it's the last one
+            const inputs = Array.from(document.querySelectorAll('input, textarea'));
+            const currentIndex = inputs.indexOf(this);
+            const nextInput = inputs[currentIndex + 1];
+
+            if (nextInput) {
+                nextInput.focus();
+            } else {
+                // Submit form if it's the last input
+                if (this.form) {
+                    this.form.dispatchEvent(new Event('submit'));
+                }
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
