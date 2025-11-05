@@ -225,6 +225,13 @@ p {
     color: #CCCCCC;
 }
 
+.hero-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    filter: brightness(0.8) contrast(1.2);
+}
+
 /* Services Section */
 .services {
     padding: 80px 0;
