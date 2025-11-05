@@ -1,81 +1,3 @@
-// Mobile Menu Functionality
-class MobileMenu {
-    constructor() {
-        this.mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        this.mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-        this.mobileMenuClose = document.querySelector('.mobile-menu-close');
-        this.mobileNavLinks = document.querySelectorAll('.mobile-nav-menu a');
-        this.isOpen = false;
-        this.body = document.body;
-
-        this.init();
-    }
-
-    init() {
-        if (this.mobileMenuBtn) {
-            this.mobileMenuBtn.addEventListener('click', () => this.toggleMenu());
-        }
-
-        if (this.mobileMenuClose) {
-            this.mobileMenuClose.addEventListener('click', () => this.closeMenu());
-        }
-
-        if (this.mobileMenuOverlay) {
-            // Close menu when clicking overlay
-            this.mobileMenuOverlay.addEventListener('click', (e) => {
-                if (e.target === this.mobileMenuOverlay) {
-                    this.closeMenu();
-                }
-            });
-        }
-
-        // Close menu when clicking on nav links
-        this.mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => this.closeMenu());
-        });
-
-        // Close menu on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isOpen) {
-                this.closeMenu();
-            }
-        });
-    }
-
-    toggleMenu() {
-        if (this.isOpen) {
-            this.closeMenu();
-        } else {
-            this.openMenu();
-        }
-    }
-
-    openMenu() {
-        this.isOpen = true;
-        this.mobileMenuOverlay.classList.add('active');
-        this.mobileMenuOverlay.setAttribute('aria-hidden', 'false');
-        this.mobileMenuBtn.classList.add('active');
-        this.mobileMenuBtn.setAttribute('aria-expanded', 'true');
-        this.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
-
-        // Focus management
-        setTimeout(() => {
-            this.mobileMenuClose.focus();
-        }, 100);
-    }
-
-    closeMenu() {
-        this.isOpen = false;
-        this.mobileMenuOverlay.classList.remove('active');
-        this.mobileMenuOverlay.setAttribute('aria-hidden', 'true');
-        this.mobileMenuBtn.classList.remove('active');
-        this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
-        this.body.style.overflow = ''; // Restore scrolling
-
-        // Focus management
-        this.mobileMenuBtn.focus();
-    }
-}
 
 // Header scroll effects
 class HeaderEffects {
@@ -104,13 +26,193 @@ class HeaderEffects {
     }
 }
 
+// Enhanced Mobile Menu with Accessibility
+class AccessibleMobileMenu {
+    constructor() {
+        this.toggleBtn = document.querySelector('.mobile-menu-toggle');
+        this.overlay = document.querySelector('.mobile-menu-overlay');
+        this.closeBtn = document.querySelector('.mobile-menu-close');
+        this.navLinks = document.querySelectorAll('.mobile-nav-link');
+        this.isOpen = false;
+        this.body = document.body;
+        this.lastFocusedElement = null;
+
+        this.init();
+    }
+
+    init() {
+        if (!this.toggleBtn || !this.overlay) return;
+
+        // Event listeners
+        this.toggleBtn.addEventListener('click', () => this.toggleMenu());
+        this.closeBtn?.addEventListener('click', () => this.closeMenu());
+
+        // Close on overlay click
+        this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+                this.closeMenu();
+            }
+        });
+
+        // Close on nav link click
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', () => this.closeMenu());
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => this.handleKeydown(e));
+
+        // Touch/swipe support (optional)
+        this.addTouchSupport();
+
+        // Focus trap setup
+        this.focusableElements = this.overlay.querySelectorAll(
+            'a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
+        );
+    }
+
+    toggleMenu() {
+        if (this.isOpen) {
+            this.closeMenu();
+        } else {
+            this.openMenu();
+        }
+    }
+
+    openMenu() {
+        if (this.isOpen) return;
+
+        this.isOpen = true;
+        this.lastFocusedElement = document.activeElement;
+
+        // Update ARIA attributes
+        this.toggleBtn.setAttribute('aria-expanded', 'true');
+        this.overlay.setAttribute('aria-hidden', 'false');
+
+        // Prevent body scroll
+        this.body.style.overflow = 'hidden';
+
+        // Add class for animations
+        this.overlay.style.display = 'flex';
+
+        // Focus management
+        requestAnimationFrame(() => {
+            this.closeBtn?.focus();
+        });
+
+        // Announce to screen readers
+        this.announceMenuState('Menu de navegação aberto');
+    }
+
+    closeMenu() {
+        if (!this.isOpen) return;
+
+        this.isOpen = false;
+
+        // Update ARIA attributes
+        this.toggleBtn.setAttribute('aria-expanded', 'false');
+        this.overlay.setAttribute('aria-hidden', 'true');
+
+        // Restore body scroll
+        this.body.style.overflow = '';
+
+        // Focus management
+        if (this.lastFocusedElement) {
+            this.lastFocusedElement.focus();
+        }
+
+        // Announce to screen readers
+        this.announceMenuState('Menu de navegação fechado');
+    }
+
+    handleKeydown(e) {
+        if (!this.isOpen) return;
+
+        switch (e.key) {
+            case 'Escape':
+                e.preventDefault();
+                this.closeMenu();
+                break;
+
+            case 'Tab':
+                this.handleTabKey(e);
+                break;
+        }
+    }
+
+    handleTabKey(e) {
+        if (this.focusableElements.length === 0) return;
+
+        const firstElement = this.focusableElements[0];
+        const lastElement = this.focusableElements[this.focusableElements.length - 1];
+
+        if (e.shiftKey) {
+            // Shift + Tab
+            if (document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            }
+        } else {
+            // Tab
+            if (document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    }
+
+    addTouchSupport() {
+        let startX = 0;
+        let startY = 0;
+
+        this.overlay.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        }, { passive: true });
+
+        this.overlay.addEventListener('touchmove', (e) => {
+            if (!startX || !startY) return;
+
+            const currentX = e.touches[0].clientX;
+            const currentY = e.touches[0].clientY;
+            const diffX = startX - currentX;
+            const diffY = startY - currentY;
+
+            // Swipe left to close menu
+            if (Math.abs(diffX) > Math.abs(diffY) && diffX > 50) {
+                this.closeMenu();
+            }
+        }, { passive: true });
+    }
+
+    announceMenuState(message) {
+        // Create temporary announcement for screen readers
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.style.position = 'absolute';
+        announcement.style.left = '-10000px';
+        announcement.style.width = '1px';
+        announcement.style.height = '1px';
+        announcement.style.overflow = 'hidden';
+
+        announcement.textContent = message;
+        document.body.appendChild(announcement);
+
+        // Remove after announcement
+        setTimeout(() => {
+            document.body.removeChild(announcement);
+        }, 1000);
+    }
+}
+
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize mobile menu
-    new MobileMenu();
-
     // Initialize header effects
     new HeaderEffects();
+
+    // Initialize accessible mobile menu
+    new AccessibleMobileMenu();
 
     // Add loading class to body
     document.body.classList.add('loaded');

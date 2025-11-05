@@ -30,46 +30,78 @@
     <link rel="icon" type="image/svg+xml" href="../assets/fav_icon/fav_icon_source_comunicacao.svg">
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link" aria-label="Pular para o conteúdo principal">Pular para o conteúdo</a>
+
     <!-- Header -->
-    <header class="header">
-        <nav class="nav">
+    <header class="header" role="banner">
+        <nav class="nav" role="navigation" aria-label="Navegação principal">
             <div class="nav-container">
+                <!-- Logo -->
                 <div class="logo">
-                    <a href="../index.html" aria-label="Source Design - Página Inicial">Source<span>Design</span></a>
+                    <a href="../index.html" aria-label="Source Design - Página Inicial">
+                        <span class="logo-text">Source<span class="logo-accent">Design</span></span>
+                    </a>
                 </div>
 
                 <!-- Desktop Navigation -->
-                <ul class="nav-menu desktop-menu">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="servicos.html" class="active">Serviços</a></li>
-                    <li><a href="sobre.html">Sobre</a></li>
-                    <li><a href="contato.html">Contato</a></li>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="servicos.html" class="nav-link active" aria-current="page">Serviços</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="sobre.html" class="nav-link">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contato.html" class="nav-link">Contato</a>
+                    </li>
                 </ul>
 
-                <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn" aria-label="Abrir menu de navegação" aria-expanded="false">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Alternar menu de navegação" aria-expanded="false" aria-controls="mobile-menu">
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="sr-only">Menu</span>
                 </button>
+            </div>
+
+            <!-- Mobile Navigation Overlay -->
+            <div class="mobile-menu-overlay" id="mobile-menu" aria-hidden="true" aria-labelledby="mobile-menu-heading">
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-header">
+                        <h2 id="mobile-menu-heading" class="sr-only">Menu de navegação</h2>
+                        <button class="mobile-menu-close" aria-label="Fechar menu de navegação">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                            <span class="sr-only">Fechar</span>
+                        </button>
+                    </div>
+                    <nav class="mobile-nav" aria-label="Navegação móvel">
+                        <ul class="mobile-nav-menu">
+                            <li class="mobile-nav-item">
+                                <a href="../index.html" class="mobile-nav-link">Home</a>
+                            </li>
+                            <li class="mobile-nav-item">
+                                <a href="servicos.html" class="mobile-nav-link active" aria-current="page">Serviços</a>
+                            </li>
+                            <li class="mobile-nav-item">
+                                <a href="sobre.html" class="mobile-nav-link">Sobre</a>
+                            </li>
+                            <li class="mobile-nav-item">
+                                <a href="contato.html" class="mobile-nav-link">Contato</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </nav>
-
-        <!-- Mobile Navigation Overlay -->
-        <div class="mobile-menu-overlay" aria-hidden="true">
-            <div class="mobile-menu-content">
-                <button class="mobile-menu-close" aria-label="Fechar menu">
-                    <i class="fas fa-times"></i>
-                </button>
-                <ul class="mobile-nav-menu">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="servicos.html">Serviços</a></li>
-                    <li><a href="sobre.html">Sobre</a></li>
-                    <li><a href="contato.html">Contato</a></li>
-                </ul>
-            </div>
-        </div>
     </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
 
     <!-- Page Header -->
     <section class="page-header">
@@ -449,6 +481,8 @@
             </div>
         </div>
     </footer>
+
+    </main>
 
     <script src="../assets/js/main.js"></script>
 </body>
