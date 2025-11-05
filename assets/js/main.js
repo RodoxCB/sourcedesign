@@ -1,22 +1,4 @@
-// Menu Mobile Toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const navMenu = document.querySelector('.nav-menu');
-
-if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        menuToggle.classList.toggle('active');
-    });
-}
-
-// Close mobile menu when clicking on a link
-const navLinks = document.querySelectorAll('.nav-menu a');
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        menuToggle.classList.remove('active');
-    });
-});
+// Menu mobile functionality removed for minimal header design
 
 // Header scroll effect and responsive behavior
 const header = document.querySelector('.header');
@@ -370,11 +352,7 @@ images.forEach(img => imageObserver.observe(img));
 
 // Accessibility improvements
 document.addEventListener('keydown', function(e) {
-    // Close mobile menu with Escape key
-    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-        navMenu.classList.remove('active');
-        menuToggle.classList.remove('active');
-    }
+    // Accessibility improvements for keyboard navigation
 });
 
 // Add focus styles for keyboard navigation

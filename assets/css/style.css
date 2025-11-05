@@ -80,6 +80,15 @@ p {
         padding: 0.5rem 0;
     }
 
+    /* Esconder menu de navegação em telas pequenas */
+    .nav-menu {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+
     /* Overlay invisível na parte superior para detectar cliques */
     .header-overlay {
         position: fixed;
