@@ -5,9 +5,12 @@
   "main": "index.html",
   "scripts": {
     "dev": "node dev-server.js",
+    "vite": "vite",
+    "vite:dev": "vite",
+    "vite:build": "vite build",
+    "vite:preview": "vite preview",
     "server": "node server.js",
-    "start": "node dev-server.js",
-    "serve": "node dev-server.js"
+    "start": "node dev-server.js"
   },
   "keywords": [
     "design",
@@ -17,5 +20,8 @@
     "institucional"
   ],
   "author": "Source Design",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^7.2.0"
+  }
 }

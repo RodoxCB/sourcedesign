@@ -60,8 +60,8 @@ Site institucional moderno e responsivo para empresa de design gráfico e comuni
 
 ### Para Desenvolvimento/Produção (com internet):
 1. **Clone ou baixe** os arquivos
-2. **Abra o index.html** no navegador
-3. **Hospede em qualquer servidor web**
+2. **Instale as dependências**: `npm install`
+3. **Execute o desenvolvimento**: `npm run dev`
 4. **Personalize** os conteúdos conforme necessário
 
 ### Para Teste Offline (sem servidor):
@@ -112,36 +112,59 @@ fetch('/api/contact', {
 
 ## 🔧 Desenvolvimento
 
+### Pré-requisitos
+- **Node.js** 16+ instalado
+- **npm** ou **yarn**
+
+### Instalação
+```bash
+npm install
+```
+
 ### Scripts Disponíveis
-- Nenhum build necessário - projeto vanilla
+```bash
+npm run dev       # Servidor de desenvolvimento com Vite (recomendado)
+npm run vite:dev  # Mesmo que acima
+npm run vite:build # Build para produção
+npm run vite:preview # Preview do build
+npm run server    # Servidor Node.js customizado
+npm start         # Mesmo que npm run dev
+```
 
 ### Teste Local
 
-#### Opção 1: Versão Offline (Recomendada)
+#### Opção 1: Vite (Recomendada para desenvolvimento)
+```bash
+npm run dev
+```
+✅ **Hot Reload** automático
+✅ **Servidor rápido** com HMR
+✅ **Porta 3000** por padrão
+✅ **Abre navegador** automaticamente
+
+#### Opção 2: Versão Offline (Sempre funciona)
 ```bash
 # Abra diretamente no navegador:
 index-offline.html
 # ou qualquer arquivo *-offline.html
 ```
 ✅ **Funciona sempre** - sem servidor necessário
+✅ **Todas funcionalidades** ativas
 
-#### Opção 2: Servidor Node.js (Desenvolvimento)
+#### Opção 3: Servidor Node.js Customizado
 ```bash
-npm run dev    # Mostra opções e abre versão offline automaticamente
-npm run server # Tenta iniciar servidor real na porta 3000
-npm start      # Mesmo que npm run dev
-npm run serve  # Mesmo que npm run dev
+npm run server
 ```
-⚠️ **Servidor real pode não funcionar** em ambientes com restrições de rede
+⚠️ **Pode não funcionar** em ambientes com restrições de rede
 
-#### Opção 3: Servidor Python (Alternativo)
+#### Opção 4: Servidor Python (Alternativo)
 ```bash
 python3 -m http.server 8080
 # Acesse: http://localhost:8080
 ```
 ⚠️ **Restrições similares** ao Node.js
 
-#### Opção 4: Servidor Local Externo
+#### Opção 5: Servidor Local Externo
 - **VS Code**: Instale extensão "Live Server"
 - **Apache/Nginx**: Configure virtual host
 - **Outros**: Qualquer servidor web
