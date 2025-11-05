@@ -241,6 +241,13 @@ p {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    justify-items: center;
+}
+
+.services-grid > :last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 300px;
 }
 
 .service-card {
