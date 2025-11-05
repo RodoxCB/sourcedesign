@@ -53,6 +53,7 @@ class MobileMenu {
     openMenu() {
         this.isOpen = true;
         this.mobileMenuOverlay.classList.add('active');
+        this.mobileMenuOverlay.setAttribute('aria-hidden', 'false');
         this.mobileMenuBtn.classList.add('active');
         this.mobileMenuBtn.setAttribute('aria-expanded', 'true');
         this.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
@@ -66,6 +67,7 @@ class MobileMenu {
     closeMenu() {
         this.isOpen = false;
         this.mobileMenuOverlay.classList.remove('active');
+        this.mobileMenuOverlay.setAttribute('aria-hidden', 'true');
         this.mobileMenuBtn.classList.remove('active');
         this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
         this.body.style.overflow = ''; // Restore scrolling

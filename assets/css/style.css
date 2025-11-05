@@ -1207,16 +1207,7 @@ p {
         font-size: 1.25rem;
     }
 
-    .menu-toggle span {
-        width: 22px;
-        height: 2px;
-    }
 
-    .nav-menu.active {
-        height: 200px;
-        padding: 1.5rem 0;
-        gap: 1.5rem;
-    }
 
     .container {
         padding: 0 15px;
@@ -1276,17 +1267,6 @@ p {
 }
 
 /* Menu Toggle Animation */
-.menu-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.menu-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
-}
 
 /* Scroll Animations */
 .fade-in {
