@@ -1,4 +1,4 @@
-# Design Visual - Site Institucional
+# Source Design - Site Institucional
 
 Site institucional moderno e responsivo para empresa de design gráfico e comunicação visual, focado em pequenos e médios negócios.
 
@@ -178,4 +178,4 @@ Para dúvidas ou sugestões sobre o código, entre em contato através do formul
 
 ---
 
-**Design Visual** - Transformando ideias em realidade visual para seu negócio.
+**Source Design** - Transformando ideias em realidade visual para seu negócio.

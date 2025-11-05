@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-console.log('🚀 Design Visual - Servidor de Desenvolvimento');
+console.log('🚀 Source Design - Servidor de Desenvolvimento');
 console.log('===============================================');
 console.log('');
 
