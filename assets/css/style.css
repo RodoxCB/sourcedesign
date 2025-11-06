@@ -1119,7 +1119,7 @@ p {
     border-radius: 8px;
     color: #FFFFFF;
     font-family: 'Poppins', sans-serif;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-group input:focus,
@@ -1128,12 +1128,34 @@ p {
     border-color: #FFFFFF;
 }
 
+/* Real-time validation feedback */
+.form-group input.valid,
+.form-group textarea.valid {
+    border-color: var(--color-success);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-group input.invalid,
+.form-group textarea.invalid {
+    border-color: #FF6B6B;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+/* Field error messages */
+.field-error {
+    display: block;
+    color: #FF6B6B;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+
 .submit-button {
     width: 100%;
     padding: clamp(0.875rem, 3vw, 1rem);
-    background-color: #FFFFFF;
-    color: #000000;
-    border: 2px solid #FFFFFF;
+    background-color: var(--color-success);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-success);
     border-radius: 8px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
@@ -1145,11 +1167,14 @@ p {
     gap: 0.5rem;
     min-height: 44px;
     font-size: clamp(0.9rem, 2.5vw, 1rem);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
 }
 
 .submit-button:hover {
-    background-color: #000000;
-    color: #FFFFFF;
+    background-color: #059669;
+    border-color: #059669;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    transform: translateY(-2px);
 }
 
 .form-message {

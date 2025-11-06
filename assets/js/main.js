@@ -263,13 +263,142 @@ animateElements.forEach(element => {
     observer.observe(element);
 });
 
-// Contact Form Validation and Submission
-const contactForm = document.getElementById('contactForm');
-const formMessage = document.getElementById('formMessage');
+// Real-time Form Validation and Submission
+class RealTimeFormValidator {
+    constructor(formId, messageId) {
+        this.form = document.getElementById(formId);
+        this.formMessage = document.getElementById(messageId);
+        this.fields = {
+            nome: { minLength: 2, message: 'Nome deve ter pelo menos 2 caracteres' },
+            telefone: {
+                regex: /^\(?(\d{2})\)?\s?9?\d{4}-?\d{4}$/,
+                message: 'Telefone inválido. Use o formato (11) 99999-9999',
+                transform: (value) => value.replace(/\D/g, '')
+            },
+            email: {
+                regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: 'E-mail inválido'
+            },
+            mensagem: { minLength: 10, message: 'Mensagem deve ter pelo menos 10 caracteres' }
+        };
 
-if (contactForm && formMessage) {
-    contactForm.addEventListener('submit', function(e) {
+        this.init();
+    }
+
+    init() {
+        if (!this.form || !this.formMessage) return;
+
+        // Add real-time validation to each field
+        Object.keys(this.fields).forEach(fieldName => {
+            const field = document.getElementById(fieldName);
+            if (field) {
+                // Remove existing error message element if present
+                this.removeFieldError(fieldName);
+
+                // Add event listeners
+                field.addEventListener('input', () => this.validateField(fieldName));
+                field.addEventListener('blur', () => this.validateField(fieldName, true));
+
+                // Initial validation for pre-filled fields
+                if (field.value.trim()) {
+                    this.validateField(fieldName);
+                }
+            }
+        });
+
+        // Handle form submission
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+    }
+
+    validateField(fieldName, showErrors = false) {
+        const field = document.getElementById(fieldName);
+        const value = field ? field.value.trim() : '';
+        const config = this.fields[fieldName];
+
+        let isValid = true;
+        let errorMessage = '';
+
+        // Check validation rules
+        if (config.minLength && value.length < config.minLength) {
+            isValid = false;
+            errorMessage = config.message;
+        } else if (config.regex) {
+            const testValue = config.transform ? config.transform(value) : value;
+            if (!config.regex.test(testValue)) {
+                isValid = false;
+                errorMessage = config.message;
+            }
+        }
+
+        // Update field visual feedback
+        this.updateFieldVisual(fieldName, isValid);
+
+        // Show/hide error message
+        if (showErrors || field === document.activeElement) {
+            this.showFieldError(fieldName, isValid ? '' : errorMessage);
+        }
+
+        return isValid;
+    }
+
+    updateFieldVisual(fieldName, isValid) {
+        const field = document.getElementById(fieldName);
+        if (!field) return;
+
+        // Remove previous validation classes
+        field.classList.remove('valid', 'invalid');
+
+        // Add appropriate class if field has content
+        if (field.value.trim()) {
+            field.classList.add(isValid ? 'valid' : 'invalid');
+        }
+    }
+
+    showFieldError(fieldName, message) {
+        const field = document.getElementById(fieldName);
+        if (!field) return;
+
+        const formGroup = field.closest('.form-group');
+        if (!formGroup) return;
+
+        // Remove existing error message
+        this.removeFieldError(fieldName);
+
+        // Add new error message if provided
+        if (message) {
+            const errorElement = document.createElement('span');
+            errorElement.className = 'field-error';
+            errorElement.id = `${fieldName}-error`;
+            errorElement.textContent = message;
+            formGroup.appendChild(errorElement);
+        }
+    }
+
+    removeFieldError(fieldName) {
+        const existingError = document.getElementById(`${fieldName}-error`);
+        if (existingError) {
+            existingError.remove();
+        }
+    }
+
+    validateAllFields() {
+        let allValid = true;
+        Object.keys(this.fields).forEach(fieldName => {
+            if (!this.validateField(fieldName, true)) {
+                allValid = false;
+            }
+        });
+        return allValid;
+    }
+
+    handleSubmit(e) {
         e.preventDefault();
+
+        // Validate all fields
+        if (!this.validateAllFields()) {
+            this.showFormMessage('error', 'Por favor, corrija os erros destacados antes de enviar.');
+            return;
+        }
 
         // Get form values
         const nome = document.getElementById('nome').value.trim();
@@ -277,42 +406,6 @@ if (contactForm && formMessage) {
         const telefone = document.getElementById('telefone').value.trim();
         const email = document.getElementById('email').value.trim();
         const mensagem = document.getElementById('mensagem').value.trim();
-
-        // Validation
-        let isValid = true;
-        let errors = [];
-
-        // Name validation
-        if (nome.length < 2) {
-            isValid = false;
-            errors.push('Nome deve ter pelo menos 2 caracteres');
-        }
-
-        // Phone validation (Brazilian format)
-        const phoneRegex = /^\(?(\d{2})\)?\s?9?\d{4}-?\d{4}$/;
-        if (!phoneRegex.test(telefone.replace(/\D/g, ''))) {
-            isValid = false;
-            errors.push('Telefone inválido. Use o formato (11) 99999-9999');
-        }
-
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            isValid = false;
-            errors.push('E-mail inválido');
-        }
-
-        // Message validation
-        if (mensagem.length < 10) {
-            isValid = false;
-            errors.push('Mensagem deve ter pelo menos 10 caracteres');
-        }
-
-        // Show validation results
-        if (!isValid) {
-            showFormMessage('error', errors.join('<br>'));
-            return;
-        }
 
         // Create WhatsApp message
         const whatsappMessage = `Olá! Sou ${nome}${empresa ? ` da empresa ${empresa}` : ''}.
@@ -337,27 +430,46 @@ Aguardo seu contato! Obrigado.`;
         const whatsappUrl = `https://wa.me/5527996019833?text=${encodedMessage}`;
 
         // Show success message
-        showFormMessage('success', 'Abrindo WhatsApp...');
+        this.showFormMessage('success', 'Abrindo WhatsApp...');
 
         // Open WhatsApp after a short delay
         setTimeout(() => {
             window.open(whatsappUrl, '_blank');
-            showFormMessage('success', 'Mensagem enviada com sucesso! Conversa aberta no WhatsApp.');
-            contactForm.reset();
+            this.showFormMessage('success', 'Mensagem enviada com sucesso! Conversa aberta no WhatsApp.');
+
+            // Reset form and clear validation states
+            this.form.reset();
+            this.clearAllValidation();
         }, 1000);
-    });
+    }
+
+    clearAllValidation() {
+        // Remove all validation classes and error messages
+        Object.keys(this.fields).forEach(fieldName => {
+            const field = document.getElementById(fieldName);
+            if (field) {
+                field.classList.remove('valid', 'invalid');
+            }
+            this.removeFieldError(fieldName);
+        });
+    }
+
+    showFormMessage(type, message) {
+        this.formMessage.className = `form-message ${type}`;
+        this.formMessage.innerHTML = message;
+        this.formMessage.style.display = 'block';
+
+        // Hide message after 5 seconds for non-success messages
+        if (type !== 'success') {
+            setTimeout(() => {
+                this.formMessage.style.display = 'none';
+            }, 5000);
+        }
+    }
 }
 
-function showFormMessage(type, message) {
-    formMessage.className = `form-message ${type}`;
-    formMessage.innerHTML = message;
-    formMessage.style.display = 'block';
-
-    // Hide message after 5 seconds
-    setTimeout(() => {
-        formMessage.style.display = 'none';
-    }, 5000);
-}
+// Initialize real-time form validation
+const formValidator = new RealTimeFormValidator('contactForm', 'formMessage');
 
 // Phone number formatting
 const telefoneInput = document.getElementById('telefone');
