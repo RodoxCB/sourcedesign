@@ -1150,6 +1150,13 @@ p {
     font-weight: 500;
 }
 
+/* reCAPTCHA styles */
+.g-recaptcha {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
 .submit-button {
     width: 100%;
     padding: clamp(0.875rem, 3vw, 1rem);

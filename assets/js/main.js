@@ -400,47 +400,90 @@ class RealTimeFormValidator {
             return;
         }
 
+        // Check reCAPTCHA
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+            this.showFormMessage('error', 'Por favor, complete a verificação de segurança.');
+            return;
+        }
+
+        // Show loading state
+        this.showFormMessage('info', 'Enviando mensagem...');
+        const submitButton = this.form.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<span>Enviando...</span><i class="fas fa-spinner fa-spin"></i>';
+
         // Get form values
-        const nome = document.getElementById('nome').value.trim();
-        const empresa = document.getElementById('empresa').value.trim();
-        const telefone = document.getElementById('telefone').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const mensagem = document.getElementById('mensagem').value.trim();
+        const formData = {
+            nome: document.getElementById('nome').value.trim(),
+            empresa: document.getElementById('empresa').value.trim(),
+            telefone: document.getElementById('telefone').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            mensagem: document.getElementById('mensagem').value.trim(),
+            recaptcha: recaptchaResponse
+        };
 
-        // Create WhatsApp message
-        const whatsappMessage = `Olá! Sou ${nome}${empresa ? ` da empresa ${empresa}` : ''}.
+        // Send to server-side function
+        fetch('/.netlify/functions/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                this.showFormMessage('success', data.message);
 
-Gostaria de solicitar informações sobre seus serviços de design gráfico.
+                // Create WhatsApp button for user to click
+                if (data.whatsappUrl) {
+                    const whatsappButton = document.createElement('a');
+                    whatsappButton.href = data.whatsappUrl;
+                    whatsappButton.target = '_blank';
+                    whatsappButton.className = 'whatsapp-link';
+                    whatsappButton.innerHTML = '<i class="fab fa-whatsapp"></i> Continuar conversa no WhatsApp';
+                    whatsappButton.style.cssText = `
+                        display: inline-block;
+                        margin-top: 1rem;
+                        padding: 0.75rem 1.5rem;
+                        background-color: #25D366;
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 8px;
+                        font-weight: 500;
+                        transition: background-color 0.3s ease;
+                    `;
+                    whatsappButton.onmouseover = () => whatsappButton.style.backgroundColor = '#128C7E';
+                    whatsappButton.onmouseout = () => whatsappButton.style.backgroundColor = '#25D366';
 
-📋 *Dados do contato:*
-• Nome: ${nome}
-• Empresa: ${empresa || 'Não informado'}
-• Telefone: ${telefone}
-• E-mail: ${email}
+                    this.formMessage.appendChild(whatsappButton);
 
-💬 *Mensagem:*
-${mensagem}
+                    // Auto-redirect to WhatsApp after 3 seconds
+                    setTimeout(() => {
+                        if (data.whatsappUrl) {
+                            window.open(data.whatsappUrl, '_blank');
+                        }
+                    }, 3000);
+                }
 
-Aguardo seu contato! Obrigado.`;
-
-        // Encode message for WhatsApp URL
-        const encodedMessage = encodeURIComponent(whatsappMessage);
-
-        // WhatsApp URL
-        const whatsappUrl = `https://wa.me/5527996019833?text=${encodedMessage}`;
-
-        // Show success message
-        this.showFormMessage('success', 'Abrindo WhatsApp...');
-
-        // Open WhatsApp after a short delay
-        setTimeout(() => {
-            window.open(whatsappUrl, '_blank');
-            this.showFormMessage('success', 'Mensagem enviada com sucesso! Conversa aberta no WhatsApp.');
-
-            // Reset form and clear validation states
-            this.form.reset();
-            this.clearAllValidation();
-        }, 1000);
+                // Reset form
+                this.form.reset();
+                this.clearAllValidation();
+                grecaptcha.reset(); // Reset reCAPTCHA
+            } else {
+                this.showFormMessage('error', data.errors ? data.errors.join('<br>') : 'Erro ao enviar mensagem');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            this.showFormMessage('error', 'Erro de conexão. Tente novamente.');
+        })
+        .finally(() => {
+            // Reset button state
+            submitButton.disabled = false;
+            submitButton.innerHTML = '<span>Enviar mensagem</span><i class="fas fa-paper-plane"></i>';
+        });
     }
 
     clearAllValidation() {
