@@ -1,0 +1,7 @@
+<svg width="400" height="250" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="250" fill="#1a1a1a"/>
+  <rect x="20" y="20" width="360" height="210" fill="#333" rx="8"/>
+  <circle cx="200" cy="125" r="40" fill="#666"/>
+  <polygon points="185,105 185,145 225,125" fill="#fff"/>
+  <text x="200" y="200" text-anchor="middle" fill="#999" font-family="Arial, sans-serif" font-size="14">Vídeo Institucional</text>
+</svg>

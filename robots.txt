@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://designvisual.com.br/sitemap.xml
+Sitemap: https://sourcedesign.com.br/sitemap.xml
