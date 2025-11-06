@@ -77,6 +77,7 @@ p {
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.95);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.95) 100%);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -1549,13 +1550,18 @@ p {
 }
 
 .portfolio-item {
-    display: none;
     width: 100%;
     max-width: 400px;
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .portfolio-item.show {
-    display: block;
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
 }
 
 .portfolio-card {
