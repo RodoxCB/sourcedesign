@@ -35,24 +35,73 @@ class PortfolioManager {
     }
 
     filterItems(filter) {
-        // Hide all items first
-        this.portfolioItems.forEach(item => {
-            item.classList.remove('show');
-        });
-
         if (filter === 'all') {
-            this.filteredItems = Array.from(this.portfolioItems);
-            this.portfolioItems.forEach(item => {
-                item.classList.add('show');
-            });
+            // Mostrar todos os items na ordem original, mas com identidade visual primeiro
+            const identityItems = Array.from(this.portfolioItems).filter(item =>
+                item.getAttribute('data-category') === 'identity'
+            );
+            const otherItems = Array.from(this.portfolioItems).filter(item =>
+                item.getAttribute('data-category') !== 'identity'
+            );
+            this.filteredItems = [...identityItems, ...otherItems];
+            this.animateGridReorder(this.filteredItems);
         } else {
+            // Filtrar apenas items da categoria selecionada
             this.filteredItems = Array.from(this.portfolioItems).filter(item => {
                 return item.getAttribute('data-category') === filter;
             });
-            this.filteredItems.forEach(item => {
-                item.classList.add('show');
-            });
+            this.animateGridReorder(this.filteredItems);
         }
+    }
+
+
+    animateGridReorder(visibleItems) {
+        // Iniciar animação imediatamente
+        setTimeout(() => {
+            // ESTADO 0: Tornar todos os cards invisíveis INSTANTANEAMENTE
+            this.portfolioItems.forEach(item => {
+                item.style.transition = 'none'; // Desabilitar transições temporariamente
+                item.style.opacity = '0'; // Opacity 0 imediato
+                item.classList.remove('show');
+                item.style.order = '';
+            });
+
+            // Forçar reflow para aplicar mudanças imediatamente
+            this.portfolioItems[0].offsetHeight;
+
+            // ESTADO 1: Reordenar todos os cards (ainda invisíveis)
+            setTimeout(() => {
+                // Aplicar ordem a todos os cards
+                this.portfolioItems.forEach((item, index) => {
+                    if (visibleItems.includes(item)) {
+                        item.style.order = visibleItems.indexOf(item);
+                    } else {
+                        item.style.order = visibleItems.length + index; // Itens invisíveis vão para o final
+                    }
+                });
+
+                // ESTADO 2: Revelar apenas os cards visíveis
+                setTimeout(() => {
+                    // Reabilitar transições apenas para os cards que vão aparecer
+                    visibleItems.forEach(item => {
+                        item.style.transition = ''; // Restaurar transições CSS
+                        item.style.opacity = ''; // Remover opacity inline para usar CSS
+                        item.classList.add('show');
+                    });
+
+                    // Garantir que cards invisíveis permanecem invisíveis
+                    this.portfolioItems.forEach(item => {
+                        if (!visibleItems.includes(item)) {
+                            item.style.opacity = '0';
+                            item.classList.remove('show');
+                        }
+                    });
+
+                }, 50); // Pequeno delay para garantir ordem aplicada
+
+            }, 50); // Delay mínimo para reordenação
+
+        }, 100); // Pequeno delay antes de iniciar a animação
     }
 
     updateActiveFilter(activeButton) {
@@ -72,7 +121,17 @@ class PortfolioManager {
     setupModal() {
         // Setup click handlers for portfolio items
         this.portfolioItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
+            item.addEventListener('click', (e) => {
+                const externalLink = item.getAttribute('data-external-link');
+
+                if (externalLink) {
+                    // Handle external links (Behance projects)
+                    e.preventDefault();
+                    window.open(externalLink, '_blank', 'noopener,noreferrer');
+                    return;
+                }
+
+                // Handle internal modal for videos and images
                 this.openModal(index);
             });
         });
