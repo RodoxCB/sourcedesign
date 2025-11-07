@@ -263,6 +263,22 @@ animateElements.forEach(element => {
     observer.observe(element);
 });
 
+// Função para aguardar o carregamento do reCAPTCHA
+function waitForRecaptcha() {
+    return new Promise((resolve) => {
+        if (typeof grecaptcha !== 'undefined') {
+            resolve();
+        } else {
+            const checkRecaptcha = setInterval(() => {
+                if (typeof grecaptcha !== 'undefined') {
+                    clearInterval(checkRecaptcha);
+                    resolve();
+                }
+            }, 100);
+        }
+    });
+}
+
 // Real-time Form Validation and Submission
 class RealTimeFormValidator {
     constructor(formId, messageId) {
@@ -391,7 +407,7 @@ class RealTimeFormValidator {
         return allValid;
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         e.preventDefault();
 
         // Validate all fields
@@ -399,6 +415,9 @@ class RealTimeFormValidator {
             this.showFormMessage('error', 'Por favor, corrija os erros destacados antes de enviar.');
             return;
         }
+
+        // Wait for reCAPTCHA to be ready
+        await waitForRecaptcha();
 
         // Check reCAPTCHA
         const recaptchaResponse = grecaptcha.getResponse();

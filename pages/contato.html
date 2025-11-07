@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="icon" type="image/svg+xml" href="../assets/fav_icon/fav_icon_source_comunicacao.svg">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoad" async defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -174,7 +174,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="g-recaptcha" data-sitekey="6LeFvgQsAAAAAFEP4_dkJ1hxf0RUiP5NQwzc41vL"></div>
+                            <div id="recaptcha-container" class="g-recaptcha"></div>
                         </div>
 
                         <button type="submit" class="submit-button">
@@ -270,6 +270,13 @@
 
     <script src="../assets/js/main.js"></script>
     <script>
+        // Callback para renderizar reCAPTCHA explicitamente
+        function onRecaptchaLoad() {
+            grecaptcha.render('recaptcha-container', {
+                'sitekey': '6LeFvgQsAAAAAFEP4_dkJ1hxf0RUiP5NQwzc41vL'
+            });
+        }
+
         // Auto-focus no campo nome quando vier da página inicial
         document.addEventListener('DOMContentLoaded', function() {
             if (window.location.hash === '#formulario') {
