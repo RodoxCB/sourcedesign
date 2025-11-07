@@ -25,7 +25,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="icon" type="image/svg+xml" href="../assets/fav_icon/fav_icon_source_comunicacao.svg">
 </head>
@@ -60,7 +60,7 @@
         <div class="mobile-menu-overlay">
             <div class="mobile-menu-content">
                 <button class="mobile-menu-close" aria-label="Fechar menu">
-                    <i class="fas fa-times"></i>
+                    <i class="material-icons">close</i>
                 </button>
                 <ul class="mobile-nav-menu">
                     <li><a href="../index.html" class="mobile-nav-link">Home</a></li>
@@ -98,13 +98,13 @@
             <div class="portfolio-gallery" id="portfolioGallery">
 
                 <!-- Vídeos do Vimeo -->
-                <div class="portfolio-item video-item" data-category="video">
+                <div class="portfolio-item video-item" data-category="video" data-vimeo-id="410746288">
                     <div class="portfolio-card">
                         <div class="portfolio-media video-media">
                             <div class="video-thumbnail">
-                                <img src="../assets/images/portfolio/placeholder-video.svg" alt="Vídeo Institucional" loading="lazy">
+                                <img src="https://vumbnail.com/410746288.jpg" alt="Vídeo Institucional" loading="lazy">
                                 <div class="play-overlay">
-                                    <i class="fas fa-play"></i>
+                                    <i class="material-icons">play_arrow</i>
                                 </div>
                             </div>
                         </div>
@@ -116,19 +116,73 @@
                     </div>
                 </div>
 
-                <div class="portfolio-item video-item" data-category="video">
+                <div class="portfolio-item video-item" data-category="video" data-vimeo-id="410748388">
                     <div class="portfolio-card">
                         <div class="portfolio-media video-media">
                             <div class="video-thumbnail">
-                                <img src="../assets/images/portfolio/placeholder-video.svg" alt="Vídeo Promocional" loading="lazy">
+                                <img src="https://vumbnail.com/410748388.jpg" alt="Vídeo Corporativo" loading="lazy">
                                 <div class="play-overlay">
-                                    <i class="fas fa-play"></i>
+                                    <i class="material-icons">play_arrow</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Vídeo Corporativo</h3>
+                            <p>Vídeo corporativo destacando valores e missão da empresa.</p>
+                            <span class="portfolio-category">Vídeo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item video-item" data-category="video" data-vimeo-id="311972532">
+                    <div class="portfolio-card">
+                        <div class="portfolio-media video-media">
+                            <div class="video-thumbnail">
+                                <img src="https://vumbnail.com/311972532.jpg" alt="Vídeo Promocional" loading="lazy">
+                                <div class="play-overlay">
+                                    <i class="material-icons">play_arrow</i>
                                 </div>
                             </div>
                         </div>
                         <div class="portfolio-info">
                             <h3>Vídeo Promocional</h3>
                             <p>Vídeo promocional para lançamento de produtos e serviços.</p>
+                            <span class="portfolio-category">Vídeo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item video-item" data-category="video" data-vimeo-id="507697509">
+                    <div class="portfolio-card">
+                        <div class="portfolio-media video-media">
+                            <div class="video-thumbnail">
+                                <img src="https://vumbnail.com/507697509.jpg" alt="Vídeo Institucional Empresarial" loading="lazy">
+                                <div class="play-overlay">
+                                    <i class="material-icons">play_arrow</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Vídeo Institucional Empresarial</h3>
+                            <p>Apresentação completa da empresa, seus produtos e diferenciais no mercado.</p>
+                            <span class="portfolio-category">Vídeo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item video-item" data-category="video" data-vimeo-id="311971499">
+                    <div class="portfolio-card">
+                        <div class="portfolio-media video-media">
+                            <div class="video-thumbnail">
+                                <img src="https://vumbnail.com/311971499.jpg" alt="Vídeo de Apresentação" loading="lazy">
+                                <div class="play-overlay">
+                                    <i class="material-icons">play_arrow</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Vídeo de Apresentação</h3>
+                            <p>Vídeo de apresentação profissional para eventos e reuniões corporativas.</p>
                             <span class="portfolio-category">Vídeo</span>
                         </div>
                     </div>
@@ -209,7 +263,7 @@
         <div class="modal-overlay" id="modalOverlay"></div>
         <div class="modal-content">
             <button class="modal-close" id="modalClose">
-                <i class="fas fa-times"></i>
+                <i class="material-icons">close</i>
             </button>
 
             <div class="modal-media" id="modalMedia">
@@ -224,10 +278,10 @@
 
             <div class="modal-navigation">
                 <button class="nav-btn prev-btn" id="prevBtn">
-                    <i class="fas fa-chevron-left"></i>
+                    <i class="material-icons">chevron_left</i>
                 </button>
                 <button class="nav-btn next-btn" id="nextBtn">
-                    <i class="fas fa-chevron-right"></i>
+                    <i class="material-icons">chevron_right</i>
                 </button>
             </div>
         </div>
@@ -267,15 +321,15 @@
                 <div class="footer-section">
                     <h3>Contato</h3>
                     <ul class="contact-info">
-                        <li><i class="fas fa-envelope"></i> contato@sourcedesign.com.br</li>
-                        <li><i class="fab fa-whatsapp"></i> (27) 99601-9833</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Guarapari/ES</li>
+                        <li><span class="emoji-icon">📧</span> contato@sourcedesign.com.br</li>
+                        <li><span class="emoji-icon">📱</span> (27) 99601-9833</li>
+                        <li><span class="emoji-icon">📍</span> Guarapari/ES</li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Redes Sociais</h3>
                     <div class="social-links">
-                        <a href="https://www.instagram.com/source.comunica/?igsh=ZjU4ZHVndnJkaTN2#" target="_blank" aria-label="Instagram" rel="noopener"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/sourcedesign/" target="_blank" aria-label="Instagram" rel="noopener"><i class="material-icons">photo_camera</i></a>
                     </div>
                 </div>
             </div>

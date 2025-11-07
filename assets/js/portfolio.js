@@ -127,8 +127,24 @@ class PortfolioManager {
         const description = item.querySelector('p').textContent;
         const category = item.querySelector('.portfolio-category').textContent;
 
-        // Update modal content
-        this.modalMedia.innerHTML = media.innerHTML;
+        // Check if this is a Vimeo video
+        const vimeoId = item.getAttribute('data-vimeo-id');
+        if (vimeoId) {
+            // Create Vimeo embed for videos
+            this.modalMedia.innerHTML = `
+                <iframe src="https://player.vimeo.com/video/${vimeoId}"
+                        width="100%"
+                        height="100%"
+                        frameborder="0"
+                        allow="autoplay; fullscreen"
+                        allowfullscreen>
+                </iframe>
+            `;
+        } else {
+            // Copy media content for images
+            this.modalMedia.innerHTML = media.innerHTML;
+        }
+
         this.modalTitle.textContent = title;
         this.modalDescription.textContent = description;
         this.modalCategory.textContent = category;
