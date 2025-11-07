@@ -1,0 +1,8 @@
+{
+  "name": "site-institucional-v1",
+  "version": "1.0.0",
+  "description": "Site institucional da Source Comunicação e Design",
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  }
+}
