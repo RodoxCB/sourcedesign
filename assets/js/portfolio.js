@@ -14,6 +14,8 @@ class PortfolioManager {
         this.nextBtn = document.getElementById('nextBtn');
         this.currentIndex = 0;
         this.filteredItems = [];
+        this.currentGalleryIndex = 0;
+        this.currentGallery = [];
 
         this.init();
     }
@@ -119,20 +121,33 @@ class PortfolioManager {
     }
 
     setupModal() {
-        // Setup click handlers for portfolio items
-        this.portfolioItems.forEach((item, index) => {
+        // Setup click and keyboard handlers for portfolio items
+        this.portfolioItems.forEach((item, originalIndex) => {
+            // Click handler
             item.addEventListener('click', (e) => {
-                const externalLink = item.getAttribute('data-external-link');
+                const galleryData = item.getAttribute('data-gallery');
 
-                if (externalLink) {
-                    // Handle external links (Behance projects)
+                // Find the current index in filteredItems
+                const currentIndex = this.filteredItems.indexOf(item);
+
+                if (galleryData) {
+                    // Handle gallery modal
                     e.preventDefault();
-                    window.open(externalLink, '_blank', 'noopener,noreferrer');
+                    this.openModal(currentIndex);
                     return;
                 }
 
-                // Handle internal modal for videos and images
-                this.openModal(index);
+                // Handle internal modal for videos
+                this.openModal(currentIndex);
+            });
+
+            // Keyboard handler for accessibility
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const currentIndex = this.filteredItems.indexOf(item);
+                    this.openModal(currentIndex);
+                }
             });
         });
 
@@ -162,11 +177,22 @@ class PortfolioManager {
         document.addEventListener('keydown', (e) => {
             if (this.modal && this.modal.classList.contains('active')) {
                 if (e.key === 'Escape') {
+                    e.preventDefault();
                     this.closeModal();
                 } else if (e.key === 'ArrowLeft') {
-                    this.navigateModal(-1);
+                    e.preventDefault();
+                    if (this.currentGallery.length > 0) {
+                        this.navigateGallery(-1);
+                    } else {
+                        this.navigateModal(-1);
+                    }
                 } else if (e.key === 'ArrowRight') {
-                    this.navigateModal(1);
+                    e.preventDefault();
+                    if (this.currentGallery.length > 0) {
+                        this.navigateGallery(1);
+                    } else {
+                        this.navigateModal(1);
+                    }
                 }
             }
         });
@@ -180,14 +206,19 @@ class PortfolioManager {
 
         if (!item) return;
 
+        // Store reference to the element that triggered the modal for focus management
+        this.lastFocusedElement = document.activeElement;
+
         // Get item data
         const media = item.querySelector('.portfolio-media');
         const title = item.querySelector('h3').textContent;
         const description = item.querySelector('p').textContent;
         const category = item.querySelector('.portfolio-category').textContent;
 
-        // Check if this is a Vimeo video
+        // Check if this is a Vimeo video or gallery
         const vimeoId = item.getAttribute('data-vimeo-id');
+        const galleryData = item.getAttribute('data-gallery');
+
         if (vimeoId) {
             // Create Vimeo embed for videos
             this.modalMedia.innerHTML = `
@@ -199,6 +230,11 @@ class PortfolioManager {
                         allowfullscreen>
                 </iframe>
             `;
+        } else if (galleryData) {
+            // Handle gallery modal
+            this.currentGallery = JSON.parse(galleryData);
+            this.currentGalleryIndex = 0;
+            this.renderGallery();
         } else {
             // Copy media content for images
             this.modalMedia.innerHTML = media.innerHTML;
@@ -208,17 +244,114 @@ class PortfolioManager {
         this.modalDescription.textContent = description;
         this.modalCategory.textContent = category;
 
+        // Update modal ARIA attributes
+        this.modal.setAttribute('aria-hidden', 'false');
+        this.modalOverlay.setAttribute('aria-hidden', 'false');
+
+        // Announce modal opening to screen readers
+        const announcer = document.getElementById('galleryAnnouncer');
+        if (announcer) {
+            announcer.textContent = `Galeria aberta: ${title}`;
+        }
+
         // Show modal
         this.modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+
+        // Move focus to modal close button for keyboard navigation
+        if (this.modalClose) {
+            setTimeout(() => {
+                this.modalClose.focus();
+            }, 100);
+        }
 
         // Update navigation buttons
         this.updateNavigationButtons();
     }
 
+    renderGallery() {
+        if (!this.currentGallery.length) return;
+
+        const currentImage = this.currentGallery[this.currentGalleryIndex];
+        const totalImages = this.currentGallery.length;
+
+        this.modalMedia.innerHTML = `
+            <div class="gallery-container">
+                <img src="${currentImage.url}"
+                     alt="${currentImage.alt}"
+                     class="gallery-image"
+                     loading="lazy">
+                ${totalImages > 1 ? `
+                    <div class="gallery-counter">
+                        ${this.currentGalleryIndex + 1} / ${totalImages}
+                    </div>
+                    <button class="gallery-nav-btn gallery-prev" aria-label="Imagem anterior" tabindex="0">
+                        <i class="material-icons">chevron_left</i>
+                    </button>
+                    <button class="gallery-nav-btn gallery-next" aria-label="Próxima imagem" tabindex="0">
+                        <i class="material-icons">chevron_right</i>
+                    </button>
+                ` : ''}
+            </div>
+        `;
+
+        // Announce current image to screen readers
+        const announcer = document.getElementById('galleryAnnouncer');
+        if (announcer) {
+            announcer.textContent = `Imagem ${this.currentGalleryIndex + 1} de ${totalImages}: ${currentImage.alt}`;
+        }
+
+        // Attach event listeners para navegação da galeria
+        if (totalImages > 1) {
+            this.modalMedia.querySelector('.gallery-prev').addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.navigateGallery(-1);
+            });
+
+            this.modalMedia.querySelector('.gallery-next').addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.navigateGallery(1);
+            });
+        }
+    }
+
+    navigateGallery(direction) {
+        if (!this.currentGallery.length) return;
+
+        this.currentGalleryIndex += direction;
+
+        // Loop circular
+        if (this.currentGalleryIndex < 0) {
+            this.currentGalleryIndex = this.currentGallery.length - 1;
+        } else if (this.currentGalleryIndex >= this.currentGallery.length) {
+            this.currentGalleryIndex = 0;
+        }
+
+        this.renderGallery();
+    }
+
     closeModal() {
+        // Update modal ARIA attributes
+        this.modal.setAttribute('aria-hidden', 'true');
+        this.modalOverlay.setAttribute('aria-hidden', 'true');
+
+        // Clear announcer
+        const announcer = document.getElementById('galleryAnnouncer');
+        if (announcer) {
+            announcer.textContent = '';
+        }
+
         this.modal.classList.remove('active');
         document.body.style.overflow = '';
+        this.currentGallery = [];
+        this.currentGalleryIndex = 0;
+
+        // Restore focus to the element that triggered the modal
+        if (this.lastFocusedElement) {
+            setTimeout(() => {
+                this.lastFocusedElement.focus();
+            }, 100);
+        }
     }
 
     navigateModal(direction) {
