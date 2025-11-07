@@ -11,7 +11,8 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:netlify-cli@^23.10.0"
+        "npm:netlify-cli@^23.10.0",
+        "npm:nodemailer@^6.9.7"
       ]
     }
   }

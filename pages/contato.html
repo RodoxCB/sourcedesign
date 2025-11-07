@@ -28,6 +28,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="icon" type="image/svg+xml" href="../assets/fav_icon/fav_icon_source_comunicacao.svg">
+
+    <!-- Carregar a configuração do reCAPTCHA primeiro -->
+    <script src="../assets/js/recaptcha-config.js"></script>
+
+    <!-- Carregar o script do reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoad" async defer></script>
 </head>
 <body>
@@ -272,8 +277,13 @@
     <script>
         // Callback para renderizar reCAPTCHA explicitamente
         function onRecaptchaLoad() {
+            // Usar a chave injetada dinamicamente
             grecaptcha.render('recaptcha-container', {
-                'sitekey': '6LeFvgQsAAAAAFEP4_dkJ1hxf0RUiP5NQwzc41vL'
+                'sitekey': window.RECAPTCHA_CONFIG.siteKey,
+                'theme': window.RECAPTCHA_CONFIG.theme,
+                'size': window.RECAPTCHA_CONFIG.size,
+                'callback': window.RECAPTCHA_CONFIG.callback,
+                'expired-callback': window.RECAPTCHA_CONFIG['expired-callback']
             });
         }
 
