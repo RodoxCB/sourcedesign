@@ -430,7 +430,7 @@ class RealTimeFormValidator {
         this.showFormMessage('info', 'Enviando mensagem...');
         const submitButton = this.form.querySelector('button[type="submit"]');
         submitButton.disabled = true;
-        submitButton.innerHTML = '<span>Enviando...</span><i class="fas fa-spinner fa-spin"></i>';
+        submitButton.innerHTML = '<span>Enviando...</span><i class="material-icons spinning">refresh</i>';
 
         // Get form values
         const formData = {
@@ -461,7 +461,7 @@ class RealTimeFormValidator {
                     whatsappButton.href = data.whatsappUrl;
                     whatsappButton.target = '_blank';
                     whatsappButton.className = 'whatsapp-link';
-                    whatsappButton.innerHTML = '<i class="fab fa-whatsapp"></i> Continuar conversa no WhatsApp';
+                    whatsappButton.innerHTML = '<i class="material-icons">phone</i> Continuar conversa no WhatsApp';
                     whatsappButton.style.cssText = `
                         display: inline-block;
                         margin-top: 1rem;
@@ -501,7 +501,7 @@ class RealTimeFormValidator {
         .finally(() => {
             // Reset button state
             submitButton.disabled = false;
-            submitButton.innerHTML = '<span>Enviar mensagem</span><i class="fas fa-paper-plane"></i>';
+            submitButton.innerHTML = '<span>Enviar mensagem</span><i class="material-icons">send</i>';
         });
     }
 
