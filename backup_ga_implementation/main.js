@@ -214,11 +214,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize accessible mobile menu
     new AccessibleMobileMenu();
 
-    // Initialize cookie consent
-    if (typeof CookieConsent !== 'undefined') {
-        CookieConsent.init();
-    }
-
     // Add loading class to body
     document.body.classList.add('loaded');
 
@@ -427,11 +422,6 @@ class RealTimeFormValidator {
     async handleSubmit(e) {
         e.preventDefault();
 
-        // Track form submission attempt
-        if (typeof AnalyticsTracker !== 'undefined') {
-            AnalyticsTracker.trackFormSubmission('contact_email');
-        }
-
         // Validate all fields
         if (!this.validateAllFields()) {
             this.showFormMessage('error', 'Por favor, corrija os erros destacados antes de enviar.');
@@ -499,11 +489,6 @@ class RealTimeFormValidator {
 
     async handleWhatsAppSubmit(e) {
         e.preventDefault();
-
-        // Track WhatsApp form submission
-        if (typeof AnalyticsTracker !== 'undefined') {
-            AnalyticsTracker.trackFormSubmission('contact_whatsapp');
-        }
 
         // Validate all fields
         if (!this.validateAllFields()) {
@@ -588,26 +573,6 @@ class RealTimeFormValidator {
 
 // Initialize real-time form validation
 const formValidator = new RealTimeFormValidator('contactForm', 'formMessage');
-
-// Analytics Integration
-if (typeof AnalyticsTracker !== 'undefined') {
-    // Track service card interactions
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const serviceName = this.querySelector('h3').textContent;
-            AnalyticsTracker.trackServiceView(serviceName);
-        });
-    });
-
-    // Track CTA button clicks
-    const ctaButtons = document.querySelectorAll('.cta-button');
-    ctaButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            AnalyticsTracker.trackButtonClick('cta_main');
-        });
-    });
-}
 
 
 // Phone number formatting
