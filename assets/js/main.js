@@ -322,8 +322,20 @@ class RealTimeFormValidator {
             }
         });
 
-        // Handle form submission
+        // Handle form submission (fallback para Enter key)
         this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+
+        // NOVO: Event listeners para os dois botões
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const emailBtn = document.getElementById('emailBtn');
+
+        if (whatsappBtn) {
+            whatsappBtn.addEventListener('click', (e) => this.handleWhatsAppSubmit(e));
+        }
+
+        if (emailBtn) {
+            emailBtn.addEventListener('click', (e) => this.handleSubmit(e));
+        }
     }
 
     validateField(fieldName, showErrors = false) {
@@ -428,9 +440,9 @@ class RealTimeFormValidator {
 
         // Show loading state
         this.showFormMessage('info', 'Enviando mensagem...');
-        const submitButton = this.form.querySelector('button[type="submit"]');
-        submitButton.disabled = true;
-        submitButton.innerHTML = '<span>Enviando...</span><i class="material-icons spinning">refresh</i>';
+        const emailBtn = document.getElementById('emailBtn');
+        emailBtn.disabled = true;
+        emailBtn.innerHTML = '<span>Enviando...</span><i class="material-icons spinning">refresh</i>';
 
         // Get form values
         const formData = {
@@ -453,38 +465,8 @@ class RealTimeFormValidator {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                this.showFormMessage('success', data.message);
-
-                // Create WhatsApp button for user to click
-                if (data.whatsappUrl) {
-                    const whatsappButton = document.createElement('a');
-                    whatsappButton.href = data.whatsappUrl;
-                    whatsappButton.target = '_blank';
-                    whatsappButton.className = 'whatsapp-link';
-                    whatsappButton.innerHTML = '<i class="material-icons">phone</i> Continuar conversa no WhatsApp';
-                    whatsappButton.style.cssText = `
-                        display: inline-block;
-                        margin-top: 1rem;
-                        padding: 0.75rem 1.5rem;
-                        background-color: #25D366;
-                        color: white;
-                        text-decoration: none;
-                        border-radius: 8px;
-                        font-weight: 500;
-                        transition: background-color 0.3s ease;
-                    `;
-                    whatsappButton.onmouseover = () => whatsappButton.style.backgroundColor = '#128C7E';
-                    whatsappButton.onmouseout = () => whatsappButton.style.backgroundColor = '#25D366';
-
-                    this.formMessage.appendChild(whatsappButton);
-
-                    // Auto-redirect to WhatsApp after 3 seconds
-                    setTimeout(() => {
-                        if (data.whatsappUrl) {
-                            window.open(data.whatsappUrl, '_blank');
-                        }
-                    }, 3000);
-                }
+                // Apenas mostrar mensagem de sucesso
+                this.showFormMessage('success', 'Mensagem enviada com sucesso! Entraremos em contato em breve.');
 
                 // Reset form
                 this.form.reset();
@@ -500,9 +482,68 @@ class RealTimeFormValidator {
         })
         .finally(() => {
             // Reset button state
-            submitButton.disabled = false;
-            submitButton.innerHTML = '<span>Enviar mensagem</span><i class="material-icons">send</i>';
+            emailBtn.disabled = false;
+            emailBtn.innerHTML = '<span>Enviar via E-mail</span><i class="material-icons">email</i>';
         });
+    }
+
+    async handleWhatsAppSubmit(e) {
+        e.preventDefault();
+
+        // Validate all fields
+        if (!this.validateAllFields()) {
+            this.showFormMessage('error', 'Por favor, corrija os erros destacados antes de enviar.');
+            return;
+        }
+
+        // Wait for reCAPTCHA to be ready
+        await waitForRecaptcha();
+
+        // Check reCAPTCHA
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+            this.showFormMessage('error', 'Por favor, complete a verificação de segurança.');
+            return;
+        }
+
+        // Show loading state
+        this.showFormMessage('info', 'Abrindo WhatsApp...');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        whatsappBtn.disabled = true;
+        whatsappBtn.innerHTML = '<span>Conectando...</span><i class="material-icons spinning">refresh</i>';
+
+        // Get form values
+        const nome = document.getElementById('nome').value.trim();
+        const empresa = document.getElementById('empresa').value.trim();
+        const telefone = document.getElementById('telefone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const mensagem = document.getElementById('mensagem').value.trim();
+
+        // Create WhatsApp message
+        const whatsappMessage = `*Novo contato via site Source Design*\n\n` +
+            `*Nome:* ${nome}\n` +
+            `*Empresa:* ${empresa || 'Não informado'}\n` +
+            `*Telefone:* ${telefone}\n` +
+            `*E-mail:* ${email}\n\n` +
+            `*Mensagem:*\n${mensagem}`;
+
+        // Create WhatsApp URL
+        const whatsappUrl = `https://wa.me/5527996019833?text=${encodeURIComponent(whatsappMessage)}`;
+
+        // Open WhatsApp
+        window.open(whatsappUrl, '_blank');
+
+        // Show success message
+        this.showFormMessage('success', 'WhatsApp aberto! Converse conosco sobre seu projeto.');
+
+        // Reset form
+        this.form.reset();
+        this.clearAllValidation();
+        grecaptcha.reset();
+
+        // Reset button state
+        whatsappBtn.disabled = false;
+        whatsappBtn.innerHTML = '<span>Enviar via WhatsApp</span><i class="material-icons">phone</i>';
     }
 
     clearAllValidation() {

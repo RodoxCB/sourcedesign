@@ -23,13 +23,6 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Emoji Icons */
-.emoji-icon {
-    font-size: 1em;
-    line-height: 1;
-    display: inline-block;
-    vertical-align: middle;
-}
 
 /* Spinner Animation */
 .spinning {
@@ -648,8 +641,7 @@ p {
 }
 
 .service-icon i,
-.service-icon .material-icons,
-.service-icon .emoji-icon {
+.service-icon .material-icons {
     font-size: clamp(1.5rem, 8vw, 2rem);
     color: var(--color-text-primary);
 }
@@ -696,8 +688,7 @@ p {
 }
 
 .benefit-icon i,
-.benefit-icon .material-icons,
-.benefit-icon .emoji-icon {
+.benefit-icon .material-icons {
     font-size: clamp(1.75rem, 10vw, 2rem);
     color: var(--color-text-primary);
 }
@@ -770,7 +761,7 @@ p {
 /* CTA Section */
 .cta-section {
     padding: 80px 0;
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(8, 145, 178, 0.1) 50%, var(--color-bg-dark) 100%);
+    background: linear-gradient(to bottom, var(--color-bg-darker) 0%, rgba(8, 145, 178, 0.25) 50%, rgba(6, 182, 212, 0.25) 100%);
     position: relative;
 }
 
@@ -781,7 +772,7 @@ p {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -869,8 +860,7 @@ p {
 }
 
 .service-icon-large i,
-.service-icon-large .material-icons,
-.service-icon-large .emoji-icon {
+.service-icon-large .material-icons {
     font-size: 2.5rem;
     color: var(--color-text-primary);
 }
@@ -1020,8 +1010,7 @@ p {
 }
 
 .diferencial-icon i,
-.diferencial-icon .material-icons,
-.diferencial-icon .emoji-icon {
+.diferencial-icon .material-icons {
     font-size: 2rem;
     color: var(--color-text-primary);
 }
@@ -1115,8 +1104,7 @@ p {
 }
 
 .method-icon i,
-.method-icon .material-icons,
-.method-icon .emoji-icon {
+.method-icon .material-icons {
     font-size: 1.5rem;
     color: var(--color-text-primary);
 }
@@ -1258,6 +1246,84 @@ p {
     border-color: #059669;
     box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
     transform: translateY(-2px);
+}
+
+/* Container para os botões */
+.form-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Botão WhatsApp */
+.whatsapp-button {
+    flex: 1;
+    background-color: #25D366 !important;
+    border-color: #25D366 !important;
+    color: white !important;
+}
+
+.whatsapp-button:hover {
+    background-color: #128C7E !important;
+    border-color: #128C7E !important;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    transform: translateY(-2px);
+}
+
+.whatsapp-button:disabled {
+    background-color: #cccccc !important;
+    border-color: #cccccc !important;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Botão E-mail */
+.email-button {
+    flex: 1;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white !important;
+}
+
+.email-button:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+    transform: translateY(-2px);
+}
+
+.email-button:disabled {
+    background-color: #cccccc !important;
+    border-color: #cccccc !important;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Responsividade - Mobile */
+@media (max-width: 768px) {
+    .form-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .whatsapp-button,
+    .email-button {
+        width: 100%;
+        flex: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-buttons {
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .whatsapp-button,
+    .email-button {
+        padding: 0.875rem 1rem;
+        font-size: 0.95rem;
+    }
 }
 
 .form-message {
@@ -1615,8 +1681,7 @@ p {
     }
 
     .service-icon-large i,
-    .service-icon-large .material-icons,
-    .service-icon-large .emoji-icon {
+    .service-icon-large .material-icons {
         font-size: 2rem;
     }
 }
@@ -1691,8 +1756,7 @@ p {
 }
 
 .portfolio-icon i,
-.portfolio-icon .material-icons,
-.portfolio-icon .emoji-icon {
+.portfolio-icon .material-icons {
     font-size: clamp(1.5rem, 8vw, 2rem);
     color: var(--color-text-primary);
 }
