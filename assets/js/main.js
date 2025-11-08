@@ -574,6 +574,24 @@ class RealTimeFormValidator {
 // Initialize real-time form validation
 const formValidator = new RealTimeFormValidator('contactForm', 'formMessage');
 
+// Auto-fill name field from URL parameter
+function autoFillNameField() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const nomeParam = urlParams.get('nome');
+
+    if (nomeParam) {
+        const nomeInput = document.getElementById('nome');
+        if (nomeInput) {
+            // Decode URL parameter and replace + with spaces
+            const decodedName = decodeURIComponent(nomeParam).replace(/\+/g, ' ');
+            nomeInput.value = decodedName;
+        }
+    }
+}
+
+// Call auto-fill function when page loads
+document.addEventListener('DOMContentLoaded', autoFillNameField);
+
 // Phone number formatting
 const telefoneInput = document.getElementById('telefone');
 if (telefoneInput) {

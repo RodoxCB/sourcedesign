@@ -602,6 +602,8 @@ p {
     text-align: center;
     margin-bottom: 4rem;
     color: #FFFFFF;
+    position: relative;
+    z-index: 2;
 }
 
 .services-grid {
@@ -761,7 +763,7 @@ p {
 /* CTA Section */
 .cta-section {
     padding: 80px 0;
-    background: linear-gradient(to bottom, var(--color-bg-darker) 0%, rgba(8, 145, 178, 0.25) 50%, rgba(6, 182, 212, 0.25) 100%);
+    background: linear-gradient(to bottom, var(--color-bg-dark) 0%, rgba(8, 145, 178, 0.25) 50%, rgba(6, 182, 212, 0.25) 100%);
     position: relative;
 }
 
@@ -911,6 +913,65 @@ p {
     font-weight: bold;
     position: absolute;
     left: 0;
+}
+
+/* Service Contact Section */
+.service-contact-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    justify-content: space-between;
+}
+
+.service-contact-button {
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.service-features-section {
+    flex: 1;
+    max-width: 60%;
+}
+
+.service-contact-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-text-primary);
+    padding: 0.875rem 1.75rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    min-height: 44px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-contact-button:hover {
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(8, 145, 178, 0.4);
+    border-color: var(--color-primary-light);
+}
+
+.service-contact-button:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.3);
+}
+
+.service-contact-button:hover .material-icons {
+    transform: scale(1.1) rotate(5deg);
+    transition: transform 0.3s ease;
 }
 
 /* About Section */
@@ -1101,6 +1162,7 @@ p {
     border: 2px solid var(--color-border);
     flex-shrink: 0;
     box-shadow: 0 2px 10px rgba(6, 182, 212, 0.2);
+    cursor: default;
 }
 
 .method-icon i,
@@ -1350,12 +1412,27 @@ p {
 .faq-section {
     padding: 80px 0;
     background-color: var(--color-bg-darker);
+    position: relative;
+}
+
+.faq-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, var(--color-bg-dark) 0%, var(--color-bg-darker) 100%);
+    pointer-events: none;
+    z-index: 1;
 }
 
 .faq-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 2rem;
+    position: relative;
+    z-index: 2;
 }
 
 .faq-item {
@@ -1678,6 +1755,23 @@ p {
     .service-icon-large {
         width: 80px;
         height: 80px;
+    }
+
+    .service-contact-section {
+        margin-top: 1.5rem;
+        padding-top: 1.25rem;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .service-contact-button {
+        width: 100%;
+        max-width: 280px;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        margin-left: 0;
     }
 
     .service-icon-large i,
@@ -2125,6 +2219,7 @@ p {
 
 .modal-info h3 {
     margin: 0 0 1rem 0;
+    padding-top: 1rem;
     color: var(--color-text-primary);
     font-size: 1.5rem;
 }
