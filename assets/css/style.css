@@ -66,8 +66,8 @@
     --color-warning: #F59E0B;
     
     /* Background Colors */
-    --color-bg-dark: #0A0612;
-    --color-bg-darker: #050308;
+    --color-bg-dark: #0f0f0f;
+    --color-bg-darker: #080808;
     --color-bg-card: #1A1333;
     --color-bg-card-hover: #251B47;
     
@@ -152,9 +152,9 @@ p {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(10, 6, 18, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(10, 6, 18, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--color-border);
     z-index: 1000;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -198,13 +198,18 @@ p {
 }
 
 .logo-text {
+    font-family: 'Lexend', sans-serif;
     font-size: clamp(1.25rem, 4vw, 1.75rem);
     font-weight: 700;
     color: #FFFFFF;
     display: inline-block;
+    margin-right: 0.25rem;
 }
 
 .logo-accent {
+    font-family: 'Lexend', sans-serif;
+    font-size: clamp(1.25rem, 4vw, 1.75rem);
+    font-weight: 100;
     color: var(--color-accent);
 }
 
@@ -460,6 +465,17 @@ p {
     pointer-events: none;
 }
 
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent 0%, var(--color-bg-dark) 100%);
+    pointer-events: none;
+}
+
 .hero-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -508,6 +524,19 @@ p {
     background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(8, 145, 178, 0.4);
+}
+
+.cta-button {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .hero-visual {
@@ -591,12 +620,12 @@ p {
 
 
 .service-card {
-    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(26, 19, 51, 0.8) 100%);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     padding: clamp(1.5rem, 4vw, 2rem);
     border-radius: 12px;
     text-align: center;
     transition: all 0.3s ease;
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--color-border);
 }
 
 .service-card:hover {
@@ -696,10 +725,10 @@ p {
 }
 
 .testimonial-card {
-    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(26, 19, 51, 0.8) 100%);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     padding: clamp(1.5rem, 4vw, 2rem);
     border-radius: 12px;
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--color-border);
     transition: all 0.3s ease;
 }
 
@@ -779,7 +808,7 @@ p {
 
 /* Page Header */
 .page-header {
-    padding: 120px 0 80px;
+    padding: 120px 0 40px;
     background-color: var(--color-bg-dark);
     text-align: center;
 }
@@ -796,7 +825,7 @@ p {
 
 /* Services Detailed Page */
 .services-detailed {
-    padding: 80px 0;
+    padding: 40px 0 80px;
     background-color: var(--color-bg-dark);
 }
 
@@ -807,10 +836,10 @@ p {
 }
 
 .service-item-detailed {
-    background-color: var(--color-bg-card);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     padding: 3rem;
     border-radius: 12px;
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--color-border);
     transition: transform 0.3s ease;
 }
 
@@ -926,13 +955,13 @@ p {
 .about-shape {
     width: 300px;
     height: 300px;
-    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(37, 27, 71, 0.8) 100%);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    border: 2px solid var(--color-border-light);
+    border: 2px solid var(--color-border);
     box-shadow: 0 4px 20px rgba(6, 182, 212, 0.2);
 }
 
@@ -964,11 +993,11 @@ p {
 }
 
 .diferencial-item {
-    background-color: var(--color-bg-card);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     padding: 2rem;
     border-radius: 12px;
     text-align: center;
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--color-border);
     transition: transform 0.3s ease;
 }
 
@@ -1075,12 +1104,12 @@ p {
 .method-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(37, 27, 71, 0.8) 100%);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid var(--color-border-light);
+    border: 2px solid var(--color-border);
     flex-shrink: 0;
     box-shadow: 0 2px 10px rgba(6, 182, 212, 0.2);
 }
@@ -1140,10 +1169,10 @@ p {
 
 /* Contact Form */
 .contact-form-container {
-    background-color: var(--color-bg-card);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     padding: 3rem;
     border-radius: 12px;
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--color-border);
 }
 
 .form-group {
@@ -1264,10 +1293,10 @@ p {
 }
 
 .faq-item {
-    background-color: var(--color-bg-card);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     padding: 2rem;
     border-radius: 12px;
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--color-border);
 }
 
 .faq-item h3 {
@@ -1302,9 +1331,6 @@ p {
     display: block;
 }
 
-.footer-logo span {
-    color: var(--color-text-muted);
-}
 
 .footer-section h3 {
     color: var(--color-text-primary);
@@ -1506,6 +1532,10 @@ p {
         font-size: 1.25rem;
     }
 
+    .logo-accent {
+        font-size: 1.25rem;
+    }
+
     .mobile-menu-toggle {
         width: 40px;
         height: 40px;
@@ -1635,12 +1665,12 @@ p {
 }
 
 .portfolio-card {
-    background-color: var(--color-bg-card);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     padding: clamp(1.5rem, 4vw, 2rem);
     border-radius: 12px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--color-border);
     min-height: 220px;
     display: flex;
     flex-direction: column;
@@ -1760,11 +1790,11 @@ p {
 }
 
 .portfolio-card {
-    background-color: var(--color-bg-card);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     border-radius: 12px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--color-border);
     cursor: pointer;
     height: 100%;
 }
@@ -1887,7 +1917,7 @@ p {
     position: relative;
     max-width: 90vw;
     max-height: 90vh;
-    background-color: var(--color-bg-card);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     border-radius: 12px;
     overflow: hidden;
     display: flex;
@@ -2025,7 +2055,7 @@ p {
 
 .modal-info {
     padding: 2rem;
-    background-color: var(--color-bg-card);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
     margin-top: 1.5rem;
 }
 
