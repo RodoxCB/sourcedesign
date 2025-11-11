@@ -475,27 +475,46 @@ p {
     padding: 0 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem; /* Reduzido de 4rem para melhor equilíbrio */
-    align-items: start; /* Mudado de 'center' para 'start' para melhor alinhamento */
+    gap: 4rem;
+    align-items: center;
     position: relative;
     z-index: 1;
-    min-height: 600px; /* Adicionado altura mínima para consistência */
+    min-height: 600px;
 }
 
 .hero-content {
     animation: fadeInUp 1s ease-out;
-    padding-top: 2rem; /* Espaçamento superior para centralização vertical */
     display: flex;
     flex-direction: column;
+    gap: 2rem;
+}
+
+.hero-image-wrapper {
+    display: flex;
     justify-content: center;
-    min-height: 500px; /* Altura consistente com o formulário */
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.hero-main-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    filter: brightness(0.9) contrast(1.1) saturate(0.9);
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.hero-main-image:hover {
+    transform: scale(1.05);
+    filter: brightness(1) contrast(1.1) saturate(1);
 }
 
 .hero-title {
-    margin-bottom: 1.5rem; /* Aumentado ligeiramente */
+    margin-bottom: 1.5rem;
     color: var(--color-text-primary);
-    font-size: clamp(2rem, 4vw, 3rem); /* Tamanho responsivo mais adequado */
+    font-size: clamp(2rem, 4vw, 3rem);
     line-height: 1.2;
+    text-align: center;
 }
 
 .hero-subtitle {
@@ -503,6 +522,7 @@ p {
     margin-bottom: 0;
     color: var(--color-text-secondary);
     line-height: 1.4;
+    text-align: center;
 }
 
 .cta-button {
@@ -1702,6 +1722,10 @@ p {
         order: 1;
     }
 
+    .hero-main-image {
+        max-width: 300px;
+    }
+
     .hero-shape {
         width: clamp(200px, 60vw, 270px);
         height: clamp(200px, 60vw, 270px);
@@ -1819,6 +1843,10 @@ p {
 
     .hero .hero-container {
         padding: 1rem;
+    }
+
+    .hero-main-image {
+        max-width: 250px;
     }
 
     .hero-form {
