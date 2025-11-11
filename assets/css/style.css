@@ -475,25 +475,34 @@ p {
     padding: 0 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
+    gap: 3rem; /* Reduzido de 4rem para melhor equilíbrio */
+    align-items: start; /* Mudado de 'center' para 'start' para melhor alinhamento */
     position: relative;
     z-index: 1;
+    min-height: 600px; /* Adicionado altura mínima para consistência */
 }
 
 .hero-content {
     animation: fadeInUp 1s ease-out;
+    padding-top: 2rem; /* Espaçamento superior para centralização vertical */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 500px; /* Altura consistente com o formulário */
 }
 
 .hero-title {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem; /* Aumentado ligeiramente */
     color: var(--color-text-primary);
+    font-size: clamp(2rem, 4vw, 3rem); /* Tamanho responsivo mais adequado */
+    line-height: 1.2;
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 0;
     color: var(--color-text-secondary);
+    line-height: 1.4;
 }
 
 .cta-button {
@@ -1235,14 +1244,15 @@ p {
 
 /* Estilos específicos para o formulário na hero */
 .hero-form {
-    max-width: 500px;
+    max-width: 480px; /* Ligeiramente reduzido */
     margin: 0 auto;
-    padding: 2rem;
+    padding: 2.5rem; /* Aumentado para melhor proporção */
     background: rgba(26, 19, 51, 0.95);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    align-self: center; /* Centraliza verticalmente no grid */
 }
 
 .hero .hero-visual {
@@ -1250,28 +1260,31 @@ p {
     align-items: center;
     justify-content: center;
     min-height: 600px;
+    padding: 2rem 0; /* Espaçamento vertical */
 }
 
 .form-group {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem; /* Reduzido de 2rem para melhor proporção */
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem; /* Ajustado */
     color: #FFFFFF;
     font-weight: 500;
+    font-size: 0.9rem;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 1rem;
+    padding: 0.875rem 1rem; /* Ajustado para melhor proporção */
     background-color: #0A0A0A;
     border: 2px solid #1A1A1A;
     border-radius: 8px;
     color: #FFFFFF;
     font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -1311,23 +1324,19 @@ p {
 }
 
 .submit-button {
-    width: 100%;
-    padding: clamp(0.875rem, 3vw, 1rem);
-    background-color: var(--color-success);
-    color: var(--color-text-primary);
-    border: 2px solid var(--color-success);
-    border-radius: 8px;
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    padding: 0.875rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
     min-height: 44px;
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
 }
 
 .submit-button:hover {
@@ -1341,7 +1350,7 @@ p {
 .form-buttons {
     display: flex;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 /* Botão WhatsApp */
