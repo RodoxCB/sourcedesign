@@ -31,15 +31,15 @@
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-50612TH0X7"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-50612TH0X7');
-    </script>
 
     <!-- Load advanced analytics config -->
-    <script src="assets/js/analytics-config.js"></script>
+    <script src="assets/js/analytics-config.js?v=2"></script>
+
+    <!-- Carregar a configuração do reCAPTCHA -->
+    <script src="assets/js/recaptcha-config.js"></script>
+
+    <!-- Carregar o script do reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoad" async defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lexend:wght@100;400;500;600;700&display=swap" rel="stylesheet">
@@ -97,11 +97,54 @@
             <div class="hero-content">
                 <h1 class="hero-title">Design que destaca o seu negócio.</h1>
                 <p class="hero-subtitle">Material gráfico e digital para quem precisa ser visto.</p>
-                <a href="pages/contato.html#formulario" class="cta-button">Entrar em contato</a>
             </div>
             <div class="hero-visual">
-                <div class="hero-shape">
-                    <img src="assets/images/hero_source_comunicacao.svg" alt="Source Design - Comunicação Visual" class="hero-image">
+                <!-- Formulário de contato integrado na hero -->
+                <div class="contact-form-container hero-form" id="formulario">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="nome">Nome *</label>
+                            <input type="text" id="nome" name="nome" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="empresa">Empresa</label>
+                            <input type="text" id="empresa" name="empresa">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefone">Telefone *</label>
+                            <input type="tel" id="telefone" name="telefone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-mail *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensagem">Mensagem *</label>
+                            <textarea id="mensagem" name="mensagem" rows="4" placeholder="Descreva seu projeto..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div id="recaptcha-container" class="g-recaptcha"></div>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="submit-button whatsapp-button" id="whatsappBtn">
+                                <span>Enviar via WhatsApp</span>
+                                <i class="material-icons">phone</i>
+                            </button>
+
+                            <button type="submit" class="submit-button email-button" id="emailBtn">
+                                <span>Enviar via E-mail</span>
+                                <i class="material-icons">email</i>
+                            </button>
+                        </div>
+
+                        <div class="form-message" id="formMessage"></div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -339,5 +382,61 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+
+    <!-- Script específico para o formulário na hero -->
+    <script>
+        // Callback para renderizar reCAPTCHA explicitamente
+        function onRecaptchaLoad() {
+            // Usar a chave injetada dinamicamente
+            grecaptcha.render('recaptcha-container', {
+                'sitekey': window.RECAPTCHA_CONFIG.siteKey,
+                'theme': window.RECAPTCHA_CONFIG.theme,
+                'size': window.RECAPTCHA_CONFIG.size,
+                'callback': window.RECAPTCHA_CONFIG.callback,
+                'expired-callback': window.RECAPTCHA_CONFIG['expired-callback']
+            });
+        }
+
+        // Auto-focus no campo nome quando vier da página inicial ou quando a hero estiver visível
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se veio da página inicial com âncora
+            if (window.location.hash === '#formulario') {
+                const nomeField = document.getElementById('nome');
+                if (nomeField) {
+                    setTimeout(function() {
+                        nomeField.focus();
+                        // Scroll suave para o formulário
+                        const formulario = document.getElementById('formulario');
+                        if (formulario) {
+                            const headerOffset = 100;
+                            const elementPosition = formulario.offsetTop;
+                            const offsetPosition = elementPosition - headerOffset;
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 500);
+                }
+            } else {
+                // Auto-focus quando a hero estiver visível (opcional)
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const nomeField = document.getElementById('nome');
+                            if (nomeField && !nomeField.value) {
+                                nomeField.focus();
+                            }
+                        }
+                    });
+                });
+
+                const heroSection = document.querySelector('.hero');
+                if (heroSection) {
+                    observer.observe(heroSection);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
