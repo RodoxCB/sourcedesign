@@ -95,12 +95,13 @@
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <!-- Imagem da hero adicionada acima do título -->
-                <div class="hero-image-wrapper">
-                    <img src="assets/images/hero_source_comunicacao.svg" alt="Source Design - Design Gráfico e Comunicação Visual" class="hero-main-image">
-                </div>
                 <h1 class="hero-title">Design que destaca o seu negócio.</h1>
                 <p class="hero-subtitle">Material gráfico e digital para quem precisa ser visto.</p>
+                <!-- Imagem da hero adicionada abaixo do título -->
+                <div class="hero-image-wrapper">
+                    <div id="hero-3d-container" class="hero-main-image" aria-label="Astronauta 3D - Source Design - Design Gráfico e Comunicação Visual"></div>
+                </div>
+                <p class="hero-description">Transformamos ideias em experiências visuais memoráveis, conectando sua marca com seu público-alvo através de soluções criativas e estratégicas.</p>
             </div>
             <div class="hero-visual">
                 <!-- Formulário de contato integrado na hero -->
@@ -324,6 +325,11 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+
+    <!-- Scripts para modelo 3D do astronauta -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="assets/js/hero-3d-astronaut.js"></script>
 
     <!-- Script específico para o formulário na hero -->
     <script>

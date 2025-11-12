@@ -476,7 +476,7 @@ p {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    align-items: center;
+    align-items: flex-start; /* Alinhar ao topo para que canvas e formulário fiquem no mesmo nível */
     position: relative;
     z-index: 1;
     min-height: 600px;
@@ -487,6 +487,7 @@ p {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    margin-top: 100px; /* Subir a div hero-content mais 100px (era 200px) */
 }
 
 .hero-image-wrapper {
@@ -509,6 +510,24 @@ p {
     filter: brightness(1) contrast(1.1) saturate(1);
 }
 
+#hero-3d-container {
+    width: 100%;
+    max-width: 450px; /* Aumentado para o modelo astronauta */
+    height: 250px; /* Altura ainda menor para proporção mais compacta */
+    margin-top: 20px; /* Pequeno espaçamento do título */
+    cursor: grab;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+#hero-3d-container:hover {
+    transform: scale(1.05);
+    filter: brightness(1) contrast(1.1) saturate(1);
+}
+
+#hero-3d-container:active {
+    cursor: grabbing;
+}
+
 .hero-title {
     margin-bottom: 1.5rem;
     color: var(--color-text-primary);
@@ -523,6 +542,16 @@ p {
     color: var(--color-text-secondary);
     line-height: 1.4;
     text-align: center;
+}
+
+.hero-description {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    text-align: center;
+    max-width: 500px;
+    margin: 1rem auto 0;
+    animation: fadeInUp 1s ease-out 0.4s both;
 }
 
 .cta-button {
@@ -1329,12 +1358,32 @@ p {
     max-width: 480px; /* Ligeiramente reduzido */
     margin: 0 auto;
     padding: 2.5rem; /* Aumentado para melhor proporção */
-    background: rgba(26, 19, 51, 0.95);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(6, 182, 212, 0.3);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 50%, rgba(241, 245, 249, 0.95) 100%);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 2px solid linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+    border-radius: 20px;
+    box-shadow:
+        0 12px 40px rgba(6, 182, 212, 0.3),
+        0 0 60px rgba(6, 182, 212, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     align-self: center; /* Centraliza verticalmente no grid */
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 30% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 .hero .hero-visual {
@@ -1352,28 +1401,35 @@ p {
 .form-group label {
     display: block;
     margin-bottom: 0.75rem; /* Ajustado */
-    color: #FFFFFF;
-    font-weight: 500;
-    font-size: 0.9rem;
+    color: #1e293b; /* Cor mais escura para melhor contraste */
+    font-weight: 600; /* Peso da fonte aumentado */
+    font-size: 0.95rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 0.875rem 1rem; /* Ajustado para melhor proporção */
-    background-color: #0A0A0A;
-    border: 2px solid #1A1A1A;
-    border-radius: 8px;
-    color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(6, 182, 212, 0.3);
+    border-radius: 10px;
+    color: #1e293b;
     font-family: 'Poppins', sans-serif;
     font-size: 0.95rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(6, 182, 212, 0.1);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #FFFFFF;
+    border-color: var(--color-primary);
+    background-color: #ffffff;
+    box-shadow:
+        0 0 0 3px rgba(6, 182, 212, 0.2),
+        0 4px 12px rgba(6, 182, 212, 0.15);
+    transform: translateY(-1px);
 }
 
 /* Real-time validation feedback */
@@ -1438,16 +1494,34 @@ p {
 /* Botão WhatsApp */
 .whatsapp-button {
     flex: 1;
-    background-color: #25D366 !important;
+    background: linear-gradient(135deg, #25D366 0%, #20b954 100%) !important;
     border-color: #25D366 !important;
     color: white !important;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.whatsapp-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.whatsapp-button:hover::before {
+    left: 100%;
 }
 
 .whatsapp-button:hover {
-    background-color: #128C7E !important;
-    border-color: #128C7E !important;
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, #20b954 0%, #128C7E 100%) !important;
+    border-color: #20b954 !important;
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+    transform: translateY(-3px);
 }
 
 .whatsapp-button:disabled {
@@ -1460,16 +1534,34 @@ p {
 /* Botão E-mail */
 .email-button {
     flex: 1;
-    background-color: var(--color-primary);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
     border-color: var(--color-primary);
     color: white !important;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.email-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.email-button:hover::before {
+    left: 100%;
 }
 
 .email-button:hover {
-    background-color: var(--color-primary-dark);
-    border-color: var(--color-primary-dark);
-    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
+    border-color: var(--color-secondary);
+    box-shadow: 0 8px 25px rgba(8, 145, 178, 0.5);
+    transform: translateY(-3px);
 }
 
 .email-button:disabled {
