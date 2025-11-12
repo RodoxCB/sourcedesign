@@ -31,15 +31,15 @@
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-50612TH0X7"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-50612TH0X7');
-    </script>
 
     <!-- Load advanced analytics config -->
-    <script src="assets/js/analytics-config.js"></script>
+    <script src="assets/js/analytics-config.js?v=2"></script>
+
+    <!-- Carregar a configuração do reCAPTCHA -->
+    <script src="assets/js/recaptcha-config.js"></script>
+
+    <!-- Carregar o script do reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoad" async defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lexend:wght@100;400;500;600;700&display=swap" rel="stylesheet">
@@ -61,8 +61,8 @@
                     <li><a href="index.html" class="nav-link active">Home</a></li>
                     <li><a href="pages/servicos.html" class="nav-link">Serviços</a></li>
                     <li><a href="pages/sobre.html" class="nav-link">Sobre</a></li>
-                    <li><a href="pages/portfolio.html" class="nav-link">Portfolio</a></li>
-                    <li><a href="pages/contato.html" class="nav-link">Contato</a></li>
+                    <li><a href="pages/portfolio.html" class="nav-link">Portfólio</a></li>
+                    
                 </ul>
 
                 <!-- Mobile Menu Button -->
@@ -84,8 +84,8 @@
                     <li><a href="index.html" class="mobile-nav-link">Home</a></li>
                     <li><a href="pages/servicos.html" class="mobile-nav-link">Serviços</a></li>
                     <li><a href="pages/sobre.html" class="mobile-nav-link">Sobre</a></li>
-                    <li><a href="pages/portfolio.html" class="mobile-nav-link">Portfolio</a></li>
-                    <li><a href="pages/contato.html" class="mobile-nav-link">Contato</a></li>
+                    <li><a href="pages/portfolio.html" class="mobile-nav-link">Portfólio</a></li>
+                    
                 </ul>
             </div>
         </div>
@@ -95,13 +95,60 @@
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content">
+                <!-- Imagem da hero adicionada acima do título -->
+                <div class="hero-image-wrapper">
+                    <img src="assets/images/hero_source_comunicacao.svg" alt="Source Design - Design Gráfico e Comunicação Visual" class="hero-main-image">
+                </div>
                 <h1 class="hero-title">Design que destaca o seu negócio.</h1>
                 <p class="hero-subtitle">Material gráfico e digital para quem precisa ser visto.</p>
-                <a href="pages/contato.html#formulario" class="cta-button">Entrar em contato</a>
             </div>
             <div class="hero-visual">
-                <div class="hero-shape">
-                    <img src="assets/images/hero_source_comunicacao.svg" alt="Source Design - Comunicação Visual" class="hero-image">
+                <!-- Formulário de contato integrado na hero -->
+                <div class="contact-form-container hero-form" id="formulario">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="nome">Nome *</label>
+                            <input type="text" id="nome" name="nome" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="empresa">Empresa</label>
+                            <input type="text" id="empresa" name="empresa">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefone">Telefone *</label>
+                            <input type="tel" id="telefone" name="telefone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-mail *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensagem">Mensagem *</label>
+                            <textarea id="mensagem" name="mensagem" rows="4" placeholder="Descreva seu projeto..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div id="recaptcha-container" class="g-recaptcha"></div>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="submit-button whatsapp-button" id="whatsappBtn">
+                                <span>Enviar via WhatsApp</span>
+                                <i class="material-icons">phone</i>
+                            </button>
+
+                            <button type="submit" class="submit-button email-button" id="emailBtn">
+                                <span>Enviar via E-mail</span>
+                                <i class="material-icons">email</i>
+                            </button>
+                        </div>
+
+                        <div class="form-message" id="formMessage"></div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -117,78 +164,76 @@
                         <i class="material-icons">create</i>
                     </div>
                     <h3>Logotipo & Identidade</h3>
+                    <div class="service-price">
+                        <span class="price">R$ 350,00</span>
+                        <span class="price-note">a partir de</span>
+                    </div>
                     <p>Criação de logotipos memoráveis e sistemas de identidade visual completos.</p>
+                    <a href="pages/servicos.html" class="service-button">Ver Mais</a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="material-icons">restaurant</i>
                     </div>
                     <h3>Cardápios</h3>
+                    <div class="service-price">
+                        <span class="price">R$ 180,00</span>
+                        <span class="price-note">a partir de</span>
+                    </div>
                     <p>Layouts atrativos para restaurantes e estabelecimentos.</p>
+                    <a href="pages/servicos.html" class="service-button">Ver Mais</a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="material-icons">web</i>
                     </div>
                     <h3>Sites e Landing Pages</h3>
+                    <div class="service-price">
+                        <span class="price">R$ 800,00</span>
+                        <span class="price-note">a partir de</span>
+                    </div>
                     <p>Criação de sites institucionais e landing pages otimizadas para conversão.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="material-icons">note</i>
-                    </div>
-                    <h3>Adesivos para Lojas e Carros</h3>
-                    <p>Adesivos personalizados para fachadas de lojas, carros e veículos.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="material-icons">card_membership</i>
-                    </div>
-                    <h3>Cartão de Visita</h3>
-                    <p>Design profissional para cartões de visita que impressionam.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="material-icons">campaign</i>
-                    </div>
-                    <h3>Panfletos & Folhetos</h3>
-                    <p>Peças promocionais que convertem visitantes em clientes.</p>
+                    <a href="pages/servicos.html" class="service-button">Ver Mais</a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="material-icons">share</i>
                     </div>
                     <h3>Redes Sociais</h3>
-                    <p>Pacotes com conteúdo visual estratégico para suas plataformas digitais.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="material-icons">redeem</i>
+                    <div class="service-price">
+                        <span class="price">R$ 300,00</span>
+                        <span class="price-note">a partir de</span>
                     </div>
-                    <h3>Artes Comemorativas</h3>
-                    <p>Design especial para datas comemorativas e eventos.</p>
+                    <p>Pacotes com conteúdo visual estratégico para suas plataformas digitais.</p>
+                    <a href="pages/servicos.html" class="service-button">Ver Mais</a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="material-icons">videocam</i>
                     </div>
                     <h3>Vídeo Institucional</h3>
+                    <div class="service-price">
+                        <span class="price">R$ 700,00</span>
+                        <span class="price-note">a partir de</span>
+                    </div>
                     <p>Produção profissional de vídeos institucionais para apresentar sua empresa.</p>
+                    <a href="pages/servicos.html" class="service-button">Ver Mais</a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="material-icons">phone_android</i>
+                        <i class="material-icons">campaign</i>
                     </div>
-                    <h3>Prototipagem de Apps</h3>
-                    <p>Desenvolvimento de protótipos funcionais para sites e aplicativos móveis.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="material-icons">build</i>
+                    <h3>Panfletos & Folhetos</h3>
+                    <div class="service-price">
+                        <span class="price">R$ 120,00</span>
+                        <span class="price-note">a partir de</span>
                     </div>
-                    <h3>Trabalhos Sob Demanda</h3>
-                    <p>Soluções personalizadas para necessidades específicas do seu negócio.</p>
+                    <p>Peças promocionais que convertem visitantes em clientes.</p>
+                    <a href="pages/servicos.html" class="service-button">Ver Mais</a>
                 </div>
+            </div>
+            <div class="services-cta">
+                <a href="pages/servicos.html" class="cta-button">Ver Todos os Serviços</a>
             </div>
         </div>
     </section>
@@ -223,68 +268,6 @@
         </div>
     </section>
 
-    <!-- Depoimentos Section -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">O que nossos clientes dizem</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Excelente trabalho! O logotipo ficou perfeito e nossos clientes adoraram. Recomendo fortemente."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h4>Maria Silva</h4>
-                            <span>Proprietária - Café Aroma</span>
-                        </div>
-                        <div class="rating">
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Material de alta qualidade e entrega no prazo. Superou nossas expectativas em todos os aspectos."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h4>João Santos</h4>
-                            <span>Gerente - Tech Solutions</span>
-                        </div>
-                        <div class="rating">
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Profissionalismo e criatividade impressionantes. Nosso cartão de visita agora reflete exatamente nossa marca."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h4>Ana Costa</h4>
-                            <span>Empresária - Studio Fitness</span>
-                        </div>
-                        <div class="rating">
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                            <i class="material-icons">star</i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
@@ -292,7 +275,10 @@
             <div class="cta-content">
                 <h2>Pronto para destacar seu negócio?</h2>
                 <p>Entre em contato e vamos criar algo incrível juntos.</p>
-                <a href="pages/contato.html" class="cta-button">Entrar em contato</a>
+                <a href="#formulario" class="cta-button">
+                    <span>Entre em contato</span>
+                    <i class="material-icons">arrow_forward</i>
+                </a>
             </div>
         </div>
     </section>
@@ -313,16 +299,15 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="pages/servicos.html">Serviços</a></li>
                         <li><a href="pages/sobre.html">Sobre</a></li>
-                        <li><a href="pages/portfolio.html">Portfolio</a></li>
-                        <li><a href="pages/contato.html">Contato</a></li>
+                        <li><a href="pages/portfolio.html">Portfólio</a></li>
+                        
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Contato</h3>
                     <ul class="contact-info">
                         <li><i class="material-icons">email</i> contato@sourcedesign.com.br</li>
-                        <li><i class="material-icons">phone</i> (27) 99601-9833</li>
-                        <li><i class="material-icons">location_on</i> Guarapari/ES</li>
+                        <li><i class="material-icons">location_on</i> Vitória/ES</li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -339,5 +324,61 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+
+    <!-- Script específico para o formulário na hero -->
+    <script>
+        // Callback para renderizar reCAPTCHA explicitamente
+        function onRecaptchaLoad() {
+            // Usar a chave injetada dinamicamente
+            grecaptcha.render('recaptcha-container', {
+                'sitekey': window.RECAPTCHA_CONFIG.siteKey,
+                'theme': window.RECAPTCHA_CONFIG.theme,
+                'size': window.RECAPTCHA_CONFIG.size,
+                'callback': window.RECAPTCHA_CONFIG.callback,
+                'expired-callback': window.RECAPTCHA_CONFIG['expired-callback']
+            });
+        }
+
+        // Auto-focus no campo nome quando vier da página inicial ou quando a hero estiver visível
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se veio da página inicial com âncora
+            if (window.location.hash === '#formulario') {
+                const nomeField = document.getElementById('nome');
+                if (nomeField) {
+                    setTimeout(function() {
+                        nomeField.focus();
+                        // Scroll suave para o formulário
+                        const formulario = document.getElementById('formulario');
+                        if (formulario) {
+                            const headerOffset = 100;
+                            const elementPosition = formulario.offsetTop;
+                            const offsetPosition = elementPosition - headerOffset;
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 500);
+                }
+            } else {
+                // Auto-focus quando a hero estiver visível (opcional)
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const nomeField = document.getElementById('nome');
+                            if (nomeField && !nomeField.value) {
+                                nomeField.focus();
+                            }
+                        }
+                    });
+                });
+
+                const heroSection = document.querySelector('.hero');
+                if (heroSection) {
+                    observer.observe(heroSection);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

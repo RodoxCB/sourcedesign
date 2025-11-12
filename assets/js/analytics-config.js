@@ -11,26 +11,6 @@ function gtag() {
     dataLayer.push(arguments);
 }
 
-// Configuração base com otimizações de privacidade
-gtag('js', new Date());
-gtag('config', 'G-50612TH0X7', {
-    // Configurações de privacidade
-    'anonymize_ip': true,
-    'allow_google_signals': false,
-    'allow_ad_features': false,
-
-    // Configurações de performance
-    'send_page_view': true,
-    'page_title': document.title,
-    'page_location': window.location.href,
-
-    // Dimensões customizadas
-    'custom_map': {
-        'dimension1': 'page_category',
-        'dimension2': 'user_type'
-    }
-});
-
 // Event tracking personalizado
 const AnalyticsTracker = {
     // Tracking genérico de eventos
@@ -76,8 +56,15 @@ const AnalyticsTracker = {
 // Configuração de consentimento (LGPD compliance)
 const CookieConsent = {
     consentGiven: false,
+    initialized: false,
 
     init: function() {
+        // Prevenir múltiplas inicializações
+        if (this.initialized) {
+            return;
+        }
+        this.initialized = true;
+
         this.consentGiven = this.getCookie('ga_consent') === 'true';
 
         if (!this.consentGiven) {
@@ -88,6 +75,11 @@ const CookieConsent = {
     },
 
     showConsentBanner: function() {
+        // Verificar se o banner já existe
+        if (document.getElementById('cookie-consent-banner')) {
+            return;
+        }
+
         const banner = document.createElement('div');
         banner.id = 'cookie-consent-banner';
         banner.innerHTML = `

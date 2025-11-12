@@ -23,7 +23,8 @@ class PortfolioManager {
     init() {
         this.setupFilters();
         this.setupModal();
-        this.showAllItems(); // Show all items initially
+        this.updateCategoryLabels(); // Update category labels based on data-category attributes
+        this.filterItems('all'); // Apply "all" filter initially to show items in correct order
     }
 
     setupFilters() {
@@ -40,17 +41,18 @@ class PortfolioManager {
         if (filter === 'all') {
             // Mostrar todos os items na ordem original, mas com identidade visual primeiro
             const identityItems = Array.from(this.portfolioItems).filter(item =>
-                item.getAttribute('data-category') === 'identity'
+                item.getAttribute('data-category')?.includes('identity')
             );
             const otherItems = Array.from(this.portfolioItems).filter(item =>
-                item.getAttribute('data-category') !== 'identity'
+                !item.getAttribute('data-category')?.includes('identity')
             );
             this.filteredItems = [...identityItems, ...otherItems];
             this.animateGridReorder(this.filteredItems);
         } else {
             // Filtrar apenas items da categoria selecionada
             this.filteredItems = Array.from(this.portfolioItems).filter(item => {
-                return item.getAttribute('data-category') === filter;
+                const categories = item.getAttribute('data-category')?.split(' ') || [];
+                return categories.includes(filter);
             });
             this.animateGridReorder(this.filteredItems);
         }
@@ -111,6 +113,29 @@ class PortfolioManager {
             button.classList.remove('active');
         });
         activeButton.classList.add('active');
+    }
+
+    updateCategoryLabels() {
+        // Map technical categories to display names
+        const categoryLabels = {
+            'video': 'Vídeo',
+            'identity': 'Identidade Visual',
+            'print': 'Materiais Impressos',
+            'digital': 'Digital'
+        };
+
+        this.portfolioItems.forEach(item => {
+            const categoryElement = item.querySelector('.portfolio-category');
+            if (categoryElement) {
+                const dataCategories = item.getAttribute('data-category')?.split(' ') || [];
+                const displayCategories = dataCategories
+                    .map(cat => categoryLabels[cat])
+                    .filter(Boolean); // Remove undefined values
+
+                // Join multiple categories with separator
+                categoryElement.textContent = displayCategories.join(' • ');
+            }
+        });
     }
 
     showAllItems() {
@@ -282,9 +307,6 @@ class PortfolioManager {
                      class="gallery-image"
                      loading="lazy">
                 ${totalImages > 1 ? `
-                    <div class="gallery-counter">
-                        ${this.currentGalleryIndex + 1} / ${totalImages}
-                    </div>
                     <button class="gallery-nav-btn gallery-prev" aria-label="Imagem anterior" tabindex="0">
                         <i class="material-icons">chevron_left</i>
                     </button>
@@ -369,12 +391,20 @@ class PortfolioManager {
     }
 
     updateNavigationButtons() {
-        if (this.filteredItems.length <= 1) {
+        // Só mostrar botões de navegação quando NÃO estamos em uma galeria (para navegar entre projetos)
+        if (this.currentGallery.length === 0) {
+            // Mostrar botões apenas se há múltiplos projetos
+            if (this.filteredItems.length > 1) {
+                this.prevBtn.style.display = 'flex';
+                this.nextBtn.style.display = 'flex';
+            } else {
+                this.prevBtn.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+            }
+        } else {
+            // Quando estamos em uma galeria, não mostrar os botões de navegação entre projetos
             this.prevBtn.style.display = 'none';
             this.nextBtn.style.display = 'none';
-        } else {
-            this.prevBtn.style.display = 'flex';
-            this.nextBtn.style.display = 'flex';
         }
     }
 }
