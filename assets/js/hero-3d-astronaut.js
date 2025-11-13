@@ -119,6 +119,9 @@ class Astronaut3DModel {
 
                 this.scene.add(this.model);
 
+                // Modelo carregado completamente - mostrar container e esconder loading
+                this.onModelLoaded();
+
                 console.log('Modelo astronauta carregado com sucesso!');
             },
             (progress) => {
@@ -127,8 +130,25 @@ class Astronaut3DModel {
             (error) => {
                 console.error('Erro ao carregar modelo astronauta:', error);
                 this.createFallbackAstronaut();
+                // Mesmo com erro, mostrar o fallback
+                this.onModelLoaded();
             }
         );
+    }
+
+    onModelLoaded() {
+        // Esconder o indicador de carregamento
+        const loadingElement = document.querySelector('.astronaut-loading');
+        if (loadingElement) {
+            loadingElement.style.display = 'none';
+        }
+
+        // Mostrar o container 3D com animação
+        const container = document.getElementById(this.containerId);
+        if (container) {
+            container.classList.remove('loading');
+            container.classList.add('loaded');
+        }
     }
 
     optimizeModel() {

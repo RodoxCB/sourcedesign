@@ -491,9 +491,7 @@ p {
 }
 
 .hero-image-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
     margin-bottom: 1rem;
 }
 
@@ -502,12 +500,7 @@ p {
     max-width: 400px;
     height: auto;
     filter: brightness(0.9) contrast(1.1) saturate(0.9);
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.hero-main-image:hover {
-    transform: scale(1.05);
-    filter: brightness(1) contrast(1.1) saturate(1);
+    /* Removidas todas as transições para manter apenas rotação no scroll */
 }
 
 #hero-3d-container {
@@ -516,7 +509,17 @@ p {
     height: 250px; /* Altura ainda menor para proporção mais compacta */
     margin-top: 20px; /* Pequeno espaçamento do título */
     cursor: grab;
-    transition: transform 0.3s ease, filter 0.3s ease;
+    /* Removida transition para manter apenas rotação do scroll */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#hero-3d-container canvas {
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
 }
 
 #hero-3d-container:hover {
@@ -527,6 +530,70 @@ p {
 
 #hero-3d-container:active {
     cursor: grabbing;
+}
+
+/* Loading spinner para o modelo 3D */
+.astronaut-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+    z-index: 2;
+}
+
+.astronaut-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255,255,255,0.2);
+    border-top: 3px solid var(--color-primary);
+    border-radius: 50%;
+    animation: astronaut-spin 1s linear infinite;
+}
+
+@keyframes astronaut-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.astronaut-loading-text {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    font-weight: 300;
+}
+
+/* Estado inicial: container oculto */
+#hero-3d-container.loading {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Estado carregado: container visível */
+#hero-3d-container.loaded {
+    opacity: 1;
+    visibility: visible;
+    animation: fadeInAstronaut 0.8s ease-out;
+}
+
+@keyframes fadeInAstronaut {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .hero-title {
