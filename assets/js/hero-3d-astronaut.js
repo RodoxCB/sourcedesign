@@ -65,6 +65,12 @@ class Astronaut3DModel {
         // Limpar container e adicionar renderer
         container.innerHTML = '';
         container.appendChild(this.renderer.domElement);
+
+        // 🔧 CORREÇÃO: Configurar canvas para permitir interatividade CSS
+        this.renderer.domElement.style.pointerEvents = 'auto';
+        this.renderer.domElement.style.cursor = 'inherit';
+        this.renderer.domElement.style.width = '100%';
+        this.renderer.domElement.style.height = '100%';
     }
 
     setupLights() {
@@ -226,18 +232,10 @@ class Astronaut3DModel {
             );
             const scrollProgress = scrollY / maxScroll;
 
-            this.scrollRotation = scrollProgress * Math.PI * 8; // Rotação ultra-intensa (8 rotações completas)
+            this.scrollRotation = scrollProgress * Math.PI * 16; // Rotação ultra-intensa máxima (16 rotações completas)
         });
 
-        // Mouse events para pausar rotação
-        const container = document.getElementById(this.containerId);
-        container.addEventListener('mouseenter', () => {
-            this.isRotating = false;
-        });
-
-        container.addEventListener('mouseleave', () => {
-            this.isRotating = true;
-        });
+        // Removidos event listeners de mouse - apenas rotação no scroll
 
         // Resize
         window.addEventListener('resize', () => this.onWindowResize());
@@ -261,26 +259,8 @@ class Astronaut3DModel {
         const deltaTime = this.clock.getDelta();
 
         if (this.model) {
-            if (this.isRotating) {
-                // Rotação baseada no scroll (mais intensa)
-                this.model.rotation.y = this.scrollRotation;
-
-                // Rotação automática adicional mais dinâmica
-                this.model.rotation.y += this.rotationSpeed * 2;
-            }
-
-            // Pequena oscilação vertical sutil
-            this.model.position.y += Math.sin(Date.now() * 0.001) * 0.002;
-
-            // Rotação muito sutil em X para efeito dinâmico
-            this.model.rotation.x = Math.sin(Date.now() * 0.0005) * 0.05;
-
-            // Rotação do capacete independente (se existir)
-            this.model.traverse((child) => {
-                if (child.name && child.name.includes('helmet')) {
-                    child.rotation.y += deltaTime * 0.2;
-                }
-            });
+            // APENAS rotação baseada no scroll
+            this.model.rotation.y = this.scrollRotation;
         }
 
         this.renderer.render(this.scene, this.camera);

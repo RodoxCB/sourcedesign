@@ -520,8 +520,9 @@ p {
 }
 
 #hero-3d-container:hover {
-    transform: scale(1.05);
-    filter: brightness(1) contrast(1.1) saturate(1);
+    /* Removida animação de crescer - apenas mantém cursor */
+    /* transform: scale(1.05); */
+    /* filter: brightness(1) contrast(1.1) saturate(1); */
 }
 
 #hero-3d-container:active {
