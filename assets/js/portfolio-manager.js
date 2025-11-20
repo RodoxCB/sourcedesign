@@ -45,8 +45,11 @@ class PortfolioManager {
   // Cria card individual do projeto
   createProjectCard(project, index) {
     const card = document.createElement('div');
-    card.className = `portfolio-item ${project.category}-item`;
-    card.setAttribute('data-category', project.category);
+    const categories = project.categories || [project.category];
+    const primaryCategory = project.category;
+    card.className = `portfolio-item ${primaryCategory}-item`;
+    card.setAttribute('data-category', primaryCategory);
+    card.setAttribute('data-categories', categories.join(' '));
     card.setAttribute('data-project-id', project.id);
     card.setAttribute('tabindex', '0');
     card.setAttribute('role', 'button');
@@ -56,7 +59,6 @@ class PortfolioManager {
     card.style.setProperty('--item-order', index);
 
     const mediaCount = project.category === 'video' ? 1 : (project.images?.length || 0);
-    const mediaType = project.category === 'video' ? 'Vídeo' : `${mediaCount} imagens`;
 
     if (project.category === 'video') {
       // Card para vídeo
@@ -77,8 +79,7 @@ class PortfolioManager {
             <h3>${project.title}</h3>
             <p>${project.subtitle}</p>
             <div class="portfolio-meta">
-              <span class="category-badge ${project.category}">${this.getCategoryLabel(project.category)}</span>
-              <span class="image-count">${mediaType}</span>
+              ${categories.map(cat => `<span class="category-badge ${cat}">${this.getCategoryLabel(cat)}</span>`).join('')}
             </div>
           </div>
         </div>
@@ -98,8 +99,7 @@ class PortfolioManager {
             <h3>${project.title}</h3>
             <p>${project.subtitle}</p>
             <div class="portfolio-meta">
-              <span class="category-badge ${project.category}">${this.getCategoryLabel(project.category)}</span>
-              <span class="image-count">${mediaType}</span>
+              ${categories.map(cat => `<span class="category-badge ${cat}">${this.getCategoryLabel(cat)}</span>`).join('')}
             </div>
           </div>
         </div>
@@ -431,8 +431,8 @@ class PortfolioManager {
     let visibleCount = 0;
 
     items.forEach(item => {
-      const itemCategory = item.dataset.category;
-      const shouldShow = filter === 'all' || itemCategory === filter;
+      const itemCategories = item.dataset.categories ? item.dataset.categories.split(' ') : [item.dataset.category];
+      const shouldShow = filter === 'all' || itemCategories.includes(filter);
       item.classList.toggle('show', shouldShow);
 
       if (shouldShow) {
@@ -515,7 +515,9 @@ class PortfolioManager {
   getCategoryLabel(category) {
     const labels = {
       identity: 'Identidade Visual',
-      video: 'Vídeos'
+      video: 'Vídeos',
+      print: 'Materiais Impressos',
+      digital: 'Digital'
     };
     return labels[category] || category;
   }
