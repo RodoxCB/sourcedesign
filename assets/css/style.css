@@ -810,6 +810,12 @@ p {
 .service-icon .material-icons {
     font-size: clamp(1.5rem, 8vw, 2rem);
     color: var(--color-text-primary);
+    line-height: 1;
+    vertical-align: middle;
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .service-card:hover .service-icon {
@@ -1091,6 +1097,12 @@ p {
 .service-icon-large .material-icons {
     font-size: 2.5rem;
     color: var(--color-text-primary);
+    line-height: 1;
+    vertical-align: middle;
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .service-info h3 {
