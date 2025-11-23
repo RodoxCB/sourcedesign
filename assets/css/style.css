@@ -456,6 +456,7 @@ p {
     background: linear-gradient(135deg, var(--color-bg-darker) 0%, #0F0522 50%, #1A0B3D 100%);
     position: relative;
     overflow: hidden;
+    z-index: 1;  /* ADICIONAR z-index base */
 }
 
 .hero::before {
@@ -488,10 +489,10 @@ p {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: clamp(2rem, 6vw, 4rem);
-    align-items: center; /* Melhor alinhamento central */
+    align-items: flex-start;   /* MUDAR de 'center' para 'flex-start' */
     position: relative;
     z-index: 1;
-    min-height: clamp(500px, 80vh, 700px); /* Altura responsiva baseada na viewport */
+    min-height: clamp(600px, 90vh, 800px); /* AUMENTAR altura mínima */
 }
 
 .hero-content {
@@ -530,6 +531,8 @@ p {
     cursor: grab;
     /* Removida transition para manter apenas rotação do scroll */
     position: relative;
+    max-height: 250px;  /* ADICIONAR limite de altura */
+    overflow: hidden;   /* PREVENIR overflow */
 }
 
 #hero-3d-container canvas {
@@ -678,7 +681,7 @@ p {
 .hero-visual {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;   /* MUDAR de 'center' para 'flex-start' */
     animation: fadeInUp 1s ease-out 0.2s both;
     width: 100%;
     max-width: 100%;
@@ -766,43 +769,12 @@ p {
     text-align: center;
     transition: all 0.3s ease;
     border: 1px solid var(--color-border);
-    transform: translateY(0) !important; /* Force consistent transform */
-    min-height: 280px; /* Ensure consistent minimum height */
-    display: block; /* Changed from flex to block to ensure proper layout */
+    min-height: 280px;
     position: relative;
     overflow: hidden;
 }
 
-/* Force proper display of service card elements */
-.service-card > * {
-    display: block !important;
-}
-
-.service-card .service-icon,
-.service-card h3,
-.service-card .service-price,
-.service-card p,
-.service-card .service-button {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-/* Override fade-in animations for service cards to prevent conflicts */
-.service-card.fade-in {
-    transform: translateY(0) !important;
-}
-
-.service-card.fade-in.visible {
-    transform: translateY(0) !important;
-}
-
-/* Force reset any stuck hover states */
-.service-card.service-card-hover,
-.service-card.hover {
-    transform: none !important;
-    box-shadow: none !important;
-}
+/* Service cards now work properly with CSS Grid - no overrides needed */
 
 .service-card:hover {
     transform: translateY(-5px);
@@ -828,11 +800,7 @@ p {
     font-size: clamp(1.5rem, 8vw, 2rem);
     color: var(--color-text-primary);
     line-height: 1;
-    vertical-align: middle;
-    display: inline-block;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    display: block;
 }
 
 .service-card:hover .service-icon {
@@ -1115,11 +1083,7 @@ p {
     font-size: 2.5rem;
     color: var(--color-text-primary);
     line-height: 1;
-    vertical-align: middle;
-    display: inline-block;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    display: block;
 }
 
 .service-info h3 {
@@ -1572,144 +1536,189 @@ p {
     transform: translateY(-1px);
 }
 
-/* Real-time validation feedback */
-.form-group input.valid,
-.form-group textarea.valid {
-    border-color: var(--color-success);
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-}
+    /* Real-time validation feedback */
+    .form-group input.valid,
+    .form-group textarea.valid {
+        border-color: var(--color-success);
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
 
-.form-group input.invalid,
-.form-group textarea.invalid {
-    border-color: #FF6B6B;
-    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
-}
+    .form-group input.invalid,
+    .form-group textarea.invalid {
+        border-color: #FF6B6B;
+        box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+    }
 
-/* Field error messages */
-.field-error {
-    display: block;
-    color: #FF6B6B;
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
-    font-weight: 500;
-}
+    /* Field error messages */
+    .field-error {
+        display: block;
+        color: #FF6B6B;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        font-weight: 500;
+    }
 
-/* reCAPTCHA styles */
-.g-recaptcha {
-    display: flex;
-    justify-content: center;
-    margin: 1rem 0;
-}
+    /* reCAPTCHA styles */
+    .g-recaptcha {
+        display: flex;
+        justify-content: center;
+        margin: 1rem 0;
+    }
 
-.submit-button {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-    min-height: 44px;
-}
+    .submit-button {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
 
-.submit-button:hover {
-    background-color: #059669;
-    border-color: #059669;
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-    transform: translateY(-2px);
-}
+    .submit-button:hover {
+        background-color: #059669;
+        border-color: #059669;
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        transform: translateY(-2px);
+    }
 
-/* Container para os botões */
-.form-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
+    /* Container para os botões */
+    .form-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
 
-/* Botão WhatsApp */
-.whatsapp-button {
-    flex: 1;
-    background: linear-gradient(135deg, #25D366 0%, #20b954 100%) !important;
-    border-color: #25D366 !important;
-    color: white !important;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-    position: relative;
-    overflow: hidden;
-}
+    /* Botão WhatsApp */
+    .whatsapp-button {
+        flex: 1;
+        background: linear-gradient(135deg, #25D366 0%, #20b954 100%) !important;
+        border-color: #25D366 !important;
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
 
-.whatsapp-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
-}
+    .whatsapp-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+    }
 
-.whatsapp-button:hover::before {
-    left: 100%;
-}
+    .whatsapp-button:hover::before {
+        left: 100%;
+    }
 
-.whatsapp-button:hover {
-    background: linear-gradient(135deg, #20b954 0%, #128C7E 100%) !important;
-    border-color: #20b954 !important;
-    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
-    transform: translateY(-3px);
-}
+    .whatsapp-button:hover {
+        background: linear-gradient(135deg, #20b954 0%, #128C7E 100%) !important;
+        border-color: #20b954 !important;
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+        transform: translateY(-3px);
+    }
 
-.whatsapp-button:disabled {
-    background-color: #cccccc !important;
-    border-color: #cccccc !important;
-    cursor: not-allowed;
-    transform: none;
-}
+    .whatsapp-button:disabled {
+        background-color: #cccccc !important;
+        border-color: #cccccc !important;
+        cursor: not-allowed;
+        transform: none;
+    }
 
-/* Botão E-mail */
-.email-button {
-    flex: 1;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    border-color: var(--color-primary);
-    color: white !important;
-    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
-    position: relative;
-    overflow: hidden;
-}
+    /* Botão E-mail */
+    .email-button {
+        flex: 1;
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+        border-color: var(--color-primary);
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
 
-.email-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
-}
+    .email-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+    }
 
-.email-button:hover::before {
-    left: 100%;
-}
+    .email-button:hover::before {
+        left: 100%;
+    }
 
-.email-button:hover {
-    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
-    border-color: var(--color-secondary);
-    box-shadow: 0 8px 25px rgba(8, 145, 178, 0.5);
-    transform: translateY(-3px);
-}
+    .email-button:hover {
+        background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
+        border-color: var(--color-secondary);
+        box-shadow: 0 8px 25px rgba(8, 145, 178, 0.5);
+        transform: translateY(-3px);
+    }
 
-.email-button:disabled {
-    background-color: #cccccc !important;
-    border-color: #cccccc !important;
-    cursor: not-allowed;
-    transform: none;
-}
+    .email-button:disabled {
+        background-color: #cccccc !important;
+        border-color: #cccccc !important;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* Estilos específicos para o formulário na hero */
+    .hero-form {
+        max-width: clamp(320px, 90vw, 520px); /* Mais responsivo - se adapta melhor às telas */
+        width: 100%;
+        margin: 0 auto;
+        padding: clamp(1.5rem, 5vw, 3rem); /* Padding responsivo */
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 50%, rgba(241, 245, 249, 0.95) 100%);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 2px solid linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+        border-radius: clamp(12px, 4vw, 20px); /* Border-radius responsivo */
+        box-shadow:
+            0 12px 40px rgba(6, 182, 212, 0.3),
+            0 0 60px rgba(6, 182, 212, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        align-self: flex-start;    /* Alinha ao topo da célula do grid */
+        justify-self: center;      /* Centraliza horizontalmente */
+        position: relative;
+        overflow: hidden;
+        z-index: 10;              /* Aumentar z-index para desktop */
+    }
+
+    .hero-form::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+            radial-gradient(circle at 30% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .hero .hero-visual {
+        display: flex;
+        align-items: flex-start;   /* MUDAR de 'center' para 'flex-start' */
+        justify-content: center;
+        min-height: clamp(500px, 80vh, 700px); /* Altura mais responsiva baseada na viewport */
+        padding: clamp(1rem, 3vh, 2rem) 0; /* Padding vertical responsivo */
+        width: 100%;
+    }
 
 /* ===========================================
    RESPONSIVIDADE - MOBILE FIRST APPROACH
@@ -1831,14 +1840,6 @@ p {
     }
 }
 
-/* Tablets pequenos (≤640px) */
-@media (max-width: 640px) and (min-width: 481px) {
-    .hero-form {
-        max-width: clamp(300px, 85vw, 450px);
-        padding: clamp(1.25rem, 4vw, 2rem);
-    }
-}
-
 /* Tablets pequenas (≤640px) */
 @media (max-width: 640px) and (min-width: 481px) {
     .hero-container {
@@ -1863,6 +1864,8 @@ p {
     .hero-form {
         max-width: clamp(300px, 85vw, 450px);
         padding: clamp(1.25rem, 4vw, 2rem);
+        align-self: center;     /* Centralizar no mobile */
+        justify-self: center;
     }
 }
 
@@ -1901,6 +1904,20 @@ p {
     }
 }
 
+/* Desktops médios (1025px - 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .hero-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;  /* Gap menor para telas médias */
+        padding: 0 2rem;
+        min-height: 650px;  /* Altura específica */
+    }
+
+    .hero-form {
+        max-width: 480px;  /* Largura fixa para telas médias */
+    }
+}
+
 /* Desktops grandes (≥1025px) */
 @media (min-width: 1025px) {
     .hero-container {
@@ -1908,6 +1925,21 @@ p {
         gap: 4rem;
         padding: 0 2rem; /* Padding simétrico mantido */
         min-height: 600px;
+    }
+}
+
+/* Desktops muito grandes (>1440px) */
+@media (min-width: 1441px) {
+    .hero-container {
+        max-width: 1400px;  /* Aumentar largura máxima */
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;  /* Gap maior para telas muito grandes */
+        padding: 0 3rem;
+        min-height: 700px;
+    }
+
+    .hero-form {
+        max-width: 550px;  /* Formulário um pouco maior */
     }
 }
 
