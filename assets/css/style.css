@@ -749,6 +749,42 @@ p {
     text-align: center;
     transition: all 0.3s ease;
     border: 1px solid var(--color-border);
+    transform: translateY(0) !important; /* Force consistent transform */
+    min-height: 280px; /* Ensure consistent minimum height */
+    display: block; /* Changed from flex to block to ensure proper layout */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Force proper display of service card elements */
+.service-card > * {
+    display: block !important;
+}
+
+.service-card .service-icon,
+.service-card h3,
+.service-card .service-price,
+.service-card p,
+.service-card .service-button {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Override fade-in animations for service cards to prevent conflicts */
+.service-card.fade-in {
+    transform: translateY(0) !important;
+}
+
+.service-card.fade-in.visible {
+    transform: translateY(0) !important;
+}
+
+/* Force reset any stuck hover states */
+.service-card.service-card-hover,
+.service-card.hover {
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 .service-card:hover {

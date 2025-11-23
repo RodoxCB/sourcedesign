@@ -645,17 +645,163 @@ if (heroSection) {
     });
 }
 
-// Service cards hover effect enhancement
-const serviceCards = document.querySelectorAll('.service-card');
-serviceCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
+// Service cards hover effect is now handled by CSS :hover
+
+// Immediate cleanup - run as soon as script loads
+(function immediateCleanup() {
+    // Clean up any existing cards immediately
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach((card, index) => {
+        card.classList.remove('service-card-hover', 'hover');
+        card.style.removeProperty('transform');
+        card.style.setProperty('transform', 'translateY(0)', 'important');
+
+        // Force visibility of all child elements
+        const children = card.children;
+        for (let child of children) {
+            child.style.display = 'block';
+            child.style.visibility = 'visible';
+            child.style.opacity = '1';
+        }
+
+        console.log(`Card ${index} cleanup:`, card.children.length, 'children');
     });
 
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
+    // Specific cleanup for problematic cards (restaurant and campaign)
+    const restaurantCard = document.querySelectorAll('.service-card')[1]; // Usually the second card
+    const campaignCard = document.querySelectorAll('.service-card')[5]; // Usually the sixth card
+
+    [restaurantCard, campaignCard].forEach((card, index) => {
+        if (card) {
+            card.classList.remove('service-card-hover', 'hover');
+            card.style.removeProperty('transform');
+            card.style.setProperty('transform', 'translateY(0)', 'important');
+
+            // Force show all child elements
+            const children = card.querySelectorAll('*');
+            children.forEach(child => {
+                child.style.display = child.tagName === 'A' ? 'inline-block' : 'block';
+                child.style.visibility = 'visible';
+                child.style.opacity = '1';
+            });
+
+            console.log(`Problematic card ${index} fixed:`, card.children.length, 'children');
+        }
     });
-});
+
+    // Force correct content for problematic cards
+    setTimeout(() => {
+        const cards = document.querySelectorAll('.service-card');
+
+        // Cardápios (restaurant) - index 1
+        if (cards[1] && cards[1].textContent.includes('restaurant Cardápios')) {
+            console.log('Fixing restaurant card content');
+            cards[1].innerHTML = `
+                <div class="service-icon">
+                    <i class="material-icons">restaurant</i>
+                </div>
+                <h3>Cardápios</h3>
+                <div class="service-price">
+                    <span class="price">R$ 180,00</span>
+                    <span class="price-note">a partir de</span>
+                </div>
+                <p>Layouts atrativos para restaurantes e estabelecimentos.</p>
+                <a href="pages/servicos.html" class="service-button">Ver Mais</a>
+            `;
+        }
+
+        // Panfletos & Folhetos (campaign) - index 5
+        if (cards[5] && cards[5].textContent.includes('campaign Panfletos')) {
+            console.log('Fixing campaign card content');
+            cards[5].innerHTML = `
+                <div class="service-icon">
+                    <i class="material-icons">campaign</i>
+                </div>
+                <h3>Panfletos & Folhetos</h3>
+                <div class="service-price">
+                    <span class="price">R$ 120,00</span>
+                    <span class="price-note">a partir de</span>
+                </div>
+                <p>Peças promocionais que convertem visitantes em clientes.</p>
+                <a href="pages/servicos.html" class="service-button">Ver Mais</a>
+            `;
+        }
+    }, 100);
+
+    console.log('Immediate cleanup completed');
+})();
+
+// Force cleanup of any stuck service card states
+const forceCleanServiceCards = () => {
+    const serviceCards = document.querySelectorAll('.service-card');
+    console.log('Force cleaning up', serviceCards.length, 'service cards');
+
+    serviceCards.forEach((card, index) => {
+        // Force remove any problematic classes
+        card.classList.remove('service-card-hover', 'hover');
+
+        // Force reset any inline styles with !important
+        card.style.setProperty('transform', 'translateY(0)', 'important');
+        card.style.setProperty('transition', 'all 0.3s ease', 'important');
+
+        console.log(`Card ${index} cleaned:`, card.className, card.style.transform);
+    });
+
+    // Extra cleanup - find any card with the problematic class
+    const stuckCards = document.querySelectorAll('.service-card.service-card-hover, .service-card.hover');
+    stuckCards.forEach(card => {
+        card.classList.remove('service-card-hover', 'hover');
+        card.style.setProperty('transform', 'translateY(0)', 'important');
+        console.log('Found and force-cleaned stuck card');
+    });
+};
+
+// Run cleanup multiple times with different delays
+setTimeout(forceCleanServiceCards, 0);
+setTimeout(forceCleanServiceCards, 100);
+setTimeout(forceCleanServiceCards, 500);
+document.addEventListener('DOMContentLoaded', forceCleanServiceCards);
+window.addEventListener('load', forceCleanServiceCards);
+
+// Continuous monitoring - check every second for stuck states or hidden content
+setInterval(() => {
+    const allServiceCards = document.querySelectorAll('.service-card');
+    allServiceCards.forEach((card, index) => {
+        // Check for stuck hover states
+        if (card.classList.contains('service-card-hover') || card.classList.contains('hover')) {
+            console.warn(`Found stuck hover state on card ${index}, cleaning up...`);
+            card.classList.remove('service-card-hover', 'hover');
+            card.style.setProperty('transform', 'translateY(0)', 'important');
+        }
+
+        // Check if content is properly displayed
+        const icon = card.querySelector('.service-icon');
+        const title = card.querySelector('h3');
+        const price = card.querySelector('.service-price');
+        const description = card.querySelector('p');
+        const button = card.querySelector('.service-button');
+
+        if (icon && title && price && description && button) {
+            // All elements exist, ensure they're visible
+            [icon, title, price, description, button].forEach(element => {
+                if (element.style.display === 'none' || element.style.visibility === 'hidden' || element.style.opacity === '0') {
+                    element.style.display = element === button ? 'inline-block' : 'block';
+                    element.style.visibility = 'visible';
+                    element.style.opacity = '1';
+                    console.log(`Fixed hidden element in card ${index}`);
+                }
+            });
+        } else {
+            console.warn(`Card ${index} missing required elements:`, {
+                icon: !!icon,
+                title: !!title,
+                price: !!price,
+                description: !!description,
+                button: !!button
+            });
+        }
+    });
+}, 1000);
 
 // Testimonial carousel (if needed for more testimonials)
 class TestimonialCarousel {
