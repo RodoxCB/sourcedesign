@@ -440,7 +440,7 @@ p {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding: clamp(120px, 15vh, 140px) 0 clamp(60px, 8vh, 80px);
+    padding: clamp(80px, 10vh, 100px) 0 clamp(60px, 8vh, 80px);
     background: linear-gradient(135deg, var(--color-bg-darker) 0%, #0F0522 50%, #1A0B3D 100%);
     position: relative;
     overflow: hidden;
@@ -488,7 +488,7 @@ p {
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    margin-top: 100px; /* Subir a div hero-content mais 100px (era 200px) */
+    margin-top: 40px; /* Reduzido para menos espaço superior */
 }
 
 .hero-image-wrapper {
@@ -1880,7 +1880,7 @@ p {
 
     .hero .hero-visual {
         min-height: auto;
-        order: -1; /* Formulário aparece primeiro no mobile */
+        order: 1; /* Formulário aparece depois no mobile */
     }
 
     .hero-form {
@@ -1889,7 +1889,7 @@ p {
     }
 
     .hero .hero-content {
-        order: 1;
+        order: -1; /* Conteúdo aparece primeiro no mobile */
     }
 
     .hero-main-image {
@@ -2008,7 +2008,7 @@ p {
     }
 
     .hero {
-        padding: 130px 0 40px;
+        padding: 90px 0 40px;
     }
 
     .hero .hero-container {
