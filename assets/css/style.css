@@ -264,7 +264,7 @@ p {
 
 /* Mobile Menu Toggle */
 .mobile-menu-toggle {
-    display: none;
+    display: none; /* Hidden by default on desktop */
     background: none;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
@@ -274,6 +274,18 @@ p {
     padding: 8px;
     transition: all 0.3s ease;
     position: relative;
+}
+
+/* Show mobile menu toggle on tablets and mobile */
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    /* Hide desktop navigation menu */
+    .nav-menu.desktop-menu {
+        display: none;
+    }
 }
 
 .mobile-menu-toggle:hover,
@@ -472,14 +484,14 @@ p {
 .hero-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0; /* Removido padding lateral */
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: flex-start; /* Alinhar ao topo para que canvas e formulário fiquem no mesmo nível */
+    gap: clamp(2rem, 6vw, 4rem);
+    align-items: center; /* Melhor alinhamento central */
     position: relative;
     z-index: 1;
-    min-height: 600px;
+    min-height: clamp(500px, 80vh, 700px); /* Altura responsiva baseada na viewport */
 }
 
 .hero-content {
@@ -487,15 +499,18 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    margin-top: 40px; /* Reduzido para menos espaço superior */
+    gap: clamp(1rem, 3vw, 2rem);
+    margin-top: clamp(1rem, 4vw, 2.5rem);
+    text-align: center;
+    max-width: 100%;
 }
 
 .hero-image-wrapper {
     position: relative;
-    margin-bottom: 1rem;
-    width: 450px;
-    height: 250px;
+    margin-bottom: clamp(0.5rem, 2vw, 1rem);
+    width: clamp(280px, 70vw, 450px);
+    height: clamp(180px, 40vw, 250px);
+    max-width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -665,6 +680,8 @@ p {
     justify-content: center;
     align-items: center;
     animation: fadeInUp 1s ease-out 0.2s both;
+    width: 100%;
+    max-width: 100%;
 }
 
 .hero-shape {
@@ -1713,22 +1730,50 @@ p {
     }
 
     .hero-container {
-        padding: 0.5rem;
+        padding: 0 1rem; /* Padding simétrico consistente */
         gap: 1rem;
     }
 
     .hero-content {
         margin-top: 20px;
+        margin-left: 0; /* Remover margem esquerda */
+        margin-right: 0; /* Remover margem direita */
+        padding-left: 0; /* Remover padding esquerdo */
+        padding-right: 0; /* Remover padding direito */
         gap: 1rem;
+        text-align: center; /* Garantir alinhamento central */
+        align-items: center; /* Centralizar itens flex */
+        display: flex;
+        width: 100%; /* Garantir largura total */
+        max-width: 100%; /* Remover restrições de largura máxima */
+        flex-direction: column;
+        width: 100%;
+    }
+
+    /* Garantir que todos os elementos internos sejam centralizados */
+    .hero-content > * {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
 
     .hero-title {
         font-size: clamp(1.75rem, 8vw, 2.25rem);
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
 
     .hero-description {
         font-size: clamp(0.9rem, 4vw, 1rem);
         line-height: 1.4;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
 
     .form-group {
@@ -1794,11 +1839,75 @@ p {
     }
 }
 
+/* Tablets pequenas (≤640px) */
+@media (max-width: 640px) and (min-width: 481px) {
+    .hero-container {
+        grid-template-columns: 1fr; /* Mantém coluna única */
+        gap: 2rem;
+        padding: 0 1.5rem; /* Padding simétrico mantido */
+        min-height: clamp(450px, 75vh, 550px);
+    }
+
+    .hero-content {
+        order: 1; /* Conteúdo volta para primeiro em tablets pequenas */
+        text-align: center; /* Garantir alinhamento central */
+        align-items: center;
+    }
+
+    .hero-visual {
+        order: 2; /* Formulário vai para segundo */
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    .hero-form {
+        max-width: clamp(300px, 85vw, 450px);
+        padding: clamp(1.25rem, 4vw, 2rem);
+    }
+}
+
 /* Tablets (≤768px) */
 @media (max-width: 768px) and (min-width: 641px) {
+    .hero-container {
+        grid-template-columns: 1fr; /* Ainda coluna única, mas melhor espaçamento */
+        gap: 2.5rem;
+        padding: 0 1.5rem; /* Padding simétrico consistente */
+        min-height: clamp(500px, 75vh, 600px);
+    }
+
     .hero-form {
         max-width: clamp(320px, 80vw, 480px);
         padding: clamp(1.5rem, 4vw, 2.25rem);
+    }
+}
+
+/* Tablets grandes e pequenos desktops (≤1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .hero-container {
+        grid-template-columns: 1fr 1fr; /* Volta para 2 colunas */
+        gap: 3rem;
+        padding: 0 2rem; /* Padding simétrico mantido */
+        min-height: clamp(550px, 70vh, 650px);
+    }
+
+    .hero-content {
+        order: 1; /* Conteúdo volta para primeiro */
+        text-align: center; /* Manter alinhamento central */
+        align-items: center;
+    }
+
+    .hero-visual {
+        order: 2; /* Formulário vai para segundo */
+    }
+}
+
+/* Desktops grandes (≥1025px) */
+@media (min-width: 1025px) {
+    .hero-container {
+        grid-template-columns: 1fr 1fr; /* Mantém 2 colunas */
+        gap: 4rem;
+        padding: 0 2rem; /* Padding simétrico mantido */
+        min-height: 600px;
     }
 }
 
@@ -1978,12 +2087,7 @@ p {
     }
 }
 
-/* Responsive Design */
-/* Menu Toggle Animation */
-        height: 40px;
-    }
-
-    .mobile-menu-overlay {
+/* Additional mobile styles - consolidated into main media query above */
         padding-top: 80px;
     }
 
@@ -2012,8 +2116,55 @@ p {
         padding: 90px 0 40px;
     }
 
-    .hero .hero-container {
-        padding: 1rem;
+    /* Mobile First - Telas muito pequenas */
+    .hero-container {
+        grid-template-columns: 1fr; /* Coluna única em mobile */
+        gap: 1.5rem;
+        padding: 0 1.5rem; /* Padding simétrico */
+        min-height: clamp(400px, 70vh, 500px);
+        align-items: flex-start;
+    }
+
+    .hero-content {
+        order: 2; /* Conteúdo vem depois do formulário em mobile */
+        text-align: center; /* Centralizar texto */
+        align-items: center; /* Centralizar itens flex */
+        justify-content: center; /* Centralizar conteúdo verticalmente */
+        margin-bottom: 1rem;
+        margin-left: 0; /* Remover margem esquerda */
+        margin-right: 0; /* Remover margem direita */
+        padding-left: 0; /* Remover padding esquerdo */
+        width: 100%; /* Garantir largura total */
+        max-width: 100%; /* Remover restrições de largura máxima */
+        padding-right: 0; /* Remover padding direito */
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    /* Garantir que todos os elementos internos sejam centralizados em mobile */
+    .hero-content > * {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .hero-visual {
+        order: 1; /* Formulário vem primeiro em mobile */
+        margin-bottom: 1.5rem;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .hero-image-wrapper {
+        width: clamp(200px, 80vw, 300px);
+        height: clamp(140px, 50vw, 180px);
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
 
     .hero-main-image {
@@ -2046,6 +2197,7 @@ p {
         margin-bottom: 2rem;
     }
 
+    .hero-container,
     .services-grid,
     .benefits-grid,
     .testimonials-grid,
