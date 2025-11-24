@@ -658,6 +658,27 @@ if (heroSection) {
 
 // Service cards are now properly handled by CSS - no continuous monitoring needed
 
+// Scroll indicator functionality
+const scrollIndicator = document.querySelector('.scroll-indicator');
+if (scrollIndicator) {
+    scrollIndicator.addEventListener('click', function() {
+        // Find the next section after hero
+        const heroSection = document.querySelector('.hero');
+        const nextSection = heroSection.nextElementSibling;
+
+        if (nextSection) {
+            const headerOffset = 80;
+            const elementPosition = nextSection.offsetTop;
+            const offsetPosition = elementPosition - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+}
+
 // Testimonial carousel (if needed for more testimonials)
 class TestimonialCarousel {
     constructor() {
