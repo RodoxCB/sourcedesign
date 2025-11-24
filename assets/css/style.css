@@ -566,6 +566,7 @@ p {
     border-radius: 8px;
     border: 1px solid rgba(255,255,255,0.1);
     z-index: 2;
+    transition: opacity 0.3s ease-out;
 }
 
 .astronaut-loading-spinner {
@@ -592,17 +593,22 @@ p {
     font-weight: 300;
 }
 
-/* Estado inicial: container oculto */
+/* Estado inicial: container visível mas com placeholder */
 #hero-3d-container.loading {
-    opacity: 0;
-    visibility: hidden;
+    opacity: 1;
+    visibility: visible;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
 }
 
-/* Estado carregado: container visível */
+/* Estado carregado: container com modelo 3D */
 #hero-3d-container.loaded {
     opacity: 1;
     visibility: visible;
     animation: fadeInAstronaut 0.8s ease-out;
+    background: transparent;
+    border: none;
 }
 
 @keyframes fadeInAstronaut {

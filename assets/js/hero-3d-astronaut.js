@@ -150,10 +150,13 @@ class Astronaut3DModel {
     }
 
     onModelLoaded() {
-        // Esconder o indicador de carregamento
+        // Esconder o indicador de carregamento com fade out
         const loadingElement = document.querySelector('.astronaut-loading');
         if (loadingElement) {
-            loadingElement.style.display = 'none';
+            loadingElement.style.opacity = '0';
+            setTimeout(() => {
+                loadingElement.style.display = 'none';
+            }, 300);
         }
 
         // Mostrar o container 3D com animação
