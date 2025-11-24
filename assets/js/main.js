@@ -740,18 +740,9 @@ inputs.forEach(input => {
     input.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             e.preventDefault();
-            // Move to next input or submit if it's the last one
-            const inputs = Array.from(document.querySelectorAll('input, textarea'));
-            const currentIndex = inputs.indexOf(this);
-            const nextInput = inputs[currentIndex + 1];
-
-            if (nextInput) {
-                nextInput.focus();
-            } else {
-                // Submit form if it's the last input
-                if (this.form) {
-                    this.form.dispatchEvent(new Event('submit'));
-                }
+            // Submit form if it's the last input
+            if (this.form) {
+                this.form.dispatchEvent(new Event('submit'));
             }
         }
     });

@@ -143,9 +143,6 @@ class PortfolioManager {
     modal.setAttribute('aria-hidden', 'false');
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
-
-    // Foco no modal
-    setTimeout(() => modal.focus(), 100);
   }
 
   // Configura modal para vídeo

@@ -353,26 +353,20 @@
             });
         }
 
-        // Auto-focus no campo nome apenas quando vier da página inicial com âncora
+        // Scroll suave para o formulário quando vier da página inicial com âncora
         document.addEventListener('DOMContentLoaded', function() {
             // Verificar se veio da página inicial com âncora
             if (window.location.hash === '#formulario') {
-                const nomeField = document.getElementById('nome');
-                if (nomeField) {
-                    setTimeout(function() {
-                        nomeField.focus();
-                        // Scroll suave para o formulário
-                        const formulario = document.getElementById('formulario');
-                        if (formulario) {
-                            const headerOffset = 100;
-                            const elementPosition = formulario.offsetTop;
-                            const offsetPosition = elementPosition - headerOffset;
-                            window.scrollTo({
-                                top: offsetPosition,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }, 500);
+                // Scroll suave para o formulário
+                const formulario = document.getElementById('formulario');
+                if (formulario) {
+                    const headerOffset = 100;
+                    const elementPosition = formulario.offsetTop;
+                    const offsetPosition = elementPosition - headerOffset;
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
                 }
             }
         });
