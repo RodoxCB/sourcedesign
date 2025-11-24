@@ -51,13 +51,26 @@ class Astronaut3DModel {
         const width = container.clientWidth;
         const height = container.clientHeight;
 
+        // Ajustar qualidade baseado no tamanho da viewport (menor viewport: 375px)
+        const viewportArea = width * height;
+        const isSmallScreen = width < 480 || height < 400;
+        const isVerySmallScreen = width < 375 || height < 300;
+        
+        // Pixel ratio adaptativo baseado no tamanho da tela
+        let pixelRatio = Math.min(window.devicePixelRatio, 2);
+        if (isVerySmallScreen) {
+            pixelRatio = Math.min(window.devicePixelRatio, 1.5); // Reduzir qualidade em telas muito pequenas
+        } else if (isSmallScreen) {
+            pixelRatio = Math.min(window.devicePixelRatio, 1.75); // Qualidade média em telas pequenas
+        }
+
         this.renderer = new THREE.WebGLRenderer({
-            antialias: true,
+            antialias: !isVerySmallScreen, // Desabilitar antialiasing em telas muito pequenas para performance
             alpha: true,
             powerPreference: "high-performance"
         });
         this.renderer.setSize(width, height);
-        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.renderer.setPixelRatio(pixelRatio);
         this.renderer.outputEncoding = THREE.sRGBEncoding;
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = 1.2;
@@ -268,9 +281,32 @@ class Astronaut3DModel {
         const width = container.clientWidth;
         const height = container.clientHeight;
 
+        // Ajustar qualidade baseado no tamanho da viewport (menor viewport: 375px)
+        const isSmallScreen = width < 480 || height < 400;
+        const isVerySmallScreen = width < 375 || height < 300;
+        
+        // Pixel ratio adaptativo baseado no tamanho da tela
+        let pixelRatio = Math.min(window.devicePixelRatio, 2);
+        if (isVerySmallScreen) {
+            pixelRatio = Math.min(window.devicePixelRatio, 1.5);
+        } else if (isSmallScreen) {
+            pixelRatio = Math.min(window.devicePixelRatio, 1.75);
+        }
+
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(width, height);
+        this.renderer.setPixelRatio(pixelRatio);
+        
+        // Ajustar antialiasing baseado no tamanho da tela
+        if (this.renderer) {
+            // Recriar renderer com configurações atualizadas se necessário
+            const needsAntialiasing = !isVerySmallScreen;
+            if (this.renderer.antialias !== needsAntialiasing) {
+                // Atualizar configurações sem recriar o renderer completo
+                // (Three.js não permite mudar antialiasing dinamicamente, mas podemos otimizar outras coisas)
+            }
+        }
     }
 
     animate() {

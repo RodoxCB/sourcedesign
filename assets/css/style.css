@@ -493,6 +493,8 @@ p {
     position: relative;
     z-index: 1;
     min-height: clamp(600px, 90vh, 800px); /* AUMENTAR altura mínima */
+    box-sizing: border-box;
+    overflow-x: hidden; /* Prevenir overflow horizontal */
 }
 
 .hero-content {
@@ -504,6 +506,10 @@ p {
     margin-top: clamp(1rem, 4vw, 2.5rem);
     text-align: center;
     max-width: 100%;
+    width: 100%;
+    align-self: flex-start; /* Alinha ao topo da célula do grid */
+    justify-self: center;   /* Centraliza horizontalmente */
+    box-sizing: border-box;
 }
 
 .hero-image-wrapper {
@@ -515,6 +521,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .hero-main-image {
@@ -531,8 +538,9 @@ p {
     cursor: grab;
     /* Removida transition para manter apenas rotação do scroll */
     position: relative;
-    max-height: 250px;  /* ADICIONAR limite de altura */
+    max-height: clamp(180px, 40vw, 250px);  /* Altura responsiva usando clamp */
     overflow: hidden;   /* PREVENIR overflow */
+    box-sizing: border-box;
 }
 
 #hero-3d-container canvas {
@@ -624,13 +632,13 @@ p {
     text-align: center;
 }
 
-.hero-subtitle {
-    font-size: 1.1rem;
-    margin-bottom: 0;
-    color: var(--color-text-secondary);
-    line-height: 1.4;
-    text-align: center;
-}
+    .hero-subtitle {
+        font-size: clamp(0.9rem, 4vw, 1.1rem);
+        margin-bottom: 0;
+        color: var(--color-text-secondary);
+        line-height: 1.3;
+        text-align: center;
+    }
 
 .hero-description {
     font-size: 1rem;
@@ -685,6 +693,8 @@ p {
     animation: fadeInUp 1s ease-out 0.2s both;
     width: 100%;
     max-width: 100%;
+    align-self: flex-start; /* Alinha ao topo da célula do grid */
+    justify-self: center;   /* Centraliza horizontalmente */
 }
 
 .hero-shape {
@@ -758,7 +768,7 @@ p {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    justify-items: center;
+    align-items: stretch; /* MUDADO de justify-items: center para align-items: stretch */
 }
 
 
@@ -769,7 +779,10 @@ p {
     text-align: center;
     transition: all 0.3s ease;
     border: 1px solid var(--color-border);
-    min-height: 280px;
+    min-height: 320px; /* AUMENTADO de 280px para 320px */
+    display: flex;      /* ADICIONADO */
+    flex-direction: column; /* ADICIONADO */
+    justify-content: space-between; /* ADICIONADO */
     position: relative;
     overflow: hidden;
 }
@@ -1724,8 +1737,79 @@ p {
    RESPONSIVIDADE - MOBILE FIRST APPROACH
    =========================================== */
 
-/* Telas muito pequenas (celulares antigos, ≤360px) */
-@media (max-width: 360px) {
+/* Telas pequenas (375px - menor viewport suportada) */
+@media (max-width: 375px) {
+    .hero-container {
+        padding: 0 1rem;
+        gap: 1rem;
+        overflow-x: hidden;
+        min-height: clamp(400px, 70vh, 500px);
+    }
+
+    .hero-content {
+        margin-top: 20px;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        gap: 1rem;
+        text-align: center;
+        align-items: center;
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+
+    .hero-content > * {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .hero-title {
+        font-size: clamp(1.25rem, 6vw, 2rem);
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        line-height: 1.1;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(0.85rem, 4vw, 1rem);
+        line-height: 1.2;
+    }
+
+    .hero-description {
+        font-size: clamp(0.8rem, 3.5vw, 0.95rem);
+        line-height: 1.3;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100%;
+    }
+
+    .hero-image-wrapper {
+        width: clamp(150px, 75vw, 280px);
+        height: clamp(100px, 40vw, 160px);
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100%;
+    }
+
+    #hero-3d-container {
+        max-height: clamp(100px, 40vw, 160px);
+        overflow: hidden;
+    }
+
     .hero .hero-visual {
         min-height: clamp(380px, 75vh, 450px);
         padding: clamp(1rem, 2vh, 1.5rem) 0;
@@ -1735,54 +1819,7 @@ p {
         max-width: clamp(260px, 98vw, 320px);
         padding: clamp(0.75rem, 3vw, 1.25rem);
         border-radius: clamp(6px, 2vw, 10px);
-        margin: 0 0.5rem;
-    }
-
-    .hero-container {
-        padding: 0 1rem; /* Padding simétrico consistente */
-        gap: 1rem;
-    }
-
-    .hero-content {
-        margin-top: 20px;
-        margin-left: 0; /* Remover margem esquerda */
-        margin-right: 0; /* Remover margem direita */
-        padding-left: 0; /* Remover padding esquerdo */
-        padding-right: 0; /* Remover padding direito */
-        gap: 1rem;
-        text-align: center; /* Garantir alinhamento central */
-        align-items: center; /* Centralizar itens flex */
-        display: flex;
-        width: 100%; /* Garantir largura total */
-        max-width: 100%; /* Remover restrições de largura máxima */
-        flex-direction: column;
-        width: 100%;
-    }
-
-    /* Garantir que todos os elementos internos sejam centralizados */
-    .hero-content > * {
-        text-align: center !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-
-    .hero-title {
-        font-size: clamp(1.75rem, 8vw, 2.25rem);
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-
-    .hero-description {
-        font-size: clamp(0.9rem, 4vw, 1rem);
-        line-height: 1.4;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
+        margin: 0 auto;
     }
 
     .form-group {
@@ -1812,8 +1849,28 @@ p {
     }
 }
 
-/* Celulares (≤480px) */
-@media (max-width: 480px) and (min-width: 361px) {
+/* Celulares (376px - 480px) */
+@media (max-width: 480px) and (min-width: 376px) {
+    .hero-container {
+        overflow-x: hidden;
+    }
+
+    .hero-content {
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    .hero-image-wrapper {
+        width: clamp(180px, 70vw, 300px);
+        height: clamp(120px, 45vw, 180px);
+        max-width: 100%;
+    }
+
+    #hero-3d-container {
+        max-height: clamp(120px, 45vw, 180px);
+        overflow: hidden;
+    }
+
     .form-buttons {
         gap: 0.5rem;
         margin-top: 1rem;
@@ -1827,7 +1884,6 @@ p {
 
     .hero .hero-visual {
         min-height: clamp(450px, 70vh, 550px);
-        order: 1;
         padding: clamp(1.5rem, 3vh, 2rem) 0;
     }
 
@@ -1847,12 +1903,26 @@ p {
         gap: 2rem;
         padding: 0 1.5rem; /* Padding simétrico mantido */
         min-height: clamp(450px, 75vh, 550px);
+        overflow-x: hidden;
     }
 
     .hero-content {
         order: 1; /* Conteúdo volta para primeiro em tablets pequenas */
         text-align: center; /* Garantir alinhamento central */
         align-items: center;
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    .hero-image-wrapper {
+        width: clamp(200px, 65vw, 320px);
+        height: clamp(130px, 42vw, 200px);
+        max-width: 100%;
+    }
+
+    #hero-3d-container {
+        max-height: clamp(130px, 42vw, 200px);
+        overflow: hidden;
     }
 
     .hero-visual {
@@ -1864,8 +1934,8 @@ p {
     .hero-form {
         max-width: clamp(300px, 85vw, 450px);
         padding: clamp(1.25rem, 4vw, 2rem);
-        align-self: center;     /* Centralizar no mobile */
-        justify-self: center;
+        align-self: flex-start; /* Alinhar ao topo da célula do grid */
+        justify-self: center;   /* Centralizar horizontalmente */
     }
 }
 
@@ -1873,9 +1943,26 @@ p {
 @media (max-width: 768px) and (min-width: 641px) {
     .hero-container {
         grid-template-columns: 1fr; /* Ainda coluna única, mas melhor espaçamento */
-        gap: 2.5rem;
+        gap: 2rem; /* Gap consistente com mobile */
         padding: 0 1.5rem; /* Padding simétrico consistente */
         min-height: clamp(500px, 75vh, 600px);
+        overflow-x: hidden;
+    }
+
+    .hero-content {
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    .hero-image-wrapper {
+        width: clamp(220px, 60vw, 350px);
+        height: clamp(150px, 38vw, 220px);
+        max-width: 100%;
+    }
+
+    #hero-3d-container {
+        max-height: clamp(150px, 38vw, 220px);
+        overflow: hidden;
     }
 
     .hero-form {
@@ -1884,23 +1971,32 @@ p {
     }
 }
 
-/* Tablets grandes e pequenos desktops (≤1024px) */
+/* Tablets grandes (769px-1024px) - Mantém 1 coluna para consistência */
 @media (max-width: 1024px) and (min-width: 769px) {
     .hero-container {
-        grid-template-columns: 1fr 1fr; /* Volta para 2 colunas */
-        gap: 3rem;
+        grid-template-columns: 1fr; /* Mantém 1 coluna até 1024px */
+        gap: 3rem; /* Gap consistente com desktop */
         padding: 0 2rem; /* Padding simétrico mantido */
-        min-height: clamp(550px, 70vh, 650px);
+        min-height: clamp(550px, 75vh, 650px);
+        overflow-x: hidden;
     }
 
     .hero-content {
-        order: 1; /* Conteúdo volta para primeiro */
         text-align: center; /* Manter alinhamento central */
         align-items: center;
+        box-sizing: border-box;
+        max-width: 100%;
     }
 
-    .hero-visual {
-        order: 2; /* Formulário vai para segundo */
+    .hero-image-wrapper {
+        width: clamp(250px, 55vw, 380px);
+        height: clamp(170px, 35vw, 230px);
+        max-width: 100%;
+    }
+
+    #hero-3d-container {
+        max-height: clamp(170px, 35vw, 230px);
+        overflow: hidden;
     }
 }
 
@@ -1910,7 +2006,7 @@ p {
         grid-template-columns: 1fr 1fr;
         gap: 3rem;  /* Gap menor para telas médias */
         padding: 0 2rem;
-        min-height: 650px;  /* Altura específica */
+        min-height: clamp(650px, 85vh, 750px);  /* Altura responsiva */
     }
 
     .hero-form {
@@ -1924,7 +2020,7 @@ p {
         grid-template-columns: 1fr 1fr; /* Mantém 2 colunas */
         gap: 4rem;
         padding: 0 2rem; /* Padding simétrico mantido */
-        min-height: 600px;
+        min-height: clamp(600px, 90vh, 800px);  /* Altura responsiva consistente */
     }
 }
 
@@ -1935,7 +2031,7 @@ p {
         grid-template-columns: 1fr 1fr;
         gap: 5rem;  /* Gap maior para telas muito grandes */
         padding: 0 3rem;
-        min-height: 700px;
+        min-height: clamp(700px, 95vh, 900px);  /* Altura responsiva para telas grandes */
     }
 
     .hero-form {
@@ -2120,9 +2216,7 @@ p {
 }
 
 /* Additional mobile styles - consolidated into main media query above */
-        padding-top: 80px;
-    }
-
+@media (max-width: 768px) {
     .mobile-menu-content {
         width: 98%;
         max-width: 320px;
@@ -2137,8 +2231,6 @@ p {
     #main-content {
         padding-top: 60px;
     }
-
-
 
     .container {
         padding: 0 15px;
@@ -2155,10 +2247,10 @@ p {
         padding: 0 1.5rem; /* Padding simétrico */
         min-height: clamp(400px, 70vh, 500px);
         align-items: flex-start;
+        overflow-x: hidden;
     }
 
     .hero-content {
-        order: 2; /* Conteúdo vem depois do formulário em mobile */
         text-align: center; /* Centralizar texto */
         align-items: center; /* Centralizar itens flex */
         justify-content: center; /* Centralizar conteúdo verticalmente */
@@ -2171,7 +2263,7 @@ p {
         padding-right: 0; /* Remover padding direito */
         display: flex;
         flex-direction: column;
-        width: 100%;
+        box-sizing: border-box;
     }
 
     /* Garantir que todos os elementos internos sejam centralizados em mobile */
@@ -2181,33 +2273,40 @@ p {
         margin-right: auto !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
+        max-width: 100% !important;
     }
 
     .hero-visual {
-        order: 1; /* Formulário vem primeiro em mobile */
         margin-bottom: 1.5rem;
         width: 100%;
         max-width: 100%;
     }
 
     .hero-image-wrapper {
-        width: clamp(200px, 80vw, 300px);
-        height: clamp(140px, 50vw, 180px);
+        width: clamp(150px, 75vw, 280px);
+        height: clamp(100px, 40vw, 160px);
         margin-left: 0 !important;
         margin-right: 0 !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
+        max-width: 100%;
+    }
+
+    #hero-3d-container {
+        max-height: clamp(100px, 40vw, 160px);
+        overflow: hidden;
     }
 
     .hero-main-image {
-        max-width: 250px;
+        max-width: clamp(180px, 70vw, 250px);
     }
 
     .hero-form {
         max-width: clamp(280px, 95vw, 400px); /* Melhor ajuste para mobile - mais largura */
         padding: clamp(1rem, 4vw, 1.75rem); /* Padding aumentado para mobile */
         border-radius: clamp(8px, 2vw, 12px);
-        place-self: center; /* Centralização mantida em mobile */
+        align-self: flex-start; /* Alinhar ao topo da célula do grid */
+        justify-self: center;   /* Centralizar horizontalmente */
         margin: 0 auto; /* Centralização horizontal adicional */
     }
 
