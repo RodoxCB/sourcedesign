@@ -44,7 +44,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lexend:wght@100;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=20241123-2">
     <link rel="icon" type="image/svg+xml" href="assets/fav_icon/fav_icon_source_comunicacao.svg">
 </head>
 <body>
@@ -92,15 +92,23 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <!-- Imagem da hero adicionada acima do título -->
-                <div class="hero-image-wrapper">
-                    <img src="assets/images/hero_source_comunicacao.svg" alt="Source Design - Design Gráfico e Comunicação Visual" class="hero-main-image">
-                </div>
                 <h1 class="hero-title">Design que destaca o seu negócio.</h1>
                 <p class="hero-subtitle">Material gráfico e digital para quem precisa ser visto.</p>
+                <!-- Imagem da hero adicionada abaixo do título -->
+                <div class="hero-image-wrapper">
+                    <!-- Indicador de carregamento -->
+                    <div class="astronaut-loading">
+                        <div class="astronaut-loading-spinner"></div>
+                        <div class="astronaut-loading-text">Carregando uma surpresa...</div>
+                    </div>
+                    <!-- Container do modelo 3D (inicialmente oculto) -->
+                    <div id="hero-3d-container" class="hero-main-image loading" aria-label="Astronauta 3D - Source Design - Design Gráfico e Comunicação Visual"></div>
+                </div>
+                <p class="hero-description">Transformamos ideias em experiências visuais memoráveis, conectando sua marca com seu público-alvo através de soluções criativas e estratégicas.</p>
+                <p class="hero-description">Oferecemos preços justos e acessíveis, sem comprometer a qualidade excepcional que nossos clientes merecem. Cada projeto é tratado com dedicação e atenção aos detalhes.</p>
             </div>
             <div class="hero-visual">
                 <!-- Formulário de contato integrado na hero -->
@@ -152,6 +160,7 @@
                 </div>
             </div>
         </div>
+
     </section>
 
     <!-- Serviços Section -->
@@ -323,7 +332,13 @@
         </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=20241123-3"></script>
+
+    <!-- Scripts para modelo 3D do astronauta -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="assets/js/GLTFLoader.js"></script>
+    <script src="assets/js/hero-3d-astronaut.js"></script>
+
 
     <!-- Script específico para o formulário na hero -->
     <script>
@@ -339,46 +354,6 @@
             });
         }
 
-        // Auto-focus no campo nome quando vier da página inicial ou quando a hero estiver visível
-        document.addEventListener('DOMContentLoaded', function() {
-            // Verificar se veio da página inicial com âncora
-            if (window.location.hash === '#formulario') {
-                const nomeField = document.getElementById('nome');
-                if (nomeField) {
-                    setTimeout(function() {
-                        nomeField.focus();
-                        // Scroll suave para o formulário
-                        const formulario = document.getElementById('formulario');
-                        if (formulario) {
-                            const headerOffset = 100;
-                            const elementPosition = formulario.offsetTop;
-                            const offsetPosition = elementPosition - headerOffset;
-                            window.scrollTo({
-                                top: offsetPosition,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }, 500);
-                }
-            } else {
-                // Auto-focus quando a hero estiver visível (opcional)
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const nomeField = document.getElementById('nome');
-                            if (nomeField && !nomeField.value) {
-                                nomeField.focus();
-                            }
-                        }
-                    });
-                });
-
-                const heroSection = document.querySelector('.hero');
-                if (heroSection) {
-                    observer.observe(heroSection);
-                }
-            }
-        });
     </script>
 </body>
 </html>

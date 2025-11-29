@@ -206,46 +206,58 @@ class AccessibleMobileMenu {
     }
 }
 
-// Initialize on DOM load
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize header effects
-    new HeaderEffects();
+// Prevent multiple script executions
+if (window.siteInitialized) {
+    // Site already initialized, skipping...
+} else {
+    window.siteInitialized = true;
 
-    // Initialize accessible mobile menu
-    new AccessibleMobileMenu();
+    // Initialize on DOM load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize header effects
+        new HeaderEffects();
 
-    // Initialize cookie consent
-    if (typeof CookieConsent !== 'undefined') {
-        CookieConsent.init();
-    }
+        // Initialize accessible mobile menu
+        new AccessibleMobileMenu();
 
-    // Add loading class to body
-    document.body.classList.add('loaded');
-
-    // Remove loading class after animations complete
-    setTimeout(() => {
-        document.body.classList.remove('loaded');
-    }, 1000);
-});
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const headerOffset = 80;
-            const elementPosition = target.offsetTop;
-            const offsetPosition = elementPosition - headerOffset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
+        // Initialize cookie consent
+        if (typeof CookieConsent !== 'undefined') {
+            CookieConsent.init();
         }
+
+        // Add loading class to body
+        document.body.classList.add('loaded');
+
+        // Remove loading class after animations complete
+        setTimeout(() => {
+            document.body.classList.remove('loaded');
+        }, 1000);
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                
+                // Verificar se é um link âncora válido
+                if (href && href.length > 1 && href.startsWith('#')) {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        
+                        const headerOffset = 100;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
     });
-});
+}
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
@@ -645,17 +657,11 @@ if (heroSection) {
     });
 }
 
-// Service cards hover effect enhancement
-const serviceCards = document.querySelectorAll('.service-card');
-serviceCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
+// Service cards hover effect is now handled by CSS :hover
 
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
+// Service cards are now properly handled by CSS - no JavaScript cleanup needed
+
+// Service cards are now properly handled by CSS - no continuous monitoring needed
 
 // Testimonial carousel (if needed for more testimonials)
 class TestimonialCarousel {
@@ -739,18 +745,9 @@ inputs.forEach(input => {
     input.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             e.preventDefault();
-            // Move to next input or submit if it's the last one
-            const inputs = Array.from(document.querySelectorAll('input, textarea'));
-            const currentIndex = inputs.indexOf(this);
-            const nextInput = inputs[currentIndex + 1];
-
-            if (nextInput) {
-                nextInput.focus();
-            } else {
-                // Submit form if it's the last input
-                if (this.form) {
-                    this.form.dispatchEvent(new Event('submit'));
-                }
+            // Submit form if it's the last input
+            if (this.form) {
+                this.form.dispatchEvent(new Event('submit'));
             }
         }
     });
