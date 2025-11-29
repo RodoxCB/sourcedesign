@@ -232,27 +232,32 @@ if (window.siteInitialized) {
         setTimeout(() => {
             document.body.classList.remove('loaded');
         }, 1000);
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                
+                // Verificar se é um link âncora válido
+                if (href && href.length > 1 && href.startsWith('#')) {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        
+                        const headerOffset = 100;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
     });
 }
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const headerOffset = 80;
-            const elementPosition = target.offsetTop;
-            const offsetPosition = elementPosition - headerOffset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    });
-});
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
@@ -657,27 +662,6 @@ if (heroSection) {
 // Service cards are now properly handled by CSS - no JavaScript cleanup needed
 
 // Service cards are now properly handled by CSS - no continuous monitoring needed
-
-// Scroll indicator functionality
-const scrollIndicator = document.querySelector('.scroll-indicator');
-if (scrollIndicator) {
-    scrollIndicator.addEventListener('click', function() {
-        // Find the next section after hero
-        const heroSection = document.querySelector('.hero');
-        const nextSection = heroSection.nextElementSibling;
-
-        if (nextSection) {
-            const headerOffset = 80;
-            const elementPosition = nextSection.offsetTop;
-            const offsetPosition = elementPosition - headerOffset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    });
-}
 
 // Testimonial carousel (if needed for more testimonials)
 class TestimonialCarousel {
