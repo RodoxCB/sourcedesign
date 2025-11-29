@@ -1,23 +1,15 @@
 {
-  "name": "site-institucional-source-design",
+  "name": "source-design-site",
   "version": "1.0.0",
-  "description": "Site institucional da Source Design - Design Gráfico e Comunicação Visual",
-  "main": "index.html",
+  "description": "Site institucional da Source Design",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "design",
-    "comunicacao",
-    "website",
-    "netlify"
-  ],
+  "keywords": ["design", "marketing", "website"],
   "author": "Source Design",
   "license": "ISC",
   "dependencies": {
     "nodemailer": "^6.9.7"
-  },
-  "engines": {
-    "node": ">=14.0.0"
   }
 }
