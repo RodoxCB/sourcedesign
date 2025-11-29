@@ -27,11 +27,8 @@ export default async (request, context) => {
       '__RECAPTCHA_SITE_KEY_PLACEHOLDER__',
       recaptchaSiteKey
     );
-
-    console.log('✅ Chave do reCAPTCHA injetada com sucesso');
   } else {
     // Em desenvolvimento, usar uma chave de fallback ou logar o erro
-    console.warn('⚠️ RECAPTCHA_SITE_KEY não encontrada, usando placeholder');
 
     // Para desenvolvimento, você pode definir uma chave de teste
     const devKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Chave de teste do Google

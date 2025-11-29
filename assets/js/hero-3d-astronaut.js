@@ -134,11 +134,9 @@ class Astronaut3DModel {
 
                 // Modelo carregado completamente - mostrar container e esconder loading
                 this.onModelLoaded();
-
-                console.log('Modelo astronauta carregado com sucesso!');
             },
             (progress) => {
-                console.log('Carregando astronauta:', (progress.loaded / progress.total * 100) + '%');
+                // Carregando astronauta: (progress.loaded / progress.total * 100) + '%'
             },
             (error) => {
                 console.error('Erro ao carregar modelo astronauta:', error);
@@ -213,8 +211,6 @@ class Astronaut3DModel {
     }
 
     createFallbackAstronaut() {
-        console.log('Criando astronauta fallback...');
-
         // Criar geometria básica de astronauta
         const group = new THREE.Group();
 

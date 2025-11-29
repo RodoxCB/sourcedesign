@@ -208,7 +208,7 @@ class AccessibleMobileMenu {
 
 // Prevent multiple script executions
 if (window.siteInitialized) {
-    console.log('Site already initialized, skipping...');
+    // Site already initialized, skipping...
 } else {
     window.siteInitialized = true;
 

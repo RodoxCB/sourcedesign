@@ -18,7 +18,7 @@ window.RECAPTCHA_CONFIG = {
  * Função chamada quando o reCAPTCHA é resolvido com sucesso
  */
 function onRecaptchaSuccess(token) {
-  console.log('reCAPTCHA validado com sucesso');
+  // reCAPTCHA validado com sucesso
   // Você pode adicionar lógica adicional aqui se necessário
 }
 
@@ -26,6 +26,6 @@ function onRecaptchaSuccess(token) {
  * Função chamada quando o reCAPTCHA expira
  */
 function onRecaptchaExpired() {
-  console.log('reCAPTCHA expirou, será renovado automaticamente');
+  // reCAPTCHA expirou, será renovado automaticamente
   // O reCAPTCHA se renovará automaticamente
 }
